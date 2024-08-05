@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_04_010004) do
+ActiveRecord::Schema.define(version: 2024_08_04_234939) do
+
+  create_table "jobs", force: :cascade do |t|
+    t.integer "time"
+    t.integer "day"
+    t.integer "user_id"
+    t.string "remark"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
