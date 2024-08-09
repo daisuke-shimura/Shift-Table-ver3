@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   root to: 'homes#top'
 
   resources :jobs, only: [:new, :index, :show, :edit]
+  resources :users, only: [:show, :edit]
 
 end

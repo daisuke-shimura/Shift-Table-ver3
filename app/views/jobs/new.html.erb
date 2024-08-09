@@ -1,2 +1,8 @@
-<h1>Jobs#new</h1>
-<p>Find me in app/views/jobs/new.html.erb</p>
+<h1>シフト希望提出</h1>
+<%= form_with model: @job do |f| %>
+
+
+  <button type="submit" class="btn btn-primary">
+    提出
+  </button>
+<% end %>
