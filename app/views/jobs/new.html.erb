@@ -1,6 +1,10 @@
 <h1>シフト希望提出</h1>
 <%= form_with model: @job do |f| %>
-
+  
+  <h4>日にち</h4>
+  
+  <h4>希望</h4>
+  <%= f.text_field :time %>
 
   <button type="submit" class="btn btn-primary">
     提出
