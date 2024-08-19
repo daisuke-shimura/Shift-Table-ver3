@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_04_234939) do
+ActiveRecord::Schema.define(version: 2024_08_19_025207) do
 
   create_table "jobs", force: :cascade do |t|
-    t.integer "time"
+    t.string "time"
     t.integer "day"
     t.integer "user_id"
     t.string "remark"

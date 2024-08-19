@@ -1,2 +1,33 @@
-<h1>Jobs#index</h1>
-<p>Find me in app/views/jobs/index.html.erb</p>
+<h1>希望一覧</h1>
+
+  <table>
+
+    <thead>
+      <tr>
+        <th>　　　　　　</th>
+        <th>1月1日（月）</th>
+        <th>1月2日（火）</th>
+        <th>1月3日（水）</th>
+        <th>1月4日（木）</th>
+        <th>1月5日（金）</th>
+        <th>1月6日（土）</th>
+        <th>1月7日（日）</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @shifts.each do |shift| %>
+      <tr>
+        <td><%= shift.user_id %></td>
+        <td><%= shift.user.name %></td>
+        <td><%= shift.time %></td>
+        <td>
+          <%= link_to 'jobs/:id' ,method: :delete, "data-confirm" => "Are you sure？" do %>
+            <button type="button" class="btn btn-danger">削除</button>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+
+  </table>
