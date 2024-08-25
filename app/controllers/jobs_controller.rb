@@ -13,7 +13,6 @@ class JobsController < ApplicationController
 
   def index
     @shifts = Job.all
-    #@shift = Job.find(params[:id])
   end
 
   def show
@@ -38,7 +37,7 @@ class JobsController < ApplicationController
 
   private
   def job_params
-    params.require(:job).permit(:time)
+    params.require(:job).permit(:time1,:time2,:time3,:time4,:time5,:time6,:time7)
   end
 
 end

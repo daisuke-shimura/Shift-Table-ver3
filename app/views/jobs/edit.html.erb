@@ -2,10 +2,27 @@
 
 <%= form_with model: @job do |f| %>
 
-  <h4>日にち</h4>
+  <table>
+    <tr>
+      <th>1月1日（月）</th>
+      <th>1月2日（火）</th>
+      <th>1月3日（水）</th>
+      <th>1月4日（木）</th>
+      <th>1月5日（金）</th>
+      <th>1月6日（土）</th>
+      <th>1月7日（日）</th>
+    </tr>
 
-  <h4>希望</h4>
-  <%= f.text_field :time %>
+    <tr>
+      <th><%= f.text_field :time1 %></th>
+      <th><%= f.text_field :time2 %></th>
+      <th><%= f.text_field :time3 %></th>
+      <th><%= f.text_field :time4 %></th>
+      <th><%= f.text_field :time5 %></th>
+      <th><%= f.text_field :time6 %></th>
+      <th><%= f.text_field :time7 %></th>
+    </tr>
+  </table>
 
   <button type="submit" class="btn btn-primary">
     提出
