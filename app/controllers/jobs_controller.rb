@@ -2,6 +2,7 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new
+    @comment = JobComment.new
   end
 
   def create
@@ -15,6 +16,7 @@ class JobsController < ApplicationController
     @shifts = Job.all
     @job_comment = JobComment.new
     @comment = JobComment.all
+    #Job.order(user_id)
   end
 
   def show
