@@ -13,9 +13,14 @@ class JobsController < ApplicationController
 
   def index
     @shifts = Job.all
+    @job_comment = JobComment.new
+    @comment = JobComment.all
   end
 
   def show
+    @job = Job.find(params[:id])
+    @job_comment = JobComment.new
+    @comment = JobComment.all
   end
 
   def edit

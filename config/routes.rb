@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   root to: 'homes#top'
 
   resources :users, only: [:show, :edit]
-  resources :jobs, only: [:new, :create, :update, :destroy, :index, :show, :edit]
+  resources :jobs, only: [:new, :create, :update, :destroy, :index, :show, :edit] do
+    resources :job_comments, only: [:create, :destroy]
+  end
 
 
 end

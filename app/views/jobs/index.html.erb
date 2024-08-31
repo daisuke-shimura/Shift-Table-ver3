@@ -13,6 +13,7 @@
         <th>1月5日（金）</th>
         <th>1月6日（土）</th>
         <th>1月7日（日）</th>
+        <th>　　備考　　</th>
         <th>　　　　　　</th>
         <th>　　　　　　</th>
       </tr>
@@ -22,7 +23,10 @@
       <% @shifts.each do |shift| %>
       <tr>
         <td><%= shift.user_id %></td>
-        <td><%= shift.user.name %></td>
+        <td><%= link_to job_path(shift.id) do %>
+              <%= shift.user.name %>
+            <% end %>
+        </td>
         <td><%= shift.time1 %></td>
         <td><%= shift.time2 %></td>
         <td><%= shift.time3 %></td>
@@ -31,13 +35,31 @@
         <td><%= shift.time6 %></td>
         <td><%= shift.time7 %></td>
 
-        <% if shift.user == current_user %>
+
+          <td>
+            <% if shift.comment_by?(current_user.id) %>
+              <% @comment.each do |comment| %>
+                <% if comment.user_id == shift.user_id %>
+                  <%= comment.comment %>
+                  <%= link_to "削除", job_job_comment_path(comment.job, comment), method: :delete %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= form_with model: [shift, @job_comment] do |f| %>
+                <%= f.text_area :comment %>
+                <%= f.submit "提出" %>
+              <% end %>
+            <% end %>
+          </td>
+
+          <% if shift.user == current_user %>
           <td>
             <%= link_to '訂正', edit_job_path(shift.id) %>
           </td>
           <td>
             <%= link_to '削除', job_path(shift.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
           </td>
+
         <% end %>
       </tr>
       <% end %>
