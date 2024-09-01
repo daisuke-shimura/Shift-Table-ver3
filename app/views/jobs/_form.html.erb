@@ -1,0 +1,17 @@
+<div class = "container">
+  <div class = "row">
+    <%= form_with model: [job] do |f| %>
+          <td><%= f.text_field :time1 %></td>
+          <td><%= f.text_field :time2 %></td>
+          <td><%= f.text_field :time3 %></td>
+          <td><%= f.text_field :time4 %></td>
+          <td><%= f.text_field :time5 %></td>
+          <td><%= f.text_field :time6 %></td>
+          <td><%= f.text_field :time7 %></td>
+
+      <button type="submit" class="btn btn-primary">
+        提出
+      </button>
+    <% end %>
+  </div>
+</div>

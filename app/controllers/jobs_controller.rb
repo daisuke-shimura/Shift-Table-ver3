@@ -2,7 +2,6 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new
-    @comment = JobComment.new
   end
 
   def create
@@ -13,6 +12,7 @@ class JobsController < ApplicationController
   end
 
   def index
+    @job = Job.new
     @shifts = Job.all
     @job_comment = JobComment.new
     @comment = JobComment.all

@@ -1,5 +1,4 @@
 <h1>希望一覧</h1>
-
   <table>
 
     <thead>
@@ -27,30 +26,49 @@
               <%= shift.user.name %>
             <% end %>
         </td>
-        <td><%= shift.time1 %></td>
-        <td><%= shift.time2 %></td>
-        <td><%= shift.time3 %></td>
-        <td><%= shift.time4 %></td>
-        <td><%= shift.time5 %></td>
-        <td><%= shift.time6 %></td>
-        <td><%= shift.time7 %></td>
-
         <% if shift.user == current_user %>
+          <% if shift.user.job_by?(current_user.id) %>
+            <td><%= shift.time1 %></td>
+            <td><%= shift.time2 %></td>
+            <td><%= shift.time3 %></td>
+            <td><%= shift.time4 %></td>
+            <td><%= shift.time5 %></td>
+            <td><%= shift.time6 %></td>
+            <td><%= shift.time7 %></td>
+          <% else %>
+            <%= render 'form', job: @job %>
+          <% end %>
+        <!--%= render 'form', job: @job %-->
+        <% else %>
+          <td><%= shift.time1 %></td>
+          <td><%= shift.time2 %></td>
+          <td><%= shift.time3 %></td>
+          <td><%= shift.time4 %></td>
+          <td><%= shift.time5 %></td>
+          <td><%= shift.time6 %></td>
+          <td><%= shift.time7 %></td>
+        <% end %>
+
           <td>
-            <% if shift.comment_by?(current_user.id) %>
+            <% if shift.comment_by?(shift.user_id) %>
               <% @comment.each do |comment| %>
                 <% if comment.user_id == shift.user_id %>
                   <%= comment.comment %>
-                  <%= link_to "削除", job_job_comment_path(comment.job, comment), method: :delete %>
+                  <% if shift.user == current_user %>
+                    <%= link_to "削除", job_job_comment_path(comment.job, comment), method: :delete %>
+                  <% end %>
                 <% end %>
               <% end %>
             <% else %>
-              <%= form_with model: [shift, @job_comment] do |f| %>
-                <%= f.text_area :comment %>
-                <%= f.submit "提出" %>
+              <% if shift.user == current_user %>
+                <%= form_with model: [shift, @job_comment] do |f| %>
+                  <%= f.text_area :comment %>
+                  <%= f.submit "提出" %>
+                <% end %>
               <% end %>
             <% end %>
           </td>
+        <% if shift.user == current_user %>
           <td>
             <%= link_to '訂正', edit_job_path(shift.id) %>
           </td>
@@ -63,3 +81,5 @@
     </tbody>
 
   </table>
+  
+          

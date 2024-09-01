@@ -5,6 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
  # has_many :jobs, dependent: :destroy
-  has_one :job, dependent: :destroy
-  has_one :job_comment, dependent: :destroy
+  has_many :jobs, dependent: :destroy
+  has_many :job_comments, dependent: :destroy
+
+  def job_by?(ogatyan)
+    jobs.exists?(user_id: ogatyan)
+  end
+
 end
