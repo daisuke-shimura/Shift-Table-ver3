@@ -6,5 +6,9 @@ class Job < ApplicationRecord
   def comment_by?(ogawa)
     job_comments.exists?(user_id: ogawa)
   end
+  
+  def time_by?
+    time1.empty?
+  end
 
 end
