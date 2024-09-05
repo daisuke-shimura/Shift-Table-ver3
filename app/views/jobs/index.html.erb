@@ -27,14 +27,12 @@
               <%= shift.user.name %>
             <% end %>
         </td>
-        <% if shift.time1.empty? %>
-          <% if shift.user == current_user %>
-            <%= render "form" %>
-          <% else %>
-            <%= render "time" , shift: shift %>
-          <% end %>
+
+
+        <% if shift.user.job_by?(shift.user.id) %>
+          <p>ああ</p>
         <% else %>
-          <%= render "time" , shift: shift %>
+          <%= render 'form' %>
         <% end %>
 
           <td>

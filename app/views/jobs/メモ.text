@@ -1,0 +1,9 @@
+<% if shift.time1.empty? %>
+          <% if shift.user == current_user %>
+            <%= render "form" %>
+          <% else %>
+            <%= render "time" , shift: shift %>
+          <% end %>
+        <% else %>
+          <%= render "time" , shift: shift %>
+        <% end %>
