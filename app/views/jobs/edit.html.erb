@@ -1,6 +1,9 @@
 <h2>シフト希望訂正</h2>
 
 <p>ログイン中のユーザー：<%= current_user.name %></p>
+
+<%= render "repost" , job: @job %>
+
   <table>
     <tr>
       <th>ID</th>
@@ -13,23 +16,20 @@
       <th>1月5日（金）</th>
       <th>1月6日（土）</th>
       <th>1月7日（日）</th>
-      <th>訂正</th>
+      <th>　　</th>
       <th>削除</th>
       <th>備考</th>
       <th></th>
     </tr>
     <% @user.each do |user| %>
+
       <tr>
         <td><%= user.id %></td>
         <td><%= user.name %></td>
         <% if user.job_by?(user.id) %>
           <td></td>
           <% user.jobs.each do |job| %>
-            <% if @job.id == job.id %>
-              <%= render "repost", job: @job %>
-            <% else %>
               <%= render "time" , shift: job %>
-            <% end %>
 
             <% if job.comment_by?(job.user_id) %>
               <td><!--%= job.job_comments.user_id %--></td>
@@ -49,4 +49,5 @@
         <% end %>
       </tr>
     <% end %>
+
   </table>

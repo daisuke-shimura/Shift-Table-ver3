@@ -33,7 +33,7 @@ class JobsController < ApplicationController
   def update
     job = Job.find(params[:id])
     job.update(job_params)
-    redirect_to jobs_path
+    redirect_to users_path
   end
 
   def destroy
