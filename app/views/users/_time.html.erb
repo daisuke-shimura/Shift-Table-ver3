@@ -12,4 +12,7 @@
   <td>
     <%= link_to '削除', job_path(shift.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
   </td>
+<% else %>
+  <td></td>
+  <td></td>
 <% end %>
