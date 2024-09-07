@@ -1,9 +1,11 @@
-<h1>シフト希望訂正</h1>
+<h2>シフト希望訂正</h2>
 
-<%= form_with model: @job do |f| %>
-
+<p>ログイン中のユーザー：<%= current_user.name %></p>
   <table>
     <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th></th>
       <th>1月1日（月）</th>
       <th>1月2日（火）</th>
       <th>1月3日（水）</th>
@@ -11,21 +13,40 @@
       <th>1月5日（金）</th>
       <th>1月6日（土）</th>
       <th>1月7日（日）</th>
+      <th>訂正</th>
+      <th>削除</th>
+      <th>備考</th>
+      <th></th>
     </tr>
+    <% @user.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <% if user.job_by?(user.id) %>
+          <td></td>
+          <% user.jobs.each do |job| %>
+            <% if @job.id == job.id %>
+              <%= render "repost", job: @job %>
+            <% else %>
+              <%= render "time" , shift: job %>
+            <% end %>
 
-    <tr>
-      <th><%= f.text_field :time1 %></th>
-      <th><%= f.text_field :time2 %></th>
-      <th><%= f.text_field :time3 %></th>
-      <th><%= f.text_field :time4 %></th>
-      <th><%= f.text_field :time5 %></th>
-      <th><%= f.text_field :time6 %></th>
-      <th><%= f.text_field :time7 %></th>
-    </tr>
+            <% if job.comment_by?(job.user_id) %>
+              <td><!--%= job.job_comments.user_id %--></td>
+            <% else %>
+              <% if job.id == current_user.id %>
+                <%= form_with model: [job, JobComment.new] do |f| %>
+                  <td><%= f.text_area :comment %></td>
+                  <td><%= f.submit "提出" %></td>
+                <% end %>
+              <% end %>
+
+            <% end %>
+          <% end %>
+        <% else %>
+          <td></td>
+          <%= render 'form' , shift: user %>
+        <% end %>
+      </tr>
+    <% end %>
   </table>
-
-  <button type="submit" class="btn btn-primary">
-    提出
-  </button>
-
-<% end %>

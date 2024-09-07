@@ -22,7 +22,7 @@
     <tbody>
       <% @shifts.sort_by{|shift| shift.user_id}.each do |shift| %>
       <tr>
-        <td><!--%= shift.user_id %--></td>
+        <td><%= shift.user_id %></td>
         <td>
           <%= link_to job_path(shift.id) do %>
             <%= shift.user.name %>
