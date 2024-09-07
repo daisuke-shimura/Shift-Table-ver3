@@ -1,14 +1,16 @@
  <%= form_with model: [Job.new] do |f| %>
-   <td><%= f.text_field :time1 %></td>
-   <td><%= f.text_field :time2 %></td>
-   <td><%= f.text_field :time3 %></td>
-   <td><%= f.text_field :time4 %></td>
-   <td><%= f.text_field :time5 %></td>
-   <td><%= f.text_field :time6 %></td>
-   <td><%= f.text_field :time7 %></td>
+   <td><%= f.text_field :time1 ,size: 10 %></td>
+   <td><%= f.text_field :time2 ,size: 10 %></td>
+   <td><%= f.text_field :time3 ,size: 10 %></td>
+   <td><%= f.text_field :time4 ,size: 10 %></td>
+   <td><%= f.text_field :time5 ,size: 10 %></td>
+   <td><%= f.text_field :time6 ,size: 10 %></td>
+   <td><%= f.text_field :time7 ,size: 10 %></td>
+   <% if shift.id == current_user.id %>
    <td>
     <button type="submit" class="btn btn-primary">
       提出
     </button>
    </td>
+   <% end %>
  <% end %>

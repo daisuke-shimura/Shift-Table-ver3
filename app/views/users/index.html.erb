@@ -1,4 +1,5 @@
 <h3> ユーザー一覧</h3>
+<p>ログイン中のユーザー：<%= current_user.name %></p>
   <table>
     <tr>
       <th>ID</th>
@@ -27,7 +28,7 @@
         <% else %>
           <td>ない</td>
           <td></td>
-          <%= render 'form' %>
+          <%= render 'form' , shift: user %>
         <% end %>
       </tr>
     <% end %>
