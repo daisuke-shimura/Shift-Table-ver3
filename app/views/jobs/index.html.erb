@@ -29,7 +29,7 @@
         </td>
 
         <% if shift.user.job_by?(shift.user.id) %>
-          <p>ああ</p>
+          <!--p>ああ</p-->
           <%= render "time" , shift: shift %>
         <% else %>
           <%= render 'form' %>
@@ -66,39 +66,3 @@
       <% end %>
     </tbody>
   </table>
-
-  <br>
-  <span class="border">
-    <h3>------------------------------------------</h3>
-  </span>
-  <p> ユーザー一覧</p>
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>名前</th>
-      <th>出してるかどうか</th>
-      <th></th>
-      <th>1月1日（月）</th>
-      <th>1月2日（火）</th>
-      <th>1月3日（水）</th>
-      <th>1月4日（木）</th>
-      <th>1月5日（金）</th>
-      <th>1月6日（土）</th>
-      <th>1月7日（日）</th>
-    </tr>
-    <% User.all.each do |user| %>
-      <tr>
-        <td><%= user.id %></td>
-        <td><%= user.name %></td>
-        <td>
-          <% if user.job_by?(user.id) %>
-            ある
-            <td></td>
-          <% else %>
-            ない
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-

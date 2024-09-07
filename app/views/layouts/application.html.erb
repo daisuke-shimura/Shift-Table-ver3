@@ -14,28 +14,15 @@
   <body>
     <header>
       <% if user_signed_in? %>
-        <li>
-          <%= link_to "シフト表","/" %>
-        </li>
-        <li>
-          <%= link_to "希望提出", new_job_path %>
-        </li>
-        <li>
-          <%= link_to "希望一覧", jobs_path %>
-        </li>
-        <li>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-        </li>
+        <li><%= link_to "シフト表","/" %></li>
+        <li><%= link_to "希望提出", new_job_path %></li>
+        <li><%= link_to "希望提出２", users_path %></li>
+        <li><%= link_to "希望一覧", jobs_path %></li>
+        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
       <% else %>
-        <li>
-          <%= link_to "シフト表","/" %>
-        </li>
-        <li>
-          <%= link_to "新規登録", new_user_registration_path %>
-        </li>
-        <li>
-          <%= link_to "ログイン", new_user_session_path %>
-        </li>
+        <li><%= link_to "シフト表","/" %></li>
+        <li><%= link_to "新規登録", new_user_registration_path %></li>
+        <li><%= link_to "ログイン", new_user_session_path %></li>
       <% end %>
     </header>
     <%= yield %>

@@ -1,6 +1,4 @@
-<div class = "container">
-  <div class = "row">
-    <p>じょぶのフォーム<p>
+
     <%= form_with model: [Job.new] do |f| %>
       <td><%= f.text_field :time1 %></td>
       <td><%= f.text_field :time2 %></td>
@@ -14,7 +12,5 @@
           提出
         </button>
       </td>
-
     <% end %>
-  </div>
-</div>
+  

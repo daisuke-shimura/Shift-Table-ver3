@@ -1,32 +1,14 @@
-<div class = "container">
-  <div class = "row">
-    <table>
-      <tr>
-        <th>1月1日（月）</th>
-        <th>1月2日（火）</th>
-        <th>1月3日（水）</th>
-        <th>1月4日（木）</th>
-        <th>1月5日（金）</th>
-        <th>1月6日（土）</th>
-        <th>1月7日（日）</th>
-        <th>            </th>
-      </tr>
-      <tr>
-      <%= form_with model: [Job.new] do |f| %>
-            <td><%= f.text_field :time1 %></td>
-            <td><%= f.text_field :time2 %></td>
-            <td><%= f.text_field :time3 %></td>
-            <td><%= f.text_field :time4 %></td>
-            <td><%= f.text_field :time5 %></td>
-            <td><%= f.text_field :time6 %></td>
-            <td><%= f.text_field :time7 %></td>
-            <td>
-              <button type="submit" class="btn btn-primary">
-                提出
-              </button>
-            </td>
-      <% end %>
-      </tr>
-    </table>
-  </div>
-</div>
+ <%= form_with model: [Job.new] do |f| %>
+   <td><%= f.text_field :time1 %></td>
+   <td><%= f.text_field :time2 %></td>
+   <td><%= f.text_field :time3 %></td>
+   <td><%= f.text_field :time4 %></td>
+   <td><%= f.text_field :time5 %></td>
+   <td><%= f.text_field :time6 %></td>
+   <td><%= f.text_field :time7 %></td>
+   <td>
+    <button type="submit" class="btn btn-primary">
+      提出
+    </button>
+   </td>
+ <% end %>

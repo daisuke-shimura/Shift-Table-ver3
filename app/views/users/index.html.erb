@@ -1,0 +1,34 @@
+<h3> ユーザー一覧</h3>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th>出してるかどうか</th>
+      <th></th>
+      <th>1月1日（月）</th>
+      <th>1月2日（火）</th>
+      <th>1月3日（水）</th>
+      <th>1月4日（木）</th>
+      <th>1月5日（金）</th>
+      <th>1月6日（土）</th>
+      <th>1月7日（日）</th>
+      <th></th>
+    </tr>
+    <% @user.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <% if user.job_by?(user.id) %>
+          <td>ある</td>
+          <td></td>
+          <% user.jobs.each do |job| %>
+            <%= render "time" , shift: job %>
+          <% end %>
+        <% else %>
+          <td>ない</td>
+          <td></td>
+          <%= render 'form' %>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
