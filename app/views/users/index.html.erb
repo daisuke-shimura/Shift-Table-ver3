@@ -26,14 +26,25 @@
           <% user.jobs.each do |job| %>
             <%= render "time" , shift: job %>
             <% if job.comment_by?(job.user_id) %>
-              <td><!--%= job.job_comments.user_id %--></td>
-            <% else %>
-
-              <% if job.id == current_user.id %>
-                <%= form_with model: [job, JobComment.new] do |f| %>
-                  <td><%= f.text_area :comment %></td>
-                  <td><%= f.submit "提出" %></td>
+              <% JobComment.all.each do |comment| %>
+                <% if comment.user_id == job.user_id %>
+                  <td><%= comment.comment %></td>
+                  <% if comment.user_id == current_user.id %>
+                    <td><%= link_to "削除", job_job_comment_path(comment.job, comment), method: :delete %></td>
+                  <% end %>
                 <% end %>
+              <% end %>
+              <td><!--%= job.job_comments.user_id %--></td>
+
+            <% else %>
+              <% if job.user_id == current_user.id %>
+                <td>
+                  <%= form_with model: [job, JobComment.new] do |f| %>
+                    <%= f.text_area :comment %>
+                    <%= f.submit "提出" %>
+                <% end %>
+                </td>
+
               <% end %>
 
             <% end %>

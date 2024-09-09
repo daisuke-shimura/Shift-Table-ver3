@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def index
     @user = User.all
-    @job_comment = JobComment.new
+    @job_comment = JobComment.all
   end
 
   def edit

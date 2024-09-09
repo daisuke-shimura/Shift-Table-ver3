@@ -8,7 +8,7 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
     @job.user_id = current_user.id
     @job.save
-    redirect_to jobs_path
+    redirect_to request.referer
   end
 
   def index

@@ -6,7 +6,7 @@ class JobCommentsController < ApplicationController
     comment.user_id = current_user.id
     comment.job_id = job.id
     comment.save
-    redirect_to jobs_path
+    redirect_to request.referer
   end
 
   def destroy
