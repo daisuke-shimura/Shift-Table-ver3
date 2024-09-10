@@ -12,6 +12,7 @@
       <th>1月5日（金）</th>
       <th>1月6日（土）</th>
       <th>1月7日（日）</th>
+      <th></th>
       <th>訂正</th>
       <th>削除</th>
       <th>備考</th>
@@ -28,6 +29,7 @@
             <% if job.comment_by?(job.user_id) %>
               <% JobComment.all.each do |comment| %>
                 <% if comment.user_id == job.user_id %>
+                  <td></td>
                   <td><%= comment.comment %></td>
                   <% if comment.user_id == current_user.id %>
                     <td><%= link_to "削除", job_job_comment_path(comment.job, comment), method: :delete %></td>
