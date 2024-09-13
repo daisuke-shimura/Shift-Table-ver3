@@ -6,14 +6,13 @@
 <td><%= shift.time6 %></td>
 <td><%= shift.time7 %></td>
 <% if shift.user == current_user %>
-  <td></td>
+
   <td>
     <%= link_to '訂正', edit_job_path(shift.id) %>
-  </td>
-  <td>
+    <br>
     <%= link_to '削除', job_path(shift.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
   </td>
 <% else %>
-  <td></td>
+
   <td></td>
 <% end %>
