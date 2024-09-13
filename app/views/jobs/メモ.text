@@ -41,3 +41,9 @@
   </button>
 
 <% end %>
+
+
+    <button type="button" class="btn btn-outline-secondary btn-sm">訂正</button>
+    
+      <button type="button" class="btn btn-outline-danger btn-sm">削除</button>
+    <% end %>
