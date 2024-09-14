@@ -1,20 +1,20 @@
 <h1>希望一覧</h1>
-  <table class="table table-success table-striped-columns">
+  <table class="table table-sm table-bordered table-hover">
 
-    <thead>
       <tr>
-        <th>　　　</th>
+        <th></th>
         <th>　　　　　　</th>
-        <th>1月1日（月）</th>
-        <th>1月2日（火）</th>
-        <th>1月3日（水）</th>
-        <th>1月4日（木）</th>
-        <th>1月5日（金）</th>
-        <th>1月6日（土）</th>
-        <th>1月7日（日）</th>
+        <th>1月1日</th>
+        <th>1月2日</th>
+        <th>1月3日</th>
+        <th>1月4日</th>
+        <th>1月5日</th>
+        <th>1月6日</th>
+        <th>1月7日</th>
         <th>　　備考　　</th>
       </tr>
-    </thead>
+      <tr><%= render "week" %></tr>
+      <tr><%= render "event" %></tr>
 
     <tbody>
       <% @shifts.sort_by{|shift| shift.user_id}.each do |shift| %>
@@ -30,7 +30,7 @@
           <%= render "time" , shift: shift %>
         <% end %>
 
-          <td>
+          <td class="text-left">
             <% if shift.comment_by?(shift.user_id) %>
               <% @comment.each do |comment| %>
                 <% if comment.user_id == shift.user_id %>

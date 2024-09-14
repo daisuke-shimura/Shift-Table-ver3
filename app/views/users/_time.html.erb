@@ -11,6 +11,7 @@
     <%= link_to edit_job_path(shift.id) do %>
       <button type="button" class="btn btn-outline-primary btn-sm btn-block"><i class="fa-solid fa-pen"></i></button>
     <% end %>
+    <br>
     <%= link_to  job_path(shift.id), method: :delete, "data-confirm" => "シフト希望を削除しますか？" do %>
       <button type="button" class="btn btn-outline-danger btn-sm btn-block"><i class="fa-solid fa-trash-can"></i></button>
     <% end %>
