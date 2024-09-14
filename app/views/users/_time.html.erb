@@ -6,7 +6,6 @@
 <td><%= shift.time6 %></td>
 <td><%= shift.time7 %></td>
 <% if shift.user == current_user %>
-
   <td>
     <%= link_to edit_job_path(shift.id) do %>
       <button type="button" class="btn btn-outline-primary btn-sm btn-block"><i class="fa-solid fa-pen"></i></button>

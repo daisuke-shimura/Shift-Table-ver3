@@ -2,27 +2,7 @@
 <p>ログイン中のユーザー：<%= current_user.name %></p>
   <table class = "table table-sm table-bordered table-hover" >
 
-      <tr>
-        <th style="width: 2% ">ID</th>
-        <th style="width: 10% ">名前</th>
-
-        <th style="width: 8% ">1月1日</th>
-        <th style="width: 8% ">1月2日</th>
-        <th style="width: 8% ">1月3日</th>
-        <th style="width: 8% ">1月4日</th>
-        <th style="width: 8% ">1月5日</th>
-        <th style="width: 8% ">1月6日</th>
-        <th style="width: 8% ">1月7日</th>
-
-        <th style="width: 5% "></th>
-
-        <th style="width: 27% ", colspan="2">備考</th>
-
-      </tr>
-
-      <tr><%= render "week" %></tr>
-
-      <tr><%= render "event" %></tr>
+    <%= render "thead" %>
 
     <tbody>
       <% @user.each do |user| %>
