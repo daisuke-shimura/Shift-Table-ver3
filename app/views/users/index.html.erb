@@ -7,8 +7,8 @@
     <tbody>
       <% @user.each do |user| %>
         <tr>
-          <td><%= user.id %></td>
-          <td><%= user.name %></td>
+          <td class="table-secondary"><%= user.id %></td>
+          <td class="table-secondary"><%= user.name %></td>
           <% if user.job_by?(user.id) %>
 
             <% user.jobs.each do |job| %>
