@@ -18,7 +18,11 @@
                   <% if comment.user_id == job.user_id %>
                     <% if comment.user_id == current_user.id %>
                       <td class="text-left"><%= comment.comment %></td>
-                      <td style="width:5%"><%= link_to "削除", job_job_comment_path(comment.job, comment), method: :delete ,"data-confirm" => "備考を削除しますか？" %></td>
+                      <td style="width:5%">
+                        <%= link_to job_job_comment_path(comment.job, comment), method: :delete ,"data-confirm" => "備考を削除しますか？" do %>
+                          <button type="button" class="btn btn-link btn-sm btn-block">削除</button>
+                        <% end %>
+                      </td>
                     <% else %>
                       <td class="text-left", colspan="2"><%= comment.comment %></td>
                     <% end %>
@@ -30,7 +34,9 @@
                   <td>
                     <%= form_with model: [job, JobComment.new] do |f| %>
                       <%= f.text_area :comment ,class: 'form-control'%>
-                      <%= f.submit " 送信 " %>
+                      <div align = "left">
+                        <button type="submit" class="btn btn-link btn-sm">送信</button>
+                      </div>
                   <% end %>
                   </td>
                 <% else %>
