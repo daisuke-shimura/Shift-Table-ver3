@@ -3,12 +3,12 @@
 <p>ログイン中のユーザー：<%= current_user.name %></p>
 
 <%= render "repost" , job: @job %>
-<br>
+<hr>
+<h2>シフト希望一覧</h2>
 
   <table class = "table table-sm table-bordered table-hover">
 
     <%= render "thead" %>
-
     <tbody>
     <% @user.each do |user| %>
 
