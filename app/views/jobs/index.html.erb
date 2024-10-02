@@ -8,9 +8,9 @@
       <tr>
         <td class="table-secondary"><%= shift.user_id %></td>
         <td class="table-secondary">
-          <%= link_to job_path(shift.id) do %>
+          <!--%= link_to job_path(shift.id) do %-->
             <%= shift.user.name %>
-          <% end %>
+          <!--% end %-->
         </td>
 
         <% if shift.user.job_by?(shift.user.id) %>

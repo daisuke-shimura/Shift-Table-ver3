@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_02_081828) do
+ActiveRecord::Schema.define(version: 2024_10_02_135108) do
 
   create_table "days", force: :cascade do |t|
     t.date "start"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2024_10_02_081828) do
     t.string "remark"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "day_id"
   end
 
   create_table "users", force: :cascade do |t|

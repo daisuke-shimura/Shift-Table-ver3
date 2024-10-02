@@ -12,16 +12,16 @@
           <% if user.job_by?(user.id) %>
 
             <% user.jobs.each do |job| %>
-              <%= render "time" , shift: job %>
+              <!--%= render "time" , shift: job %-->
               <% if job.comment_by?(job.user_id) %>
                 <% JobComment.all.each do |comment| %>
                   <% if comment.user_id == job.user_id %>
                     <% if comment.user_id == current_user.id %>
                       <td class="text-left"><%= comment.comment %></td>
                       <td style="width:5%">
-                        <%= link_to job_job_comment_path(comment.job, comment), method: :delete ,"data-confirm" => "備考を削除しますか？" do %>
+                        <!--%= link_to job_job_comment_path(comment.job, comment), method: :delete ,"data-confirm" => "備考を削除しますか？" do %-->
                           <button type="button" class="btn btn-link btn-sm btn-block">削除</button>
-                        <% end %>
+                        <!--% end %-->
                       </td>
                     <% else %>
                       <td class="text-left", colspan="2"><%= comment.comment %></td>

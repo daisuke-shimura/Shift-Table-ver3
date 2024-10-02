@@ -12,6 +12,8 @@ class DaysController < ApplicationController
   end
 
   def show
+    @day = Day.find(params[:id])
+    @user = User.all
   end
 
   def create

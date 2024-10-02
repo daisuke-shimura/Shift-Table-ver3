@@ -8,8 +8,8 @@ class User < ApplicationRecord
   has_many :jobs, dependent: :destroy
   has_many :job_comments, dependent: :destroy
 
-  def job_by?(ogatyan)
-    jobs.exists?(user_id: ogatyan)
+  def job_by?(n,m)
+    jobs.exists?(user_id: n, day_id: m)
   end
 
   def email_required?

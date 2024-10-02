@@ -5,9 +5,11 @@ class JobsController < ApplicationController
   end
 
   def create
-    @job = Job.new(job_params)
-    @job.user_id = current_user.id
-    @job.save
+    job = Job.new(job_params)
+    day = Day.find(params[:day_id])
+    job.day_id = day.id
+    job.user_id = current_user.id
+    job.save
     redirect_to request.referer
   end
 

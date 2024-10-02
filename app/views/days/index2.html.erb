@@ -1,10 +1,12 @@
 <h2>過去のシフト</h2>
+<%= link_to "戻る", days_path %>
 <% @day.each do |day| %>
   <% if @today > day.start %>
     <li>
       <%= day.id %>
       <%= link_to day_path(day.id) do %>
-        <%= day.start %>～<%= day.finish %>
+        <%= day.start.month %>月<%= day.start.day %>日～
+        <%= day.finish.month %>月<%= day.finish.day %>日
       <% end %>
       　<%= link_to "削除", day_path(day.id), method: :delete %>
     </li>
