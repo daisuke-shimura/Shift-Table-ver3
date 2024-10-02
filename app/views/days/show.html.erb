@@ -26,6 +26,11 @@
               <td><%= job.time5 %></td>
               <td><%= job.time6 %></td>
               <td><%= job.time7 %></td>
+              <% if job.user.id == current_user.id %>
+                <td>
+                  <%= link_to "削除", day_job_path(@day.id,job.id), method: :delete, "data-confirm" => "シフト希望を削除しますか？" %>
+                </td>
+              <% end %>
             <% end %>
           <% end %>
         <% else %>
