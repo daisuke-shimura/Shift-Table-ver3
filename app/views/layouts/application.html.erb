@@ -16,8 +16,9 @@
     <header>
       <% if user_signed_in? %>
         <li><%= link_to "シフト表","/" %></li>
-        <li><%= link_to "希望提出", users_path %></li>
-        <li><%= link_to "希望一覧", jobs_path %></li>
+        <li><!--%= link_to "希望提出", users_path %--></li>
+        <li><!--%= link_to "希望一覧", jobs_path %--></li>
+        <li><%= link_to "日程提出", days_path %></li>
         <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
       <% else %>
         <li><%= link_to "シフト表","/" %></li>

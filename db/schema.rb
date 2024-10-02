@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_31_025826) do
+ActiveRecord::Schema.define(version: 2024_10_02_081828) do
+
+  create_table "days", force: :cascade do |t|
+    t.date "start"
+    t.date "finish"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "job_comments", force: :cascade do |t|
     t.text "comment"
