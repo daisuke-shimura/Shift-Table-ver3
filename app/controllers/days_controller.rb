@@ -1,11 +1,14 @@
 class DaysController < ApplicationController
   def index
-    date1 = Date.today
-    @date1 = (date1 + (8-date1.wday))+14
-    @date = Date.today
+    date = Date.today
+    @date = (date + (8-date.wday))+14
+    @today = Date.today
+    @day = Day.all
   end
 
   def index2
+    @day = Day.all
+    @today = Date.today
   end
 
   def show

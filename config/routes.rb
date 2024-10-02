@@ -9,6 +9,6 @@ Rails.application.routes.draw do
       #resources :job_comments, only: [:create, :destroy]
     #end
   end
-  get "past" => 'books#index2'
+  get "past" => 'days#index2'
 
 end
