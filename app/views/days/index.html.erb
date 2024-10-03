@@ -11,7 +11,7 @@
 <hr>
 <h2>日程一覧</h2>
 <%= link_to "過去のシフト", past_path %><br>
-<% @day.each do |day| %>
+<% @day.order(start: :asc).each do |day| %>
   <% if @today < day.start %>
     <li>
       <%= day.id %>

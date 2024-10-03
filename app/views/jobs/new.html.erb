@@ -92,10 +92,14 @@ job new<br>
                 <% JobComment.all.each do |comment| %>
                   <% if comment.day_id == @day.id && comment.user_id == job.user_id %>
                     <% if comment.user_id == current_user.id %>
-                      <%= comment.comment %>
-                      <%= link_to "削除", day_job_job_comment_path(@day.id, job.id, comment.id), method: :delete %>
+                      <div  align = "left"><%= comment.comment %></div>
+                      <div  align = "right">
+                        <%= link_to day_job_job_comment_path(@day.id, job.id, comment.id), method: :delete do %>
+                          <button type="button" class="btn btn-link">削除</button>
+                        <% end %>
+                      </div>
                     <% else %>
-                      <%= comment.comment %>
+                      <div  align = "left"><%= comment.comment %></div>
                     <% end %>
 
                   <% end %>
@@ -106,7 +110,7 @@ job new<br>
                 <% if job.user_id == current_user.id %>
                   <%= form_with model: [@day, job, JobComment.new] do |f| %>
                     <%= f.text_area :comment ,class: 'form-control' %>
-                    <div align = "left">
+                    <div align = "right">
                       <button type="submit" class="btn btn-link">送信</button>
                     </div>
                   <% end %>

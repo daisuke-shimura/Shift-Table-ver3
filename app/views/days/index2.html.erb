@@ -1,6 +1,6 @@
 <h2>過去のシフト</h2>
 <%= link_to "戻る", days_path %>
-<% @day.each do |day| %>
+<% @day.order(start: :desc).each do |day| %>
   <% if @today > day.start %>
     <li>
       <%= day.id %>

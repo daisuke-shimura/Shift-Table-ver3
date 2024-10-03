@@ -28,7 +28,16 @@ job edit
               <td><%= job.time5 %></td>
               <td><%= job.time6 %></td>
               <td><%= job.time7 %></td>
-                <td></td>
+              <td></td>
+              <% if job.comment_by?(job.user_id, @day.id) %>
+                <td>
+                  <% JobComment.all.each do |comment| %>
+                    <% if comment.day_id == @day.id && comment.user_id == job.user_id %>
+                      <div  align = "left"><%= comment.comment %></div>
+                    <% end %>
+                  <% end %>
+                </td>
+              <% end %>
             <% end %>
           <% end %>
         <% else %>

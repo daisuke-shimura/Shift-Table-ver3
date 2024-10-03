@@ -4,7 +4,7 @@
   <%= @day.start.month %>月<%= @day.start.day %>日～
   <%= @day.finish.month %>月<%= @day.finish.day %>日
 </h3>
-<%= link_to "戻る", days_path %>
+<%= link_to "戻る", past_path %>
 <hr>
 <p>ログイン中のユーザー：<%= current_user.name %></p>
 
@@ -16,7 +16,6 @@
         <td class="table-secondary"><%= user.id %></td>
         <td class="table-secondary"><%= user.name %></td>
         <% if user.job_by?(user.id,@day.id) %>
-          <td>a</td>
           <%= user.jobs.each do |job| %>
             <% if job.day_id == @day.id %>
               <td><%= job.time1 %></td>
@@ -26,20 +25,20 @@
               <td><%= job.time5 %></td>
               <td><%= job.time6 %></td>
               <td><%= job.time7 %></td>
-              <% if job.user.id == current_user.id %>
+              <td></td>
+              <% if job.comment_by?(job.user_id, @day.id) %>
                 <td>
-                  <%= link_to "削除", day_job_path(@day.id,job.id), method: :delete, "data-confirm" => "シフト希望を削除しますか？" %>
+                  <% JobComment.all.each do |comment| %>
+                    <% if comment.day_id == @day.id && comment.user_id == job.user_id %>
+                      <div  align = "left"><%= comment.comment %></div>
+                    <% end %>
+                  <% end %>
                 </td>
               <% end %>
             <% end %>
           <% end %>
         <% else %>
-          <td>b</td>
-          <% if user.id == current_user.id %>
-            <%= render "form", day:@day %>
-          <% else %>
-            <%= render "users/blank" %>
-          <% end %>
+          <%= render "users/blank" %>
         <% end %>
       </tr>
     <% end %>
