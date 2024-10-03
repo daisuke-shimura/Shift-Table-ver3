@@ -21,8 +21,13 @@ td{
 }
 
 hr{
-  margin: 20px 0px 30px;
-  border-top: 7px double #c0c0c0;
+  background-color: #696969;
+}
+
+.border_line{
+  /*margin: 10px 0px 10px;*/
+  border-top: 5px double #c0c0c0;
+  background-color: #ffffff;
 }
 
 /*.line_right{

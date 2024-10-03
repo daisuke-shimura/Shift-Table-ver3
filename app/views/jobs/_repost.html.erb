@@ -1,18 +1,48 @@
 <%= form_with model:[day, job],url: day_job_path(day.id, job.id), method: :patch  do |f| %>
   <table class = "table table-sm table-bordered">
-    <tr>
-      <td style="width: 2% "><%= current_user.id %></td>
-      <td style="width: 10% "><%= current_user.name %></td>
-      <td style="width: 8% "><%= f.text_field :time1 ,size: 5 %></td>
-      <td style="width: 8% "><%= f.text_field :time2 ,size: 5 %></td>
-      <td style="width: 8% "><%= f.text_field :time3 ,size: 5 %></td>
-      <td style="width: 8% "><%= f.text_field :time4 ,size: 5 %></td>
-      <td style="width: 8% "><%= f.text_field :time5 ,size: 5 %></td>
-      <td style="width: 8% "><%= f.text_field :time6 ,size: 5 %></td>
-      <td style="width: 8% "><%= f.text_field :time7 ,size: 5 %></td>
-      <td style="width: 32% ", class="text-left">
-        <button type="submit" class="btn btn-link btn-sm ">提出</button>
-      </td>
+    <tr class="table-secondary">
+      <th style="width: 2% "></th>
+      <th style="width: 10% "></th>
+      <th style="width: 8% "><%= day.start.month %>月<%= day.start.day %>日</th>
+      <th style="width: 8% "><%= (day.start+1).month %>月<%= (day.start+1).day %>日</th>
+      <th style="width: 8% "><%= (day.start+2).month %>月<%= (day.start+2).day %>日</th>
+      <th style="width: 8% "><%= (day.start+3).month %>月<%= (day.start+3).day %>日</th>
+      <th style="width: 8% "><%= (day.start+4).month %>月<%= (day.start+4).day %>日</th>
+      <th style="width: 8% "><%= (day.start+5).month %>月<%= (day.start+5).day %>日</th>
+      <th style="width: 8% "><%= (day.start+6).month %>月<%= (day.start+6).day %>日</th>
+      <th style="width: 5% "></th>
     </tr>
+
+    <tr class="table-secondary">
+      <td></td>
+      <td></td>
+      <th>月</th>
+      <th>火</th>
+      <th>水</th>
+      <th>木</th>
+      <th>金</th>
+      <th class = "text-primary">土</th>
+      <th class = "text-danger">日</th>
+      <td></td>
+    </tr>
+
+    <tbody>
+      <tr>
+        <td style="width: 2% "><%= current_user.id %></td>
+        <td style="width: 10% "><%= current_user.name %></td>
+        <td style="width: 8% "><%= f.text_field :time1 ,size: 5 %></td>
+        <td style="width: 8% "><%= f.text_field :time2 ,size: 5 %></td>
+        <td style="width: 8% "><%= f.text_field :time3 ,size: 5 %></td>
+        <td style="width: 8% "><%= f.text_field :time4 ,size: 5 %></td>
+        <td style="width: 8% "><%= f.text_field :time5 ,size: 5 %></td>
+        <td style="width: 8% "><%= f.text_field :time6 ,size: 5 %></td>
+        <td style="width: 8% "><%= f.text_field :time7 ,size: 5 %></td>
+        <td style="width: 32% ", class="text-left">
+          <%= link_to new_day_job_path(day.id) do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
+          ｜
+          <button type="submit" class="btn btn-link btn-sm ">保存</button>
+        </td>
+      </tr>
+    </tbody>
   </table>
 <% end %>

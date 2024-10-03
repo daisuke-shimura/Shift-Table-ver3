@@ -1,35 +1,65 @@
-job new
-<h1>シフト希望提出</h1>
+job new<br>
+
 <%= link_to "戻る", days_path %><br>
 <%= @day.id %><br>
-<h3>
+<h4>
   <%= @day.start.month %>月<%= @day.start.day %>日～
   <%= @day.finish.month %>月<%= @day.finish.day %>日
-</h3>
+</h4>
 <hr>
 <p>ログイン中のユーザー：<%= current_user.name %></p>
 <% unless current_user.job_by?(current_user.id, @day.id) %>
+  <h2>シフト希望提出</h2>
   <%= form_with model:[@day, Job.new], url: day_jobs_path(@day.id), method: :post do |f| %>
     <table class = "table table-sm table-bordered table-hover" >
-      <%= render "users/thead", day:@day %>
+      <tr class="table-secondary">
+        <th style="width: 2% "></th>
+        <th style="width: 10% "></th>
+        <th style="width: 8% "><%= @day.start.month %>月<%= @day.start.day %>日</th>
+        <th style="width: 8% "><%= (@day.start+1).month %>月<%= (@day.start+1).day %>日</th>
+        <th style="width: 8% "><%= (@day.start+2).month %>月<%= (@day.start+2).day %>日</th>
+        <th style="width: 8% "><%= (@day.start+3).month %>月<%= (@day.start+3).day %>日</th>
+        <th style="width: 8% "><%= (@day.start+4).month %>月<%= (@day.start+4).day %>日</th>
+        <th style="width: 8% "><%= (@day.start+5).month %>月<%= (@day.start+5).day %>日</th>
+        <th style="width: 8% "><%= (@day.start+6).month %>月<%= (@day.start+6).day %>日</th>
+        <th style="width: 5% "></th>
+
+      </tr>
+
+      <tr class="table-secondary">
+        <td></td>
+        <td></td>
+        <th>月</th>
+        <th>火</th>
+        <th>水</th>
+        <th>木</th>
+        <th>金</th>
+        <th class = "text-primary">土</th>
+        <th class = "text-danger">日</th>
+        <td></td>
+
+      </tr>
       <tbody>
         <tr>
-          <td><%= current_user.id %></td>
-          <td><%= current_user.name %></td>
-          <td><%= f.text_field :time1 ,size: 5 %></td>
-          <td><%= f.text_field :time2 ,size: 5 %></td>
-          <td><%= f.text_field :time3 ,size: 5 %></td>
-          <td><%= f.text_field :time4 ,size: 5 %></td>
-          <td><%= f.text_field :time5 ,size: 5 %></td>
-          <td><%= f.text_field :time6 ,size: 5 %></td>
-          <td><%= f.text_field :time7 ,size: 5 %></td>
-          <td><%= f.submit "提出" %></td>
+          <td style="width: 2% "><%= current_user.id %></td>
+          <td style="width: 10% "><%= current_user.name %></td>
+          <td style="width: 8% "><%= f.text_field :time1 ,size: 5 %></td>
+          <td style="width: 8% "><%= f.text_field :time2 ,size: 5 %></td>
+          <td style="width: 8% "><%= f.text_field :time3 ,size: 5 %></td>
+          <td style="width: 8% "><%= f.text_field :time4 ,size: 5 %></td>
+          <td style="width: 8% "><%= f.text_field :time5 ,size: 5 %></td>
+          <td style="width: 8% "><%= f.text_field :time6 ,size: 5 %></td>
+          <td style="width: 8% "><%= f.text_field :time7 ,size: 5 %></td>
+          <td style="width: 32% ", class="text-left">
+            <button type="submit" class="btn btn-link btn-sm ">提出</button>
+          </td>
         </tr>
       </tbody>
     </table>
   <% end %>
 <% end %>
 <hr>
+<h3>シフト希望一覧</h3>
 <table class = "table table-sm table-bordered table-hover" >
   <%= render "users/thead", day:@day %>
   <tbody>
@@ -56,7 +86,31 @@ job new
               <% else %>
                 <td></td>
               <% end %>
+
+              <% if job.comment_by?(job.user_id, @day.id) %>
+              <td>
+                <%= JobComment.all.each do |comment| %>
+                  <% if comment.day_id == @day.id && comment.user_id == job.user_id %>
+
+                    <%= comment.comment %>
+                  <% end %>
+                <% end %>
+              </td>
+              <% else %>
+              <td>
+                <% if job.user_id == current_user.id %>
+                  <%= form_with model: [@day, job, JobComment.new] do |f| %>
+                    <%= f.text_area :comment ,class: 'form-control' %>
+                    <div align = "left">
+                      <button type="submit" class="btn btn-link">送信</button>
+                    </div>
+                  <% end %>
+                <% end %>
+              </td>
+              <% end %>
+
             <% end %>
+
           <% end %>
         <% else %>
           <%= render "users/blank" %>

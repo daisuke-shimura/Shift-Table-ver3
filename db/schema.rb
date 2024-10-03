@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_02_135108) do
+ActiveRecord::Schema.define(version: 2024_10_03_073715) do
 
   create_table "days", force: :cascade do |t|
     t.date "start"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2024_10_02_135108) do
     t.integer "job_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "day_id"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -35,9 +36,9 @@ ActiveRecord::Schema.define(version: 2024_10_02_135108) do
     t.string "time5", default: ""
     t.string "time6", default: ""
     t.string "time7", default: ""
-    t.integer "day"#？
+    t.integer "day"
     t.integer "user_id"
-    t.string "remark"#
+    t.string "remark"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "day_id"
