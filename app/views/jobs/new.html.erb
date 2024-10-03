@@ -89,10 +89,15 @@ job new<br>
 
               <% if job.comment_by?(job.user_id, @day.id) %>
               <td>
-                <%= JobComment.all.each do |comment| %>
+                <% JobComment.all.each do |comment| %>
                   <% if comment.day_id == @day.id && comment.user_id == job.user_id %>
+                    <% if comment.user_id == current_user.id %>
+                      <%= comment.comment %>
+                      <%= link_to "削除", day_job_job_comment_path(@day.id, job.id, comment.id), method: :delete %>
+                    <% else %>
+                      <%= comment.comment %>
+                    <% end %>
 
-                    <%= comment.comment %>
                   <% end %>
                 <% end %>
               </td>
