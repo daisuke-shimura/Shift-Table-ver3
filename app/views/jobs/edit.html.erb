@@ -1,37 +1,40 @@
-<h2>シフト希望訂正</h2>
-
+job edit
+<h1>シフト訂正</h1>
+<%= link_to "戻る", days_path %><br>
+<%= @day.id %><br>
+<h3>
+  <%= @day.start.month %>月<%= @day.start.day %>日～
+  <%= @day.finish.month %>月<%= @day.finish.day %>日
+</h3>
+<hr>
 <p>ログイン中のユーザー：<%= current_user.name %></p>
-
-<%= render "repost" , job: @job %>
+<%= render "repost", day:@day, job:@job %>
 <hr>
 <h2>シフト希望一覧</h2>
-
-  <table class = "table table-sm table-bordered table-hover">
-
-    <%= render "thead" %>
-    <tbody>
+<table class = "table table-sm table-bordered table-hover" >
+  <%= render "users/thead", day:@day %>
+  <tbody>
     <% @user.each do |user| %>
-
       <tr>
-        <td><%= user.id %></td>
-        <td><%= user.name %></td>
-        <% if user.job_by?(user.id) %>
-          <% user.jobs.each do |job| %>
-              <%= render "time" , shift: job %>
-            <% if job.comment_by?(job.user_id) %>
-              <% JobComment.all.each do |comment| %>
-                <% if comment.user_id == job.user_id %>
-                  <td class="text-left", colspan="2"><%= comment.comment %></td>
-                <% end %>
-              <% end %>
-            <% else %>
-              <td colspan="2"></td>
+        <td class="table-secondary"><%= user.id %></td>
+        <td class="table-secondary"><%= user.name %></td>
+        <% if user.job_by?(user.id,@day.id) %>
+          <%= user.jobs.each do |job| %>
+            <% if job.day_id == @day.id %>
+              <td><%= job.time1 %></td>
+              <td><%= job.time2 %></td>
+              <td><%= job.time3 %></td>
+              <td><%= job.time4 %></td>
+              <td><%= job.time5 %></td>
+              <td><%= job.time6 %></td>
+              <td><%= job.time7 %></td>
+                <td></td>
             <% end %>
           <% end %>
         <% else %>
-          <%= render "blank" %>
+          <%= render "users/blank" %>
         <% end %>
       </tr>
     <% end %>
-    </tbody>
-  </table>
+  </tbody>
+</table>

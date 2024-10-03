@@ -31,13 +31,15 @@ class JobsController < ApplicationController
 
   def edit
     @job = Job.find(params[:id])
+    @day = Day.find(params[:day_id])
     @user = User.all
   end
 
   def update
     job = Job.find(params[:id])
+    day = Day.find(params[:day_id])
     job.update(job_params)
-    redirect_to users_path
+    redirect_to new_day_job_path(day.id)
   end
 
   def destroy
