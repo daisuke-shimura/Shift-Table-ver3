@@ -2,6 +2,8 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new
+    @day = Day.find(params[:day_id])
+    @user = User.all
   end
 
   def create

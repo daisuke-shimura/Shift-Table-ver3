@@ -1,32 +1,67 @@
+job new
 <h1>シフト希望提出</h1>
-<div class = "container">
-  <div class = "row">
-    <%= form_with model: [@job] do |f| %>
-      <table>
+<%= link_to "戻る", days_path %><br>
+<%= @day.id %><br>
+<h3>
+  <%= @day.start.month %>月<%= @day.start.day %>日～
+  <%= @day.finish.month %>月<%= @day.finish.day %>日
+</h3>
+<hr>
+<p>ログイン中のユーザー：<%= current_user.name %></p>
+<% unless current_user.job_by?(current_user.id, @day.id) %>
+  <%= form_with model:[@day, Job.new], url: day_jobs_path(@day.id), method: :post do |f| %>
+    <table class = "table table-sm table-bordered table-hover" >
+      <%= render "users/thead", day:@day %>
+      <tbody>
         <tr>
-          <th>1月1日（月）</th>
-          <th>1月2日（火）</th>
-          <th>1月3日（水）</th>
-          <th>1月4日（木）</th>
-          <th>1月5日（金）</th>
-          <th>1月6日（土）</th>
-          <th>1月7日（日）</th>
+          <td><%= current_user.id %></td>
+          <td><%= current_user.name %></td>
+          <td><%= f.text_field :time1 ,size: 5 %></td>
+          <td><%= f.text_field :time2 ,size: 5 %></td>
+          <td><%= f.text_field :time3 ,size: 5 %></td>
+          <td><%= f.text_field :time4 ,size: 5 %></td>
+          <td><%= f.text_field :time5 ,size: 5 %></td>
+          <td><%= f.text_field :time6 ,size: 5 %></td>
+          <td><%= f.text_field :time7 ,size: 5 %></td>
+          <td><%= f.submit "提出" %></td>
         </tr>
-
-        <tr>
-          <td><%= f.text_field :time1 %></td>
-          <td><%= f.text_field :time2 %></td>
-          <td><%= f.text_field :time3 %></td>
-          <td><%= f.text_field :time4 %></td>
-          <td><%= f.text_field :time5 %></td>
-          <td><%= f.text_field :time6 %></td>
-          <td><%= f.text_field :time7 %></td>
-        </tr>
-      </table>
-
-      <button type="submit" class="btn btn-primary">
-        提出
-      </button>
+      </tbody>
+    </table>
+  <% end %>
+<% end %>
+<hr>
+<table class = "table table-sm table-bordered table-hover" >
+  <%= render "users/thead", day:@day %>
+  <tbody>
+    <% @user.each do |user| %>
+      <tr>
+        <td class="table-secondary"><%= user.id %></td>
+        <td class="table-secondary"><%= user.name %></td>
+        <% if user.job_by?(user.id,@day.id) %>
+          <%= user.jobs.each do |job| %>
+            <% if job.day_id == @day.id %>
+              <td><%= job.time1 %></td>
+              <td><%= job.time2 %></td>
+              <td><%= job.time3 %></td>
+              <td><%= job.time4 %></td>
+              <td><%= job.time5 %></td>
+              <td><%= job.time6 %></td>
+              <td><%= job.time7 %></td>
+              <% if job.user.id == current_user.id %>
+                <td>
+                  <%= link_to "編集", edit_day_job_path(@day.id,job.id) %>
+                  <br>
+                  <%= link_to "削除", day_job_path(@day.id,job.id), method: :delete, "data-confirm" => "シフト希望を削除しますか？" %>
+                </td>
+              <% else %>
+                <td></td>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= render "users/blank" %>
+        <% end %>
+      </tr>
     <% end %>
-  </div>
-</div>
+  </tbody>
+</table>

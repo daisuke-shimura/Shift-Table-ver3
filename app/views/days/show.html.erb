@@ -9,7 +9,7 @@
 <p>ログイン中のユーザー：<%= current_user.name %></p>
 
 <table class = "table table-sm table-bordered table-hover" >
-  <%= render "users/thead" %>
+  <%= render "users/thead", day:@day %>
   <tbody>
     <% @user.each do |user| %>
       <tr>
@@ -36,16 +36,7 @@
         <% else %>
           <td>b</td>
           <% if user.id == current_user.id %>
-            <%= form_with model:[@day, Job.new], url: day_jobs_path(@day.id), method: :post do |f| %>
-               <td><%= f.text_field :time1 ,size: 5 %></td>
-               <td><%= f.text_field :time2 ,size: 5 %></td>
-               <td><%= f.text_field :time3 ,size: 5 %></td>
-               <td><%= f.text_field :time4 ,size: 5 %></td>
-               <td><%= f.text_field :time5 ,size: 5 %></td>
-               <td><%= f.text_field :time6 ,size: 5 %></td>
-               <td><%= f.text_field :time7 ,size: 5 %></td>
-               <td><%= f.submit "提出" %></td>
-            <% end %>
+            <%= render "form", day:@day %>
           <% else %>
             <%= render "users/blank" %>
           <% end %>
