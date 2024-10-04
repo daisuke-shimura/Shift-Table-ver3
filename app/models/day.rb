@@ -36,4 +36,8 @@ class Day < ApplicationRecord
     sats.exists?(day_id: n)
   end
 
+  def event_by?(n)
+    events.exists?(day_id: n)
+  end
+
 end

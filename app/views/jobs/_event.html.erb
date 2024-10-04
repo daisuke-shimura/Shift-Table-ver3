@@ -1,8 +1,22 @@
-
+<% if day.event_by?(day.id) %>
+  <%= Event.all.each do |event| %>
+    <% if day.id == event.day_id %>
+      <td></td>
+      <td>催事等</td>
+      <td><%= event.time1 %></td>
+      <td><%= event.time2 %></td>
+      <td><%= event.time3 %></td>
+      <td><%= event.time4 %></td>
+      <td><%= event.time5 %></td>
+      <td><%= event.time6 %></td>
+      <td><%= event.time7 %></td>
+      <td></td>
+      <td></td>
+    <% end %>
+  <% end %>
+<% else %>
   <td></td>
-  <td>
-    催事等
-  </td>
+  <td>催事等</td>
   <td></td>
   <td></td>
   <td></td>
@@ -11,4 +25,5 @@
   <td></td>
   <td></td>
   <td></td>
-
+  <td></td>
+<% end %>

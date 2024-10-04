@@ -17,9 +17,39 @@
   <%= render "holiday", day:@day %>
 
   <tr class="table-secondary">
-    <%= render "jobs/event" , day:@day %>
-    <td></td>
+    <% if @day.event_by?(@day.id) %>
+      <%= Event.all.each do |event| %>
+        <% if @day.id == event.day_id %>
+          <td></td>
+          <td>催事等</td>
+          <td style="font-size: small"><%= event.time1 %></td>
+          <td style="font-size: small"><%= event.time2 %></td>
+          <td style="font-size: small"><%= event.time3 %></td>
+          <td style="font-size: small"><%= event.time4 %></td>
+          <td style="font-size: small"><%= event.time5 %></td>
+          <td style="font-size: small"><%= event.time6 %></td>
+          <td style="font-size: small"><%= event.time7 %></td>
+          <td>
+            <%= link_to "削除", day_events_path(event.day_id), method: :delete %>
+          </td>
+          <td></td>
+        <% end %>
+      <% end %>
+    <% else %>
+      <td></td>
+      <td><%= link_to "催事等", new_day_events_path(@day.id) %></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    <% end %>
   </tr>
+
   <tbody>
     <% @user.each do |user| %>
       <tr>
@@ -50,7 +80,7 @@
                 <% @job_comment.all.each do |comment| %>
                   <% if comment.day_id == @day.id && comment.user_id == job.user_id %>
                     <% if comment.user_id == current_user.id %>
-                      <div align = "left"><%= comment.comment %></div>
+                      <div align = "left"><small><%= comment.comment %></small></div>
                       <div align = "right">
                         <%= link_to day_job_job_comment_path(@day.id, job.id, comment.id), method: :delete do %>
                           <button type="button" class="btn btn-link">削除</button>
