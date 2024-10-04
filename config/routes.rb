@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resource :weds, only: [:create, :destroy]
     resource :thus, only: [:create, :destroy]
     resource :fris, only: [:create, :destroy]
-    resource :suts, only: [:create, :destroy]
+    resource :sats, only: [:create, :destroy]
     resources :jobs, only: [:new, :create, :update, :destroy, :edit] do
       resources :job_comments, only: [:create, :destroy]
     end

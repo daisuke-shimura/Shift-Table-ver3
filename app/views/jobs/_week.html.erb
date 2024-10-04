@@ -3,37 +3,45 @@
   <th></th>
   <th>
     <% if day.mon_by?(day.id) %>
-      <% if current_user.id == 1 %>
-        <%= link_to day_mons_path(day.id), method: :delete ,:style=>"color: red" do %>
-          月
-        <% end %>
-      <% else %>
-        <div style="color: red">月</div>
-      <% end %>
+      <div style="color: red">月</div>
     <% else %>
-      <% if current_user.id == 1 %>
-        <%= link_to day_mons_path(day.id), method: :post ,:style=>"color: black" do %>
-          月
-        <% end %>
-      <% else %>
-        月
-      <% end %>
+      <div style="color: black">月</div>
     <% end %>
   </th>
   <th>
     <% if day.tue_by?(day.id) %>
-        <%= link_to day_tues_path(day.id), method: :delete ,:style=>"color: red" do %>
-          火
-        <% end %>
+      <div style="color: red">火</div>
     <% else %>
-        <%= link_to day_tues_path(day.id), method: :post ,:style=>"color: black" do %>
-          火
-        <% end %>
+      <div style="color: black">火</div>
     <% end %>
   </th>
-  <th>水</th>
-  <th>木</th>
-  <th>金</th>
-  <th style="color: dodgerblue">土</th>
+  <th>
+    <% if day.wed_by?(day.id) %>
+      <div style="color: red">水</div>
+    <% else %>
+      <div style="color: black">水</div>
+    <% end %>
+  </th>
+  <th>
+    <% if day.thu_by?(day.id) %>
+      <div style="color: red">木</div>
+    <% else %>
+      <div style="color: black">木</div>
+    <% end %>
+  </th>
+  <th>
+    <% if day.fri_by?(day.id) %>
+      <div style="color: red">金</div>
+    <% else %>
+      <div style="color: black">金</div>
+    <% end %>
+  </th>
+  <th>
+    <% if day.sat_by?(day.id) %>
+      <div style="color: red">土</div>
+    <% else %>
+      <div style="color: dodgerblue">土</div>
+    <% end %>
+  </th>
   <th style="color: red">日</th>
   <th></th>
