@@ -7,6 +7,7 @@ class Day < ApplicationRecord
   has_many :thus, dependent: :destroy
   has_many :fris, dependent: :destroy
   has_many :sats, dependent: :destroy
+  has_many :events, dependent: :destroy
 
   validates :start, uniqueness: true
   validates :finish, uniqueness: true

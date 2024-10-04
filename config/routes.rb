@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'events/new'
   devise_for :users
   root to: 'homes#top'
 
@@ -11,6 +12,7 @@ Rails.application.routes.draw do
     resource :thus, only: [:create, :destroy]
     resource :fris, only: [:create, :destroy]
     resource :sats, only: [:create, :destroy]
+    resource :events, only: [:new, :create, :destroy]
     resources :jobs, only: [:new, :create, :update, :destroy, :edit] do
       resources :job_comments, only: [:create, :destroy]
     end

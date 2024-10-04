@@ -10,11 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_04_064219) do
+ActiveRecord::Schema.define(version: 2024_10_04_105403) do
 
   create_table "days", force: :cascade do |t|
     t.date "start"
     t.date "finish"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "time1", default: ""
+    t.string "time2", default: ""
+    t.string "time3", default: ""
+    t.string "time4", default: ""
+    t.string "time5", default: ""
+    t.string "time6", default: ""
+    t.string "time7", default: ""
+    t.integer "day_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

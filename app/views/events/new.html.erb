@@ -1,0 +1,39 @@
+<br>
+<p><%= link_to "日程一覧に戻る", days_path %></p>
+<h3>
+  <%= @day.start.month %>月<%= @day.start.day %>日～
+  <%= @day.finish.month %>月<%= @day.finish.day %>日
+</h3>
+<p>ログイン中のユーザー：<%= current_user.name %></p>
+<hr>
+<h3>催事等記入フォーム</h3>
+<%= form_with model:[@day, @event], url: day_events_path(@day.id), method: :post do |f| %>
+  <table class = "table table-sm table-bordered table-hover" >
+    <tr class="table-secondary">
+      <%= render "jobs/day", day:@day %>
+      <th style="width: 32% "></th>
+    </tr>
+    <tr class="table-secondary">
+      <%= render "jobs/week", day:@day %>
+    </tr>
+    <tbody>
+      <tr>
+        <td></td>
+        <td>催事等</td>
+        <td><%= f.text_field :time1 ,size: 5 %></td>
+        <td><%= f.text_field :time2 ,size: 5 %></td>
+        <td><%= f.text_field :time3 ,size: 5 %></td>
+        <td><%= f.text_field :time4 ,size: 5 %></td>
+        <td><%= f.text_field :time5 ,size: 5 %></td>
+        <td><%= f.text_field :time6 ,size: 5 %></td>
+        <td><%= f.text_field :time7 ,size: 5 %></td>
+        <td class="text-left">
+          <button type="submit" class="btn btn-link btn-sm ">提出</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+<hr>
+<h3>シフト希望一覧</h3>
+<%= render "jobs/shift_index", day:@day, user:@user, job_comment:@job_comment %>
