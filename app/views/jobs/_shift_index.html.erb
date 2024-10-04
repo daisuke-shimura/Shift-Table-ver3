@@ -1,0 +1,38 @@
+<table class = "table table-sm table-bordered table-hover" >
+  <%= render "jobs/thead", day:day %>
+  <tbody>
+    <% user.each do |user| %>
+      <tr>
+        <td class="table-secondary"><%= user.id %></td>
+        <td class="table-secondary"><%= user.name %></td>
+        <% if user.job_by?(user.id,day.id) %>
+<!--「=」消してない--><%= user.jobs.each do |job| %>
+            <% if job.day_id == day.id %>
+              <td><%= job.time1 %></td>
+              <td><%= job.time2 %></td>
+              <td><%= job.time3 %></td>
+              <td><%= job.time4 %></td>
+              <td><%= job.time5 %></td>
+              <td><%= job.time6 %></td>
+              <td><%= job.time7 %></td>
+              <td></td>
+              <% if job.comment_by?(job.user_id, day.id) %>
+                <td>
+                  <% job_comment.each do |comment| %>
+                    <% if comment.day_id == day.id && comment.user_id == job.user_id %>
+                      <div align = "left"><%= comment.comment %></div>
+                    <% end %>
+                  <% end %>
+                </td>
+              <% else %>
+                <td></td>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= render "jobs/blank" %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

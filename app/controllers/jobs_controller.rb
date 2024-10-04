@@ -4,6 +4,7 @@ class JobsController < ApplicationController
     @job = Job.new
     @day = Day.find(params[:day_id])
     @user = User.all
+    @job_comment = JobComment.all
   end
 
   def create
@@ -15,24 +16,11 @@ class JobsController < ApplicationController
     redirect_to request.referer
   end
 
-  def index
-    @job = Job.new
-    @shifts = Job.all
-    @job_comment = JobComment.new
-    @comment = JobComment.all
-    #Job.order(user_id)
-  end
-
-  def show
-    @job = Job.find(params[:id])
-    @job_comment = JobComment.new
-    @comment = JobComment.all
-  end
-
   def edit
     @job = Job.find(params[:id])
     @day = Day.find(params[:day_id])
     @user = User.all
+    @job_comment = JobComment.all
   end
 
   def update

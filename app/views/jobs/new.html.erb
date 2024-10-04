@@ -1,67 +1,19 @@
-job new<br>
-
-<%= link_to "戻る", days_path %><br>
-<%= @day.id %><br>
-<h4>
+<br>
+<p><%= link_to "日程一覧に戻る", days_path %></p>
+<h3>
   <%= @day.start.month %>月<%= @day.start.day %>日～
   <%= @day.finish.month %>月<%= @day.finish.day %>日
-</h4>
-<hr>
+</h3>
 <p>ログイン中のユーザー：<%= current_user.name %></p>
 <% unless current_user.job_by?(current_user.id, @day.id) %>
+  <hr>
   <h2>シフト希望提出</h2>
-  <%= form_with model:[@day, Job.new], url: day_jobs_path(@day.id), method: :post do |f| %>
-    <table class = "table table-sm table-bordered table-hover" >
-      <tr class="table-secondary">
-        <th style="width: 2% "></th>
-        <th style="width: 10% "></th>
-        <th style="width: 8% "><%= @day.start.month %>月<%= @day.start.day %>日</th>
-        <th style="width: 8% "><%= (@day.start+1).month %>月<%= (@day.start+1).day %>日</th>
-        <th style="width: 8% "><%= (@day.start+2).month %>月<%= (@day.start+2).day %>日</th>
-        <th style="width: 8% "><%= (@day.start+3).month %>月<%= (@day.start+3).day %>日</th>
-        <th style="width: 8% "><%= (@day.start+4).month %>月<%= (@day.start+4).day %>日</th>
-        <th style="width: 8% "><%= (@day.start+5).month %>月<%= (@day.start+5).day %>日</th>
-        <th style="width: 8% "><%= (@day.start+6).month %>月<%= (@day.start+6).day %>日</th>
-        <th style="width: 5% "></th>
-
-      </tr>
-
-      <tr class="table-secondary">
-        <td></td>
-        <td></td>
-        <th>月</th>
-        <th>火</th>
-        <th>水</th>
-        <th>木</th>
-        <th>金</th>
-        <th class = "text-primary">土</th>
-        <th class = "text-danger">日</th>
-        <td></td>
-
-      </tr>
-      <tbody>
-        <tr>
-          <td style="width: 2% "><%= current_user.id %></td>
-          <td style="width: 10% "><%= current_user.name %></td>
-          <td style="width: 8% "><%= f.text_field :time1 ,size: 5 %></td>
-          <td style="width: 8% "><%= f.text_field :time2 ,size: 5 %></td>
-          <td style="width: 8% "><%= f.text_field :time3 ,size: 5 %></td>
-          <td style="width: 8% "><%= f.text_field :time4 ,size: 5 %></td>
-          <td style="width: 8% "><%= f.text_field :time5 ,size: 5 %></td>
-          <td style="width: 8% "><%= f.text_field :time6 ,size: 5 %></td>
-          <td style="width: 8% "><%= f.text_field :time7 ,size: 5 %></td>
-          <td style="width: 32% ", class="text-left">
-            <button type="submit" class="btn btn-link btn-sm ">提出</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  <% end %>
+  <%= render "form", day:@day %>
 <% end %>
 <hr>
 <h3>シフト希望一覧</h3>
 <table class = "table table-sm table-bordered table-hover" >
-  <%= render "users/thead", day:@day %>
+  <%= render "thead", day:@day %>
   <tbody>
     <% @user.each do |user| %>
       <tr>
@@ -89,17 +41,17 @@ job new<br>
 
               <% if job.comment_by?(job.user_id, @day.id) %>
               <td>
-                <% JobComment.all.each do |comment| %>
+                <% @job_comment.all.each do |comment| %>
                   <% if comment.day_id == @day.id && comment.user_id == job.user_id %>
                     <% if comment.user_id == current_user.id %>
-                      <div  align = "left"><%= comment.comment %></div>
-                      <div  align = "right">
+                      <div align = "left"><%= comment.comment %></div>
+                      <div align = "right">
                         <%= link_to day_job_job_comment_path(@day.id, job.id, comment.id), method: :delete do %>
                           <button type="button" class="btn btn-link">削除</button>
                         <% end %>
                       </div>
                     <% else %>
-                      <div  align = "left"><%= comment.comment %></div>
+                      <div align = "left"><%= comment.comment %></div>
                     <% end %>
 
                   <% end %>
@@ -122,7 +74,7 @@ job new<br>
 
           <% end %>
         <% else %>
-          <%= render "users/blank" %>
+          <%= render "blank" %>
         <% end %>
       </tr>
     <% end %>
