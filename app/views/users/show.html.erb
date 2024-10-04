@@ -1,59 +1,26 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-
-<% if @user.job_by?(current_user.id) %>
-
-    <table>
-      <thead>
-        <th>1月1日（月）</th>
-        <th>1月2日（火）</th>
-        <th>1月3日（水）</th>
-        <th>1月4日（木）</th>
-        <th>1月5日（金）</th>
-        <th>1月6日（土）</th>
-        <th>1月7日（日）</th>
-      </thead>
-      <tbody>
-        <% @job.each do |shift| %>
-          <td><%= shift.time1 %></td>
-          <td><%= shift.time2 %></td>
-          <td><%= shift.time3 %></td>
-          <td><%= shift.time4 %></td>
-          <td><%= shift.time5 %></td>
-          <td><%= shift.time6 %></td>
-          <td><%= shift.time7 %></td>
+<h3>ユーザーページ</h3>
+ログイン中のユーザー：<%= @user.name %>
+<%= link_to edit_user_path(@user.id) do %>
+  <button type="button" class="btn btn-sm btn-outline-primary">
+    <i class="fa-solid fa-pen"></i>
+  </button>
+<% end %>
+<hr>
+<h3>提出状況</h3>
+<% @day.order(start: :asc).each do |day| %>
+  <% if @today < day.start %>
+    <li>
+      <% if @user.job_by?(@user.id,day.id) %>
+        <%= link_to new_day_job_path(day.id) ,:style=>"color: black" do %>
+          <%= day.start.month %>月<%= day.start.day %>日～<%= day.finish.month %>月<%= day.finish.day %>日
         <% end %>
-      </tbody>
-    </table>
-
-  <% else %>
-  <p>a</p>
-    <table>
-      <tr>
-        <th>1月1日（月）</th>
-        <th>1月2日（火）</th>
-        <th>1月3日（水）</th>
-        <th>1月4日（木）</th>
-        <th>1月5日（金）</th>
-        <th>1月6日（土）</th>
-        <th>1月7日（日）</th>
-        <th>            </th>
-      </tr>
-      <tr>
-      <%= form_with model: [Job.new] do |f| %>
-            <td><%= f.text_field :time1 %></td>
-            <td><%= f.text_field :time2 %></td>
-            <td><%= f.text_field :time3 %></td>
-            <td><%= f.text_field :time4 %></td>
-            <td><%= f.text_field :time5 %></td>
-            <td><%= f.text_field :time6 %></td>
-            <td><%= f.text_field :time7 %></td>
-            <td>
-              <button type="submit" class="btn btn-primary">
-                提出
-              </button>
-            </td>
+        提出済
+      <% else %>
+        <%= link_to new_day_job_path(day.id) do %>
+          <%= day.start.month %>月<%= day.start.day %>日～<%= day.finish.month %>月<%= day.finish.day %>日
+        <% end %>
+        未提出
       <% end %>
-      </tr>
-    </table>
+    </li>
+  <% end %>
 <% end %>

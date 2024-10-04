@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 2024_10_03_073715) do
     t.string "time5", default: ""
     t.string "time6", default: ""
     t.string "time7", default: ""
-    t.integer "day"
+    t.integer "day"#要らん
     t.integer "user_id"
-    t.string "remark"
+    t.string "remark"#要らん
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "day_id"
