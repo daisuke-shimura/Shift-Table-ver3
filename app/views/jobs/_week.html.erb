@@ -1,11 +1,39 @@
 
-  <td></td>
-  <td></td>
-  <th>月</th>
-  <th>火</th>
+  <th></th>
+  <th></th>
+  <th>
+    <% if day.mon_by?(day.id) %>
+      <% if current_user.id == 1 %>
+        <%= link_to day_mons_path(day.id), method: :delete ,:style=>"color: red" do %>
+          月
+        <% end %>
+      <% else %>
+        <div style="color: red">月</div>
+      <% end %>
+    <% else %>
+      <% if current_user.id == 1 %>
+        <%= link_to day_mons_path(day.id), method: :post ,:style=>"color: black" do %>
+          月
+        <% end %>
+      <% else %>
+        月
+      <% end %>
+    <% end %>
+  </th>
+  <th>
+    <% if day.tue_by?(day.id) %>
+        <%= link_to day_tues_path(day.id), method: :delete ,:style=>"color: red" do %>
+          火
+        <% end %>
+    <% else %>
+        <%= link_to day_tues_path(day.id), method: :post ,:style=>"color: black" do %>
+          火
+        <% end %>
+    <% end %>
+  </th>
   <th>水</th>
   <th>木</th>
   <th>金</th>
-  <th class = "text-primary">土</th>
-  <th class = "text-danger">日</th>
+  <th style="color: dodgerblue">土</th>
+  <th style="color: red">日</th>
   <th></th>

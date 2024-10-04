@@ -1,0 +1,2 @@
+module TuesHelper
+end

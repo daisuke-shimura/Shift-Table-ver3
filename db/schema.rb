@@ -10,11 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_03_073715) do
+ActiveRecord::Schema.define(version: 2024_10_04_064219) do
 
   create_table "days", force: :cascade do |t|
     t.date "start"
     t.date "finish"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "fris", force: :cascade do |t|
+    t.integer "day_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -36,12 +42,34 @@ ActiveRecord::Schema.define(version: 2024_10_03_073715) do
     t.string "time5", default: ""
     t.string "time6", default: ""
     t.string "time7", default: ""
-    t.integer "day"#要らん
     t.integer "user_id"
-    t.string "remark"#要らん
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "day_id"
+  end
+
+  create_table "mons", force: :cascade do |t|
+    t.integer "day_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sats", force: :cascade do |t|
+    t.integer "day_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "thus", force: :cascade do |t|
+    t.integer "day_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tues", force: :cascade do |t|
+    t.integer "day_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,6 +82,12 @@ ActiveRecord::Schema.define(version: 2024_10_03_073715) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "weds", force: :cascade do |t|
+    t.integer "day_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

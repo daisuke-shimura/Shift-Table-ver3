@@ -1,0 +1,2 @@
+module FrisHelper
+end
