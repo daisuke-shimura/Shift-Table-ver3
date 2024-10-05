@@ -3,23 +3,27 @@
 <h2>今日</h2>
 <%= @today %>
 <hr>
-<h2>新規日程</h2>
-<%= form_with model: Day.new, url: days_path, method: :post do |f| %>
-  <%= f.date_field :start, value: @date %>～<%= f.date_field :finish, value: @date+6 %>
-  <%= f.submit "作成" %>
+<% if current_user.id == 1 %>
+  <h2>新規日程</h2>
+  <%= form_with model: Day.new, url: days_path, method: :post do |f| %>
+    <%= f.date_field :start, value: @date %>～<%= f.date_field :finish, value: @date+6 %>
+    <%= f.submit "作成" %>
+  <% end %>
+  <hr>
 <% end %>
-<hr>
 <h2>日程一覧</h2>
 <%= link_to "過去のシフト", past_path %><br>
 <% @day.order(start: :asc).each do |day| %>
   <% if @today < day.start %>
-    <li>
-      <%= day.id %>
-      <%= link_to new_day_job_path(day.id) do %>
-        <%= day.start.month %>月<%= day.start.day %>日～
-        <%= day.finish.month %>月<%= day.finish.day %>日
-      <% end %>
-      　<%= link_to "削除", day_path(day.id), method: :delete %>
-    </li>
+  <li>
+    <%= day.id %>
+    <%= link_to new_day_job_path(day.id) do %>
+      <%= day.start.month %>月<%= day.start.day %>日～
+      <%= day.finish.month %>月<%= day.finish.day %>日
+    <% end %>
+    <% if current_user.id == 1 %>
+      <%= link_to "削除", day_path(day.id), method: :delete %>
+    <% end %>
+  </li>
   <% end %>
 <% end %>
