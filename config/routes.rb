@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resource :sats, only: [:create, :destroy]
     resource :events, only: [:new, :create, :destroy, :edit, :update]
     resources :jobs, only: [:new, :create, :update, :destroy, :edit] do
-      resources :job_comments, only: [:create, :destroy]
+      resources :job_comments, only: [:create, :destroy, :edit, :update]
     end
   end
   get "past" => 'days#index2'

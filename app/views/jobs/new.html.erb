@@ -84,6 +84,8 @@
                     <% if comment.user_id == current_user.id %>
                       <div align = "left"><small><%= comment.comment %></small></div>
                       <div align = "right">
+                        <%= link_to "修正", edit_day_job_job_comment_path(@day.id, job.id, comment.id) %>
+                        ｜
                         <%= link_to day_job_job_comment_path(@day.id, job.id, comment.id), method: :delete do %>
                           <button type="button" class="btn btn-link">削除</button>
                         <% end %>

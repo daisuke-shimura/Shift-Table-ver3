@@ -17,6 +17,19 @@ class JobCommentsController < ApplicationController
     redirect_to request.referer
   end
 
+  def edit
+    @day = Day.find(params[:day_id])
+    @user = User.all
+    @job_comment = JobComment.all
+  end
+
+  def update
+    day = Day.find(params[:day_id])
+    comment = JobComment.find(params[:id])
+    comment.update(job_comment_params)
+    redirect_to new_day_job_path(day.id)
+  end
+
 
   private
   def job_comment_params
