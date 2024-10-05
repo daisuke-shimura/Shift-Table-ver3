@@ -20,13 +20,13 @@
       <tr>
         <td></td>
         <td>催事等</td>
-        <td><samll><%= f.text_area :time1 ,cols: 10 %></samll></td>
+        <td><%= f.text_area :time1 ,class: 'form-control' %></td>
         <td><%= f.text_area :time2 ,class: 'form-control' %></td>
-        <td><%= f.text_area :time3 ,cols: 10 %></td>
-        <td><%= f.text_area :time4 ,cols: 10 %></td>
-        <td><%= f.text_area :time5 ,cols: 10 %></td>
-        <td><%= f.text_area :time6 ,cols: 10 %></td>
-        <td><%= f.text_area :time7 ,cols: 10 %></td>
+        <td><%= f.text_area :time3 ,class: 'form-control' %></td>
+        <td><%= f.text_area :time4 ,class: 'form-control' %></td>
+        <td><%= f.text_area :time5 ,class: 'form-control' %></td>
+        <td><%= f.text_area :time6 ,class: 'form-control' %></td>
+        <td><%= f.text_area :time7 ,class: 'form-control' %></td>
         <td class="text-left">
           <%= link_to new_day_job_path(@day.id) do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
           ｜
