@@ -30,6 +30,8 @@
           <td style="font-size: small"><%= event.time6 %></td>
           <td style="font-size: small"><%= event.time7 %></td>
           <td>
+            <%= link_to "編集", edit_day_events_path(event.day_id) %>
+            <br>
             <%= link_to "削除", day_events_path(event.day_id), method: :delete %>
           </td>
           <td></td>
@@ -87,7 +89,7 @@
                         <% end %>
                       </div>
                     <% else %>
-                      <div align = "left"><%= comment.comment %></div>
+                      <div align = "left"><small><%= comment.comment %></small></div>
                     <% end %>
 
                   <% end %>

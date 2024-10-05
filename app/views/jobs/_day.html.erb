@@ -1,46 +1,46 @@
 
   <th style="width: 2% "></th>
   <th style="width: 10% "></th>
-  <th style="width: 8% ">
+  <th style="width: 9% ">
     <% if day.mon_by?(day.id) %>
       <div style="color: red"><%= day.start.month %>月<%= day.start.day %>日</div>
     <% else %>
       <div style="color: black"><%= day.start.month %>月<%= day.start.day %>日</div>
     <% end %>
   </th>
-  <th style="width: 8% ">
+  <th style="width: 9% ">
     <% if day.tue_by?(day.id) %>
       <div style="color: red"><%= (day.start+1).month %>月<%= (day.start+1).day %>日</div>
     <% else %>
       <div style="color: black"><%= (day.start+1).month %>月<%= (day.start+1).day %>日</div>
     <% end %>
   </th>
-  <th style="width: 8% ">
+  <th style="width: 9% ">
     <% if day.wed_by?(day.id) %>
       <div style="color: red"><%= (day.start+2).month %>月<%= (day.start+2).day %>日</div>
     <% else %>
       <div style="color: black"><%= (day.start+2).month %>月<%= (day.start+2).day %>日</div>
     <% end %>
   </th>
-  <th style="width: 8% ">
+  <th style="width: 9% ">
     <% if day.thu_by?(day.id) %>
       <div style="color: red"><%= (day.start+3).month %>月<%= (day.start+3).day %>日</div>
     <% else %>
       <div style="color: black"><%= (day.start+3).month %>月<%= (day.start+3).day %>日</div>
     <% end %>
   </th>
-  <th style="width: 8% ">
+  <th style="width: 9% ">
     <% if day.fri_by?(day.id) %>
       <div style="color: red"><%= (day.start+4).month %>月<%= (day.start+4).day %>日</div>
     <% else %>
       <div style="color: black"><%= (day.start+4).month %>月<%= (day.start+4).day %>日</div>
     <% end %>
   </th>
-  <th style="width: 8% ">
+  <th style="width: 9% ">
     <% if day.sat_by?(day.id) %>
       <div style="color: red"><%= (day.start+5).month %>月<%= (day.start+5).day %>日</div>
     <% else %>
       <div style="color: dodgerblue"><%= (day.start+5).month %>月<%= (day.start+5).day %>日</div>
     <% end %>
   </th>
-  <th style="width: 8%; color: red"><%= (day.start+6).month %>月<%= (day.start+6).day %>日</th>
+  <th style="width: 9%; color: red"><%= (day.start+6).month %>月<%= (day.start+6).day %>日</th>

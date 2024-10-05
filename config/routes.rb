@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resource :thus, only: [:create, :destroy]
     resource :fris, only: [:create, :destroy]
     resource :sats, only: [:create, :destroy]
-    resource :events, only: [:new, :create, :destroy]
+    resource :events, only: [:new, :create, :destroy, :edit, :update]
     resources :jobs, only: [:new, :create, :update, :destroy, :edit] do
       resources :job_comments, only: [:create, :destroy]
     end

@@ -20,7 +20,7 @@
                 <td>
                   <% job_comment.each do |comment| %>
                     <% if comment.day_id == day.id && comment.user_id == job.user_id %>
-                      <div align = "left"><%= comment.comment %></div>
+                      <div align = "left"><small><%= comment.comment %></small></div>
                     <% end %>
                   <% end %>
                 </td>

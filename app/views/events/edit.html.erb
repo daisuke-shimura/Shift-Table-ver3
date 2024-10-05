@@ -6,12 +6,12 @@
 </h3>
 <p>ログイン中のユーザー：<%= current_user.name %></p>
 <hr>
-<h3>催事等記入フォーム</h3>
-<%= form_with model:[@day, @event], url: day_events_path(@day.id), method: :post do |f| %>
+<h3>催事等編集フォーム</h3>
+<%= form_with model:[@day, @event], url: day_events_path(@day.id), method: :patch do |f| %>
   <table class = "table table-sm table-bordered table-hover" >
     <tr class="table-secondary">
       <%= render "jobs/day", day:@day %>
-      <th style="width: 32% "></th>
+      <th style="width: 25% "></th>
     </tr>
     <tr class="table-secondary">
       <%= render "jobs/week", day:@day %>
@@ -20,15 +20,17 @@
       <tr>
         <td></td>
         <td>催事等</td>
-        <td><%= f.text_area :time1 ,cols: 10 %></td>
-        <td><%= f.text_area :time2 ,cols: 10 %></td>
+        <td><samll><%= f.text_area :time1 ,cols: 10 %></samll></td>
+        <td><%= f.text_area :time2 ,class: 'form-control' %></td>
         <td><%= f.text_area :time3 ,cols: 10 %></td>
         <td><%= f.text_area :time4 ,cols: 10 %></td>
         <td><%= f.text_area :time5 ,cols: 10 %></td>
         <td><%= f.text_area :time6 ,cols: 10 %></td>
         <td><%= f.text_area :time7 ,cols: 10 %></td>
         <td class="text-left">
-          <button type="submit" class="btn btn-link btn-sm ">提出</button>
+          <%= link_to new_day_job_path(@day.id) do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
+          ｜
+          <button type="submit" class="btn btn-link btn-sm ">保存</button>
         </td>
       </tr>
     </tbody>
