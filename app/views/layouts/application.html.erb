@@ -16,14 +16,46 @@
     <header>
       <% if user_signed_in? %>
         <!--%= link_to "シフト表","/" %-->
-        <li><%= link_to "ユーザー一覧", users_path %></li>
-        <li><%= link_to "マイページ", user_path(current_user.id) %></li>
-        <li><%= link_to "日程一覧", days_path %></li>
-        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+        <ul style="list-style: none">
+          <li>
+            <%= link_to users_path do %>
+              <i class="fa-solid fa-address-book"></i> ユーザー一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to user_path(current_user.id) do %>
+              <i class="fa-solid fa-user"></i> マイページ
+            <% end %>
+           </li>
+          <li>
+            <%= link_to days_path do %>
+              <i class="fa-regular fa-calendar"></i> 日程一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+            <% end %>
+          </li>
+        </ul>
       <% else %>
-        <li><%= link_to "シフト表","/" %></li>
-        <li><%= link_to "新規登録", new_user_registration_path %></li>
-        <li><%= link_to "ログイン", new_user_session_path %></li>
+        <ul style="list-style: none">
+          <li>
+            <%= link_to "/" do %>
+              <i class="fa-solid fa-ice-cream"></i> シフト表
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_user_registration_path do %>
+              <i class="fa-solid fa-user-plus"></i> 新規登録
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_user_session_path do %>
+              <i class="fa-solid fa-right-to-bracket"></i> ログイン
+            <% end %>
+          </li>
+        </ul>
       <% end %>
     </header>
     <%= yield %>

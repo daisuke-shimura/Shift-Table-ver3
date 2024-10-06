@@ -1,10 +1,13 @@
 <h2>ユーザー名 編集</h2>
 
-<%= link_to "戻る", user_path(@user.id) %>
+<%= link_to user_path(@user.id) do %>
+  <i class="fa-solid fa-arrow-left-long"> 戻る</i>
+<% end %>
 
 <hr>
 <%= form_with model:@user do|f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
-  <%= f.submit "変更" %>
+  <%= link_to user_path(@user.id) do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
+  <button type="submit" class="btn btn-primary btn-sm ">変更</button>
 <% end %>

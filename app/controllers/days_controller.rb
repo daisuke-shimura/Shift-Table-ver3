@@ -2,13 +2,13 @@ class DaysController < ApplicationController
   def index
     date = Date.today
     @date = (date + (8-date.wday))+14
-    @today = Date.today
+    @today = Date.today+3
     @day = Day.all
   end
 
   def index2
     @day = Day.all
-    @today = Date.today
+    @today = Date.today+3
   end
 
   def show
@@ -19,8 +19,12 @@ class DaysController < ApplicationController
 
   def create
     day = Day.new(day_params)
-    day.save
-    redirect_to request.referer
+    if day.save
+      redirect_to request.referer
+    else
+      flash[:notice] = "既につくられた日程です"
+      redirect_to request.referer
+    end
   end
 
   def destroy

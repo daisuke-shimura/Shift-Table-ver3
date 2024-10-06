@@ -1,13 +1,14 @@
-<h1>Days#index</h1>
+
 <p>ログイン中のユーザー：<%= current_user.name %></p>
 <h2>今日</h2>
-<%= @today %>
+<%= Date.today %>
 <hr>
 <% if current_user.id == 1 %>
   <h2>新規日程</h2>
+  <%= flash[:notice] %>
   <%= form_with model: Day.new, url: days_path, method: :post do |f| %>
     <%= f.date_field :start, value: @date %>～<%= f.date_field :finish, value: @date+6 %>
-    <%= f.submit "作成" %>
+    <button type="submit" class="btn btn-primary btn-sm ">作成</button>
   <% end %>
   <hr>
 <% end %>
@@ -16,13 +17,17 @@
 <% @day.order(start: :asc).each do |day| %>
   <% if @today < day.start %>
   <li>
-    <%= day.id %>
     <%= link_to new_day_job_path(day.id) do %>
-      <%= day.start.month %>月<%= day.start.day %>日～
+      <%= day.start.month %>月<%= day.start.day %>日 ～
       <%= day.finish.month %>月<%= day.finish.day %>日
     <% end %>
+
     <% if current_user.id == 1 %>
-      <%= link_to "削除", day_path(day.id), method: :delete %>
+      <%= link_to day_path(day.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+        <button type="button" class="btn btn-outline-danger btn-sm">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      <% end %>
     <% end %>
   </li>
   <% end %>

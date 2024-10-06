@@ -2,14 +2,14 @@
     <table class = "table table-sm table-bordered table-hover" >
       <tr class="table-secondary">
         <%= render "day", day:day %>
-        <th style="width: 32% "></th>
+        <th style="width: 24% "></th>
       </tr>
       <tr class="table-secondary">
         <%= render "week", day:day %>
       </tr>
       <tbody>
         <tr>
-          <td><%= current_user.id %></td>
+          <td><!--%= current_user.id %--></td>
           <td><%= current_user.name %></td>
           <td><%= f.text_field :time1 ,size: 5 %></td>
           <td><%= f.text_field :time2 ,size: 5 %></td>
@@ -19,7 +19,7 @@
           <td><%= f.text_field :time6 ,size: 5 %></td>
           <td><%= f.text_field :time7 ,size: 5 %></td>
           <td class="text-left">
-            <button type="submit" class="btn btn-link btn-sm ">提出</button>
+            <button type="submit" class="btn btn-primary btn-sm ">提出</button>
           </td>
         </tr>
       </tbody>

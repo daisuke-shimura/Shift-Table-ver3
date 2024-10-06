@@ -17,7 +17,7 @@ th{
 
 td{
   text-align:center;
-  vertical-align:bottom;
+  vertical-align: middle;
 }
 
 hr{
@@ -28,6 +28,12 @@ hr{
   /*margin: 10px 0px 10px;*/
   border-top: 5px double #c0c0c0;
   background-color: #ffffff;
+}
+
+.space{
+  display: block;
+  content: "";
+  height: 5px;
 }
 
 /*.line_right{

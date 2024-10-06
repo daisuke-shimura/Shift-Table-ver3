@@ -1,7 +1,11 @@
 <br>
-<p><%= link_to "日程一覧に戻る", days_path %></p>
+<p>
+  <%= link_to days_path do %>
+    <i class="fa-solid fa-arrow-left-long"> 日程一覧に戻る</i>
+  <% end %>
+</p>
 <h3>
-  <%= @day.start.month %>月<%= @day.start.day %>日～
+  <%= @day.start.month %>月<%= @day.start.day %>日 ～
   <%= @day.finish.month %>月<%= @day.finish.day %>日
 </h3>
 <p>ログイン中のユーザー：<%= current_user.name %></p>
@@ -10,12 +14,18 @@
 <table class = "table table-sm table-bordered table-hover" >
   <%= render "jobs/thead", day:@day %>
   <tbody>
-    <% @user.each do |user| %>
+    <% @user.each_with_index do |user, i| %>
       <tr>
-        <td class="table-secondary"><%= user.id %></td>
+        <td class="table-secondary">
+          <% if i == 0 %>
+            <small><small>店長</small></small>
+          <% else %>
+            <%= i %>
+          <% end %>
+        </td>
         <td class="table-secondary"><%= user.name %></td>
         <% if user.job_by?(user.id,@day.id) %>
-<!--「=」消してない--><%= user.jobs.each do |job| %>
+<!--「=」消してない--><% user.jobs.each do |job| %>
             <% if job.day_id == @day.id %>
               <td><%= job.time1 %></td>
               <td><%= job.time2 %></td>

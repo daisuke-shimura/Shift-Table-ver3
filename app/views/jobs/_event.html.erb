@@ -1,5 +1,5 @@
 <% if day.event_by?(day.id) %>
-  <%= Event.all.each do |event| %>
+  <% Event.all.each do |event| %>
     <% if day.id == event.day_id %>
       <td></td>
       <td>催事等</td>

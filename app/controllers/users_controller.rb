@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @day = Day.all
-    @today = Date.today
+    @today = Date.today+3
   end
 
   def update

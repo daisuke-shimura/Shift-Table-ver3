@@ -1,7 +1,11 @@
 <br>
-<p><%= link_to "日程一覧に戻る", days_path %></p>
+<p>
+  <%= link_to days_path do %>
+    <i class="fa-solid fa-arrow-left-long"> 日程一覧に戻る</i>
+  <% end %>
+</p>
 <h3>
-  <%= @day.start.month %>月<%= @day.start.day %>日～
+  <%= @day.start.month %>月<%= @day.start.day %>日 ～
   <%= @day.finish.month %>月<%= @day.finish.day %>日
 </h3>
 <p>ログイン中のユーザー：<%= current_user.name %></p>
@@ -11,7 +15,7 @@
   <table class = "table table-sm table-bordered table-hover" >
     <tr class="table-secondary">
       <%= render "jobs/day", day:@day %>
-      <th style="width: 25% "></th>
+      <th style="width: 24% "></th>
     </tr>
     <tr class="table-secondary">
       <%= render "jobs/week", day:@day %>
