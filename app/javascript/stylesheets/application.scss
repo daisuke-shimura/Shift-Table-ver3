@@ -36,6 +36,14 @@ hr{
   height: 5px;
 }
 
+.flash_message{
+  border-radius: 1px;
+  margin: 10px 0px;
+  background-color: #ffd4d1;
+  color: #dc143c;
+  /*border: solid 1px #930403;*/
+  display:inline-block;
+}
 /*.line_right{
   border-right: 5px double black;
 }

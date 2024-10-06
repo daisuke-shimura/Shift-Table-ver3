@@ -5,7 +5,10 @@
 <hr>
 <% if current_user.id == 1 %>
   <h2>新規日程</h2>
-  <%= flash[:notice] %>
+
+  <div class = "flash_message"><%= flash[:notice] %></div>
+
+
   <%= form_with model: Day.new, url: days_path, method: :post do |f| %>
     <%= f.date_field :start, value: @date %>～<%= f.date_field :finish, value: @date+6 %>
     <button type="submit" class="btn btn-primary btn-sm ">作成</button>

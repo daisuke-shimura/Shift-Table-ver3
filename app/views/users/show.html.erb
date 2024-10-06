@@ -6,7 +6,7 @@
   </button>
 <% end %>
 <hr>
-<h3>提出状況</h3>
+<h3>シフト提出状況</h3>
 <% @day.order(start: :asc).each do |day| %>
   <% if @today < day.start %>
     <li>
