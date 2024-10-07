@@ -1,3 +1,8 @@
+<p>
+  <%= link_to days_path do %>
+    <i class="fa-solid fa-arrow-left-long"> 日程一覧に戻る</i>
+  <% end %>
+</p>
 <h3>ユーザーページ</h3>
 ログイン中のユーザー：<%= @user.name %>
 <%= link_to edit_user_path(@user.id) do %>

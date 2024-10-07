@@ -1,6 +1,35 @@
 <h1>Homes#top</h1>
 <p>
-  <i class="fa-solid fa-ice-cream"></i>
+  <%= link_to new_user_session_path ,:style=>"color: black" do %>
+    <i class="fa-solid fa-ice-cream"></i>
+  <% end %>
 </p>
 <p>Find me in app/views/homes/top.html.erb</p>
+<hr>
+<h2>ログイン</h2>
+
+<%= form_with model: @user, url: user_session_path do |f| %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.collection_select :name, User.where("id > ?", 1), :name, :name , include_blank: "選択してね"%>
+  </div>
+
+  <div class="field">
+    <!--%= f.label :password %-->
+    <%= f.hidden_field :password, value: "aiueoa" %>
+  </div>
+
+  <!--% if devise_mapping.rememberable? %-->
+    <!--div class="field"-->
+      <!--%= f.check_box :remember_me %-->
+      <!--%= f.label :remember_me %-->
+    <!--/div-->
+  <!--% end %-->
+<br>
+  <div class="actions">
+    <button type="submit" class="btn btn-primary btn-sm ">ログイン</button>
+  </div>
+<% end %>
+
 

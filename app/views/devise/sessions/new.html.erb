@@ -1,4 +1,9 @@
-<h2>Log in</h2>
+<p>
+  <%= link_to root_path do %>
+    <i class="fa-solid fa-arrow-left-long"> 戻る</i>
+  <% end %>
+</p>
+<h2>ログイン</h2>
 
 <%= form_with model: @user, url: user_session_path do |f| %>
 
@@ -20,7 +25,7 @@
   <!--% end %-->
 <br>
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <button type="submit" class="btn btn-primary btn-sm">ログイン</button>
   </div>
 <% end %>
 
