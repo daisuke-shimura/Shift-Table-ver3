@@ -1,18 +1,15 @@
-<h1>Homes#top</h1>
 <p>
-  <%= link_to new_user_session_path ,:style=>"color: black" do %>
-    <i class="fa-solid fa-ice-cream"></i>
+  <%= link_to root_path do %>
+    <i class="fa-solid fa-arrow-left-long"> 戻る</i>
   <% end %>
 </p>
-<p>Find me in app/views/homes/top.html.erb</p>
-<hr>
-<h2>ログイン</h2>
+<h2>ユーザー選択</h2>
 
 <%= form_with model: @user, url: user_session_path do |f| %>
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.collection_select :name, User.where("id > ?", 1), :name, :name , include_blank: "選択してね"%>
+    <%= f.collection_select :name, User.all, :name, :name , include_blank: "選択してね"%>
   </div>
 
   <div class="field">
@@ -28,8 +25,8 @@
   <!--% end %-->
 <br>
   <div class="actions">
-    <button type="submit" class="btn btn-primary btn-sm ">ログイン</button>
+    <button type="submit" class="btn btn-primary btn-sm">ログイン</button>
   </div>
 <% end %>
 
-
+<!--%= render "devise/shared/links" %-->

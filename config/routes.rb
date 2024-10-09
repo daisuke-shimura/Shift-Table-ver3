@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
 
   get 'events/new'
+  get "manager" => 'homes#top'
   devise_for :users
-  root to: 'homes#top'
+  #root to: 'homes#top'
+  devise_scope :user do
+    root "devise/sessions#new"
+  end
 
   resources :users, only: [:index, :show, :edit, :update, :destroy]
   resources :days, only: [:index, :show, :create, :destroy] do
