@@ -2,7 +2,7 @@
   <% Event.all.each do |event| %>
     <% if day.id == event.day_id %>
       <td></td>
-      <td>催事等</td>
+      <td><small>催事等</small></td>
       <td style="font-size: small"><%= event.time1 %></td>
       <td style="font-size: small"><%= event.time2 %></td>
       <td style="font-size: small"><%= event.time3 %></td>
@@ -16,7 +16,7 @@
   <% end %>
 <% else %>
   <td></td>
-  <td>催事等</td>
+  <td><small>催事等</small></td>
   <td></td>
   <td></td>
   <td></td>

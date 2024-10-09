@@ -1,5 +1,9 @@
 
-<p>ログイン中のユーザー：<%= current_user.name %></p>
+<p>ログイン中のユーザー：
+  <%= link_to user_path(current_user.id) do %>
+    <%= current_user.name %>
+  <% end %>
+</p>
 <h2>今日</h2>
 <%= Date.today %>
 <hr>

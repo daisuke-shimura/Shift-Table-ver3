@@ -11,15 +11,15 @@
 
     <tbody>
       <tr>
-        <td><%= current_user.id %></td>
+        <td></td>
         <td><%= current_user.name %></td>
-        <td><%= f.text_field :time1 ,size: 5 %></td>
-        <td><%= f.text_field :time2 ,size: 5 %></td>
-        <td><%= f.text_field :time3 ,size: 5 %></td>
-        <td><%= f.text_field :time4 ,size: 5 %></td>
-        <td><%= f.text_field :time5 ,size: 5 %></td>
-        <td><%= f.text_field :time6 ,size: 5 %></td>
-        <td><%= f.text_field :time7 ,size: 5 %></td>
+        <td><%= f.text_field :time1 ,size: 3 %></td>
+        <td><%= f.text_field :time2 ,size: 3 %></td>
+        <td><%= f.text_field :time3 ,size: 3 %></td>
+        <td><%= f.text_field :time4 ,size: 3 %></td>
+        <td><%= f.text_field :time5 ,size: 3 %></td>
+        <td><%= f.text_field :time6 ,size: 3 %></td>
+        <td><%= f.text_field :time7 ,size: 3 %></td>
         <td class="text-left">
           <%= link_to new_day_job_path(day.id) do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
           ｜

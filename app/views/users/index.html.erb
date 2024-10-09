@@ -1,14 +1,24 @@
-<p>
-  <%= link_to days_path do %>
-    <i class="fa-solid fa-arrow-left-long"> 日程一覧に戻る</i>
-  <% end %>
-</p>
-<h2>ユーザー一覧</h2>
-<% @user.each do |user| %>
-    <li>
-      <%= user.name %>
-      <% if current_user.id == 1 || user.id == current_user.id %>
-      　<%= link_to user_path(user.id), method: :delete, "data-confirm" => "本当に「#{user.name}」さんをユーザー一覧から削除しますか？" do %><button type="button" class="btn btn-outline-secondary btn-sm">退職</button><% end %>
+<div class="container">
+  <div class="row">
+    <p>
+      <%= link_to days_path do %>
+        <i class="fa-solid fa-arrow-left-long"> 日程一覧に戻る</i>
       <% end %>
-    </li>
-<% end %>
+    </p>
+  </div>
+  <div class="row">
+    <h2>ユーザー一覧</h2>
+  </div>
+  <div class="row">
+    <% @user.each do |user| %>
+      <div class = "col-lg-1; col-md-4">
+        <li>
+          <%= user.name %>
+          <% if current_user.id == 1 || user.id == current_user.id %>
+          　<%= link_to user_path(user.id), method: :delete, "data-confirm" => "本当に「#{user.name}」さんをユーザー一覧から削除しますか？" do %><button type="button" class="btn btn-outline-secondary btn-sm">退職</button><% end %>
+          <% end %>
+        </li>
+      </div>
+    <% end %>
+  </div>
+</div>

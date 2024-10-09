@@ -13,45 +13,49 @@
   </head>
 
   <body>
-    <header>
-      <% if user_signed_in? %>
-        <!--%= link_to "シフト表","/" %-->
-        <ul style="list-style: none">
-          <li>
-            <%= link_to users_path do %>
-              <i class="fa-solid fa-address-book"></i> ユーザー一覧
-            <% end %>
-          </li>
-          <li>
-            <%= link_to user_path(current_user.id) do %>
-              <i class="fa-solid fa-user"></i> マイページ
-            <% end %>
-           </li>
-          <li>
-            <%= link_to days_path do %>
-              <i class="fa-regular fa-calendar"></i> 日程一覧
-            <% end %>
-          </li>
-          <li>
-            <%= link_to destroy_user_session_path, method: :delete do %>
-              <i class="fa-solid fa-right-from-bracket"></i> ログアウト
-            <% end %>
-          </li>
-        </ul>
-      <% else %>
-        <ul style="list-style: none">
-          <li>
-            <%= link_to "/" do %>
-              <i class="fa-solid fa-ice-cream"></i> シフト表
-            <% end %>
-          </li>
-          <li>
-            <%= link_to new_user_registration_path do %>
-              <i class="fa-solid fa-user-plus"></i> 新規登録
-            <% end %>
-          </li>
-        </ul>
-      <% end %>
+    <header class = "shadow-sm">
+      <div class ="container">
+
+        <% if user_signed_in? %>
+          <!--%= link_to "シフト表","/" %-->
+          <ul style="list-style: none">
+          <div class ="row">
+            <div class ="col">
+            <li>
+              <%= link_to days_path do %>
+                <button type="button" class="btn btn-link btn-sm">
+                  <i class="fa-regular fa-calendar"></i> 日程一覧
+                </button>
+              <% end %>
+            </li>
+            </div>
+            <div class ="col">
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <button type="button" class="btn btn-outline-info btn-sm">
+                  <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                </button>
+              <% end %>
+            </li>
+            </div>
+          </div>
+          </ul>
+        <% else %>
+          <ul style="list-style: none">
+            <li>
+              <%= link_to "/" do %>
+                <i class="fa-solid fa-ice-cream"></i> シフト表
+              <% end %>
+            </li>
+            <li>
+              <%= link_to new_user_registration_path do %>
+                <i class="fa-solid fa-user-plus"></i> 新規登録
+              <% end %>
+            </li>
+          </ul>
+        <% end %>
+
+      </div>
     </header>
     <%= yield %>
   </body>

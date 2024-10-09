@@ -22,10 +22,10 @@
 
   <tr class="table-secondary">
     <% if @day.event_by?(@day.id) %>
-      <% Event.all.each do |event| %>
+      <% Event.all.each do |event| %><!--where("day_id = ?", @day.id)-->
         <% if @day.id == event.day_id %>
           <td></td>
-          <td>催事等</td>
+          <td><small>催事等</small></td>
           <td style="font-size: small"><%= event.time1 %></td>
           <td style="font-size: small"><%= event.time2 %></td>
           <td style="font-size: small"><%= event.time3 %></td>
@@ -57,10 +57,10 @@
       <td>
         <% if current_user.id == 1 %>
           <%= link_to  new_day_events_path(@day.id) do %>
-            <button type="submit" class="btn btn-link ">催事等</button>
+            <button type="submit" class="btn btn-sm btn-link ">催事等</button>
           <% end %>
         <% else %>
-          催事等
+          <small>催事等</small>
         <% end %>
       </td>
       <td></td>
@@ -99,13 +99,13 @@
               <% if job.user.id == current_user.id %>
                 <td>
                   <%= link_to edit_day_job_path(@day.id,job.id) do %>
-                    <button type="button" class="btn btn-outline-primary">
+                    <button type="button" class="btn btn-sm btn-outline-primary">
                       <i class="fa-solid fa-pen"></i>
                     </button>
                   <% end %>
                   <br class= "space">
                   <%= link_to day_job_path(@day.id,job.id), method: :delete, "data-confirm" => "シフト希望を削除しますか？" do %>
-                    <button type="button" class="btn btn-outline-danger ">
+                    <button type="button" class="btn btn-sm btn-outline-danger ">
                       <i class="fa-solid fa-trash-can"></i>
                     </button>
                   <% end %>
@@ -121,10 +121,10 @@
                     <% if comment.user_id == current_user.id %>
                       <div align = "left"><small><%= comment.comment %></small></div>
                       <div align = "right">
-                        <%= link_to edit_day_job_job_comment_path(@day.id, job.id, comment.id) do %><button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></button><% end %>
+                        <%= link_to edit_day_job_job_comment_path(@day.id, job.id, comment.id) do %><button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button><% end %>
 
                         <%= link_to day_job_job_comment_path(@day.id, job.id, comment.id), method: :delete do %>
-                          <button type="button" class="btn btn-outline-danger "><i class="fa-solid fa-trash-can"></i></button>
+                          <button type="button" class="btn btn-sm btn-outline-danger "><i class="fa-solid fa-trash-can"></i></button>
                         <% end %>
                       </div>
                     <% else %>
@@ -140,7 +140,7 @@
                   <%= form_with model: [@day, job, JobComment.new] do |f| %>
                     <%= f.text_area :comment ,class: 'form-control' %>
                     <div align = "right">
-                      <button type="submit" class="btn btn-link">送信</button>
+                      <button type="submit" class="btn btn-sm btn-primary">送信</button>
                     </div>
                   <% end %>
                 <% end %>
