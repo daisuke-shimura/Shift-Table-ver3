@@ -42,16 +42,26 @@
           </ul>
         <% else %>
           <ul style="list-style: none">
-            <li>
-              <%= link_to "/" do %>
-                <i class="fa-solid fa-ice-cream"></i> シフト表
-              <% end %>
-            </li>
-            <li>
-              <%= link_to new_user_registration_path do %>
-                <i class="fa-solid fa-user-plus"></i> 新規登録
-              <% end %>
-            </li>
+            <div class = "row">
+              <div class = "col">
+                <li>
+                  <%= link_to "/" do %>
+                    <button type="button" class="btn btn-link btn-sm">
+                      <i class="fa-solid fa-ice-cream"></i> シフト表
+                    </button>
+                  <% end %>
+                </li>
+              </div>
+              <div class = "col">
+                <li>
+                  <%= link_to new_user_registration_path do %>
+                    <button type="button" class="btn btn-link btn-sm">
+                      <i class="fa-solid fa-user-plus"></i> 新規登録
+                    </button>
+                  <% end %>
+                </li>
+              </div>
+            </div>
           </ul>
         <% end %>
 
