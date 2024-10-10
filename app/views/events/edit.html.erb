@@ -32,7 +32,7 @@
         <td><%= f.text_area :time6 ,class: 'form-control' %></td>
         <td><%= f.text_area :time7 ,class: 'form-control' %></td>
         <td class="text-left">
-          <%= link_to new_day_job_path(@day.id) do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
+          <%= link_to new_day_job_path(@day.id), "data-confirm" => "変更をキャンセルしますか？" do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
           ｜
           <button type="submit" class="btn btn-primary btn-sm ">保存</button>
         </td>

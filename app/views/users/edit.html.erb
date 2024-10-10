@@ -8,6 +8,6 @@
 <%= form_with model:@user do|f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
-  <%= link_to user_path(@user.id) do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
+  <%= link_to user_path(@user.id), "data-confirm" => "変更をキャンセルしますか？" do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
   <button type="submit" class="btn btn-primary btn-sm ">変更</button>
 <% end %>

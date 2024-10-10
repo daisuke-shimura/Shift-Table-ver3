@@ -1,7 +1,7 @@
 <!-- 日にち -->
 <tr class="table-secondary">
-  <th style="width: 3% "></th>
-  <th style="width: 10% "></th>
+  <th class="one"></th>
+  <th class="two"></th>
   <th style="width: 9% ">
     <% if day.mon_by?(day.id) %>
       <% if current_user.id == 1 %>
@@ -124,7 +124,7 @@
 </tr>
 <!-- 曜日 -->
 <tr class="table-secondary">
-  <th></th>
+  <th class="one"></th>
   <th></th>
   <th>
     <% if day.mon_by?(day.id) %>

@@ -24,7 +24,7 @@
     <% if @day.event_by?(@day.id) %>
       <% Event.all.each do |event| %><!--where("day_id = ?", @day.id)-->
         <% if @day.id == event.day_id %>
-          <td></td>
+          <td class="one"></td>
           <td><small>催事等</small></td>
           <td style="font-size: small"><%= event.time1 %></td>
           <td style="font-size: small"><%= event.time2 %></td>
@@ -53,7 +53,7 @@
         <% end %>
       <% end %>
     <% else %>
-      <td></td>
+      <td class="one"></td>
       <td>
         <% if current_user.id == 1 %>
           <%= link_to  new_day_events_path(@day.id) do %>
@@ -78,14 +78,14 @@
   <tbody>
     <% @user.each_with_index do |user, i| %>
       <tr>
-        <td class="table-secondary">
+        <td class="one">
           <% if i == 0 %>
             <small><small>店長</small></small>
           <% else %>
             <%= i %>
           <% end %>
         </td>
-        <td class="table-secondary"><%= user.name %></td>
+        <td class="table-secondary"><small><%= user.name %></small></td>
         <% if user.job_by?(user.id,@day.id) %>
           <% user.jobs.each do |job| %>
             <% if job.day_id == @day.id %>
