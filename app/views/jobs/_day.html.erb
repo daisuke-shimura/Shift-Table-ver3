@@ -1,46 +1,47 @@
 
-  <th style="width: 3% "></th>
-  <th style="width: 10% "></th>
-  <th style="width: 9% ">
+  <th class="one"></th>
+  <th class="two"></th>
+  <th ><!--style="width: 9% "-->
     <% if day.mon_by?(day.id) %>
       <div style="color: red"><%= day.start.month %>/<%= day.start.day %></div>
     <% else %>
       <div style="color: black"><%= day.start.month %>/<%= day.start.day %></div>
     <% end %>
   </th>
-  <th style="width: 9% ">
+  <th >
     <% if day.tue_by?(day.id) %>
       <div style="color: red"><%= (day.start+1).month %>/<%= (day.start+1).day %></div>
     <% else %>
       <div style="color: black"><%= (day.start+1).month %>/<%= (day.start+1).day %></div>
     <% end %>
   </th>
-  <th style="width: 9% ">
+  <th >
     <% if day.wed_by?(day.id) %>
       <div style="color: red"><%= (day.start+2).month %>/<%= (day.start+2).day %></div>
     <% else %>
       <div style="color: black"><%= (day.start+2).month %>/<%= (day.start+2).day %></div>
     <% end %>
   </th>
-  <th style="width: 9% ">
+  <th >
     <% if day.thu_by?(day.id) %>
       <div style="color: red"><%= (day.start+3).month %>/<%= (day.start+3).day %></div>
     <% else %>
       <div style="color: black"><%= (day.start+3).month %>/<%= (day.start+3).day %></div>
     <% end %>
   </th>
-  <th style="width: 9% ">
+  <th >
     <% if day.fri_by?(day.id) %>
       <div style="color: red"><%= (day.start+4).month %>/<%= (day.start+4).day %></div>
     <% else %>
       <div style="color: black"><%= (day.start+4).month %>/<%= (day.start+4).day %></div>
     <% end %>
   </th>
-  <th style="width: 9% ">
+  <th >
     <% if day.sat_by?(day.id) %>
       <div style="color: red"><%= (day.start+5).month %>/<%= (day.start+5).day %></div>
     <% else %>
       <div style="color: dodgerblue"><%= (day.start+5).month %>/<%= (day.start+5).day %></div>
     <% end %>
   </th>
-  <th style="width: 9%; color: red"><%= (day.start+6).month %>/<%= (day.start+6).day %></th>
+  <th style="color: red"><%= (day.start+6).month %>/<%= (day.start+6).day %></th>
+  <!--width: 9%;-->

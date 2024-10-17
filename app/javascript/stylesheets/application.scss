@@ -35,6 +35,10 @@ header{
   padding-top: 20px;
 }
 
+footer{
+  padding: 15px;
+}
+
 th{
   text-align:center;
 }
@@ -131,6 +135,7 @@ hr{
   .name{
     min-width: 80px;
     font-size: 14px;
+    background-color:	#ee82ee;
   }
   .saizi{
     font-size: 13px;
@@ -165,15 +170,11 @@ hr{
 
   .name{
     min-width: 50px;
-    /*width: 10%;*/
-    font-size: 14px;
-    position: sticky;
-    top: 65px;
-    left: 0;
+    background-color:	#fffacd;
   }
 
   .hyou{
-    height: 500px;
+    height: 650px;
   }
   /*.week{
 
