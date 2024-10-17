@@ -16,23 +16,25 @@
 <% end %>
 <hr>
 <h3>シフト希望一覧</h3>
-<table class = "table table-sm table-bordered table-hover" >
+<div class= "scroll">
+<div class = "hyou">
+<table class = "table table-sm table-bordered table-hover" style="width: 100%">
 
   <%= render "holiday", day:@day %>
 
-  <tr class="table-secondary">
+  <tr class="table-secondary"><!---->
     <% if @day.event_by?(@day.id) %>
       <% Event.all.each do |event| %><!--where("day_id = ?", @day.id)-->
         <% if @day.id == event.day_id %>
           <td class="one"></td>
-          <td><small>催事等</small></td>
-          <td style="font-size: small"><%= event.time1 %></td>
-          <td style="font-size: small"><%= event.time2 %></td>
-          <td style="font-size: small"><%= event.time3 %></td>
-          <td style="font-size: small"><%= event.time4 %></td>
-          <td style="font-size: small"><%= event.time5 %></td>
-          <td style="font-size: small"><%= event.time6 %></td>
-          <td style="font-size: small"><%= event.time7 %></td>
+          <td class ="saizi">催事等</td>
+          <td class ="event"><%= event.time1 %></td>
+          <td class ="event"><%= event.time2 %></td>
+          <td class ="event"><%= event.time3 %></td>
+          <td class ="event"><%= event.time4 %></td>
+          <td class ="event"><%= event.time5 %></td>
+          <td class ="event"><%= event.time6 %></td>
+          <td class ="event"><%= event.time7 %></td>
           <td>
             <% if current_user.id == 1 %>
               <%= link_to edit_day_events_path(event.day_id) do %>
@@ -40,7 +42,7 @@
                   <i class="fa-solid fa-pen"></i>
                 </button>
               <% end %>
-              <br class= "space">
+              <div class= "space"></div>
               <%= link_to day_events_path(event.day_id), method: :delete, "data-confirm" => "催事等を削除しますか？" do %>
                 <button type="button" class="btn btn-sm btn-outline-danger">
                   <i class="fa-solid fa-trash-can"></i>
@@ -54,13 +56,13 @@
       <% end %>
     <% else %>
       <td class="one"></td>
-      <td>
+      <td class ="saizi">
         <% if current_user.id == 1 %>
           <%= link_to  new_day_events_path(@day.id) do %>
             <button type="submit" class="btn btn-sm btn-link ">催事等</button>
           <% end %>
         <% else %>
-          <small>催事等</small>
+          催事等
         <% end %>
       </td>
       <td></td>
@@ -85,7 +87,7 @@
             <%= i %>
           <% end %>
         </td>
-        <td class="table-secondary"><small><%= user.name %></small></td>
+        <td class="name"><%= user.name %></td>
         <% if user.job_by?(user.id,@day.id) %>
           <% user.jobs.each do |job| %>
             <% if job.day_id == @day.id %>
@@ -103,7 +105,7 @@
                       <i class="fa-solid fa-pen"></i>
                     </button>
                   <% end %>
-                  <br><br>
+                  <div class = "space"></div>
                   <%= link_to day_job_path(@day.id,job.id), method: :delete, "data-confirm" => "シフト希望を削除しますか？" do %>
                     <button type="button" class="btn btn-sm btn-outline-danger ">
                       <i class="fa-solid fa-trash-can"></i>
@@ -119,7 +121,7 @@
                 <% @job_comment.all.each do |comment| %>
                   <% if comment.day_id == @day.id && comment.user_id == job.user_id %>
                     <% if comment.user_id == current_user.id %>
-                      <div align = "left"><small><%= comment.comment %></small></div>
+                      <div class="comment"><%= comment.comment %></div>
                       <div align = "right">
                         <%= link_to edit_day_job_job_comment_path(@day.id, job.id, comment.id) do %><button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pen"></i></button><% end %>
 
@@ -128,7 +130,7 @@
                         <% end %>
                       </div>
                     <% else %>
-                      <div align = "left"><small><%= comment.comment %></small></div>
+                      <div class="comment"><%= comment.comment %></div>
                     <% end %>
 
                   <% end %>
@@ -157,3 +159,5 @@
     <% end %>
   </tbody>
 </table>
+</div>
+</div>

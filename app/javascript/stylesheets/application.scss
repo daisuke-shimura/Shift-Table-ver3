@@ -1,8 +1,12 @@
 @use '~bootstrap/scss/bootstrap';
 
-
 *{
-  padding:0;.flash_message{
+  padding:0;
+  margin: 0;
+  box-sizing: border-box;
+}
+  
+  .flash_message{
   border-radius: 1px;
   margin: 10px 0px;
   background-color: #ffd4d1;
@@ -19,21 +23,12 @@
 }*/
 
 .box{
-  padding: 100px 0 150px;
+  padding: 30px 0 125px;
   margin: 0px auto;
-  width: 300px;
+  width: 225px;
   box-shadow: 0 0 10px #c0c0c0;
   background-color: #f0ffff;
   border-radius: 5px;
-}
-
-.one{
-  background-color:	#d6d8db;
-  width: 3%;
-}
-
-  margin: 0;
-  box-sizing: border-box;
 }
 
 header{
@@ -59,24 +54,131 @@ hr{
   background-color: #ffffff;
 }
 
-/*.space{
+.space{
   display: block;
   content: "";
   height: 5px;
-}*/
-
-
-.two{
-  width: 10%;
 }
 
-@media screen and (max-width:960px){
+.one{
+  background-color:	#d6d8db;
+  width: 3.5%;
+}
+
+.name{
+  background-color:	#d6d8db;
+  width: 9.5%;
+}
+
+.day{
+  width: 9%;
+}
+
+.edit{
+  width: 4%;
+}
+
+.come,.comment{
+  width: 20%;
+
+}
+
+.comment{
+  text-align: left;
+  font-size: small;
+  white-space: pre;
+}
+
+.saizi{
+  font-size: 15px;
+}
+
+.event{
+  font-size: 13px;
+  white-space: pre-wrap;/*幅に合わせて勝手に改行する*/
+}
+
+@media screen and (max-width:991px){
+  .scroll{
+    overflow: scroll;
+  }
+  .hyou{
+    height: 400px;
+  }
 
   .one{
     display:none
   }
 
   .two{
-    width: 13%;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1;
   }
+  .two_2{
+    position: sticky;
+    top: 31px;
+    left: 0px;
+    z-index: 1;
+  }
+
+  .name,.saizi{
+    position: sticky;
+    top: 0px;
+    left: 0px;
+  }
+  .name{
+    min-width: 80px;
+    font-size: 14px;
+  }
+  .saizi{
+    font-size: 13px;
+  }
+
+  .day,.edit,.come{
+
+    position: sticky;
+    top: 0;
+    left: 0px;
+  }
+
+  .week{
+    position: sticky;
+    top: 31px;
+    left: 0px;
+  }
+
+  .comment{
+    min-width: 150px;
+    font-size: 14px;
+  }
+
+  .event{
+    font-size: 12px;
+  }
+}
+
+
+@media screen and (max-width:665px){
+
+
+  .name{
+    min-width: 50px;
+    /*width: 10%;*/
+    font-size: 14px;
+    position: sticky;
+    top: 65px;
+    left: 0;
+  }
+
+  .hyou{
+    height: 500px;
+  }
+  /*.week{
+
+    min-width: 80px;
+    width: 12%;
+    background-color:	#7fffd4;
+  }*/
 }
