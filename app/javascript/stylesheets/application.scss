@@ -148,7 +148,7 @@ hr{
     left: 0px;
   }
   .day{
-    min-width: 70px;
+    min-width: 80px;
   }
 
   .week{
@@ -167,6 +167,18 @@ hr{
   }
 }
 
+@media screen and (max-width:700px){
+
+
+  .name{
+    background-color:	#80ffc2;
+  }
+
+  .day{
+    min-width: 60px;
+  }
+
+}
 
 @media screen and (max-width:665px){
 
@@ -177,7 +189,7 @@ hr{
   }
 
   .day{
-    min-width: 55px;
+    min-width: 58px;
   }
 
   .hyou{
@@ -189,4 +201,13 @@ hr{
     width: 12%;
     background-color:	#7fffd4;
   }*/
+}
+@media screen and (max-width:385px){
+  .name{
+    background-color:	#98d2ff;
+  }
+
+  .hyou{
+    height: 500px;
+  }
 }
