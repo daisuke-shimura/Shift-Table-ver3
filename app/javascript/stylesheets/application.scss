@@ -107,7 +107,7 @@ hr{
     overflow: scroll;
   }
   .hyou{
-    height: 400px;
+    height: 350px;
   }
 
   .one{
@@ -147,6 +147,9 @@ hr{
     top: 0;
     left: 0px;
   }
+  .day{
+    min-width: 70px;
+  }
 
   .week{
     position: sticky;
@@ -171,6 +174,10 @@ hr{
   .name{
     min-width: 50px;
     background-color:	#fffacd;
+  }
+
+  .day{
+    min-width: 55px;
   }
 
   .hyou{
