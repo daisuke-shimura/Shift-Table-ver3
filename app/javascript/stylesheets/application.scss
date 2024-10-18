@@ -52,11 +52,11 @@ hr{
   background-color: #696969;
 }
 
-.border_line{
-  /*margin: 10px 0px 10px;*/
+/*.border_line{
+  margin: 10px 0px 10px;
   border-top: 5px double #c0c0c0;
   background-color: #ffffff;
-}
+}*/
 
 .space{
   display: block;
@@ -65,13 +65,13 @@ hr{
 }
 
 .one{
-  background-color:	#d6d8db;
   width: 3.5%;
 }
-
+.two{
+  width: 9.5%;
+}
 .name{
   background-color:	#d6d8db;
-  width: 9.5%;
 }
 
 .day{
@@ -82,24 +82,32 @@ hr{
   width: 4%;
 }
 
-.come,.comment{
+.come{
   width: 20%;
-
 }
 
 .comment{
   text-align: left;
-  font-size: small;
-  white-space: pre;
+  font-size: 14px;
+  white-space: pre-wrap;
 }
 
 .saizi{
   font-size: 15px;
+  background-color:	#d6d8db;
 }
 
 .event{
   font-size: 13px;
   white-space: pre-wrap;/*幅に合わせて勝手に改行する*/
+}
+
+.job{
+  white-space: pre-wrap;
+}
+
+.form{
+  min-width: 105px;
 }
 
 @media screen and (max-width:991px){
@@ -115,6 +123,7 @@ hr{
   }
 
   .two{
+    min-width: 80px;
     position: sticky;
     top: 0;
     left: 0;
@@ -133,7 +142,6 @@ hr{
     left: 0px;
   }
   .name{
-    min-width: 80px;
     font-size: 14px;
     background-color:	#ee82ee;
   }
@@ -150,16 +158,14 @@ hr{
   .day{
     min-width: 80px;
   }
+  .come{
+    min-width: 150px;
+  }
 
   .week{
     position: sticky;
     top: 31px;
     left: 0px;
-  }
-
-  .comment{
-    min-width: 150px;
-    font-size: 14px;
   }
 
   .event{
@@ -182,9 +188,11 @@ hr{
 
 @media screen and (max-width:665px){
 
+  .two{
+    min-width: 50px;
+  }
 
   .name{
-    min-width: 50px;
     background-color:	#fffacd;
   }
 
@@ -195,6 +203,7 @@ hr{
   .hyou{
     height: 650px;
   }
+
   /*.week{
 
     min-width: 80px;

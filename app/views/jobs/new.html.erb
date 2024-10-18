@@ -91,13 +91,13 @@
             <% if user.job_by?(user.id,@day.id) %>
               <% user.jobs.each do |job| %>
                 <% if job.day_id == @day.id %>
-                  <td><%= job.time1 %></td>
-                  <td><%= job.time2 %></td>
-                  <td><%= job.time3 %></td>
-                  <td><%= job.time4 %></td>
-                  <td><%= job.time5 %></td>
-                  <td><%= job.time6 %></td>
-                  <td><%= job.time7 %></td>
+                  <td class="job"><%= job.time1 %></td>
+                  <td class="job"><%= job.time2 %></td>
+                  <td class="job"><%= job.time3 %></td>
+                  <td class="job"><%= job.time4 %></td>
+                  <td class="job"><%= job.time5 %></td>
+                  <td class="job"><%= job.time6 %></td>
+                  <td class="job"><%= job.time7 %></td>
                   <% if job.user.id == current_user.id %>
                     <td>
                       <%= link_to edit_day_job_path(@day.id,job.id) do %>

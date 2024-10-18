@@ -3,7 +3,7 @@
     <table class = "table table-sm table-bordered table-hover" >
       <tr class="table-secondary">
         <%= render "day", day:day %>
-        <th class="comment"></th>
+        <th class="come"></th>
       </tr>
       <tr class="table-secondary">
         <%= render "week", day:day %>
@@ -12,13 +12,13 @@
         <tr>
           <td class="one"><!--%= current_user.id %--></td>
           <td class="name"><%= current_user.name %></td>
-          <td><%= f.text_field :time1 ,size: 6 %></td>
-          <td><%= f.text_area :time2 ,class: 'form-control',size: "10x2" %></td>
-          <td><%= f.text_field :time3 ,size: 6 %></td>
-          <td><%= f.text_area :time4 ,class: "form-control", style: "width:10", rows: "2" %></td>
-          <td><%= f.text_field :time5 ,size: 6 %></td>
-          <td><%= f.text_field :time6 ,size: 6 %></td>
-          <td><%= f.text_field :time7 ,size: 6 %></td>
+          <td><%= f.text_area :time1 ,class: 'form-control', rows: "2" %></td>
+          <td><%= f.text_area :time2 ,class: 'form-control', rows: "2" %></td>
+          <td><%= f.text_area :time3 ,class: 'form-control', rows: "2" %></td>
+          <td><%= f.text_area :time4 ,class: "form-control", rows: "2" %></td>
+          <td><%= f.text_area :time5 ,class: 'form-control', rows: "2" %></td>
+          <td><%= f.text_area :time6 ,class: "form-control", rows: "2" %></td>
+          <td><%= f.text_area :time7 ,class: 'form-control', rows: "2" %></td>
           <td class="text-left">
             <button type="submit" class="btn btn-primary btn-sm ">提出</button>
           </td>

@@ -1,31 +1,32 @@
 <%= form_with model:[day, job],url: day_job_path(day.id, job.id), method: :patch  do |f| %>
-  <table class = "table table-sm table-bordered">
-    <tr class="table-secondary">
-      <%= render "day", day:day %>
-      <th style="width: 32% "></th>
-    </tr>
-
-    <tr class="table-secondary">
-      <%= render "week" , day:day %>
-    </tr>
-
-    <tbody>
-      <tr>
-        <td></td>
-        <td><%= current_user.name %></td>
-        <td><%= f.text_field :time1 ,size: 4 %></td>
-        <td><%= f.text_field :time2 ,size: 4 %></td>
-        <td><%= f.text_field :time3 ,size: 4 %></td>
-        <td><%= f.text_field :time4 ,size: 4 %></td>
-        <td><%= f.text_field :time5 ,size: 4 %></td>
-        <td><%= f.text_field :time6 ,size: 4 %></td>
-        <td><%= f.text_field :time7 ,size: 4 %></td>
-        <td class="text-left">
-          <%= link_to new_day_job_path(day.id), "data-confirm" => "変更をキャンセルしますか？" do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
-          ｜
-          <button type="submit" class="btn btn-primary btn-sm">保存</button>
-        </td>
+  <div class= "scroll">
+    <table class = "table table-sm table-bordered">
+      <tr class="table-secondary">
+        <%= render "day", day:day %>
+        <th class="come"></th>
       </tr>
-    </tbody>
-  </table>
+
+      <tr class="table-secondary">
+        <%= render "week" , day:day %>
+      </tr>
+
+      <tbody>
+        <tr>
+          <td class="one"></td>
+          <td class="name"><%= current_user.name %></td>
+          <td><%= f.text_area :time1 ,class: 'form-control', rows: "2" %></td>
+          <td><%= f.text_area :time2 ,class: 'form-control', rows: "2" %></td>
+          <td><%= f.text_area :time3 ,class: 'form-control', rows: "2" %></td>
+          <td><%= f.text_area :time4 ,class: "form-control", rows: "2" %></td>
+          <td><%= f.text_area :time5 ,class: 'form-control', rows: "2" %></td>
+          <td><%= f.text_area :time6 ,class: "form-control", rows: "2" %></td>
+          <td><%= f.text_area :time7 ,class: 'form-control', rows: "2" %></td>
+          <td class="text-left">
+            <%= link_to new_day_job_path(day.id), "data-confirm" => "変更をキャンセルしますか？" do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
+            <button type="submit" class="btn btn-primary btn-sm">保存</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 <% end %>
