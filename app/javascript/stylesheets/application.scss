@@ -11,16 +11,8 @@
   margin: 10px 0px;
   background-color: #ffd4d1;
   color: #dc143c;
-  /*border: solid 1px #930403;*/
   display:inline-block;
 }
-/*.line_right{
-  border-right: 5px double black;
-}
-
-.line_bottom{
-  border-bottom: 5px double black;
-}*/
 
 .box{
   padding: 30px 0 125px;
@@ -51,12 +43,6 @@ td{
 hr{
   background-color: #696969;
 }
-
-/*.border_line{
-  margin: 10px 0px 10px;
-  border-top: 5px double #c0c0c0;
-  background-color: #ffffff;
-}*/
 
 .space{
   display: block;
@@ -175,8 +161,6 @@ hr{
 }
 
 @media screen and (max-width:700px){
-
-
   .name{
     background-color:	#80ffc2;
   }
@@ -184,11 +168,9 @@ hr{
   .day{
     min-width: 60px;
   }
-
 }
 
 @media screen and (max-width:665px){
-
   .two{
     min-width: 50px;
   }
@@ -204,14 +186,8 @@ hr{
   .hyou{
     height: 650px;
   }
-
-  /*.week{
-
-    min-width: 80px;
-    width: 12%;
-    background-color:	#7fffd4;
-  }*/
 }
+
 @media screen and (max-width:385px){
   .name{
     background-color:	#98d2ff;
