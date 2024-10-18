@@ -1,20 +1,14 @@
 
-  <div class="row">
     <p>
       <%= link_to days_path do %>
         <i class="fa-solid fa-arrow-left-long"> 日程一覧に戻る</i>
       <% end %>
     </p>
-  </div>
-  <div class="row">
 
       <h3><%= link_to users_path, :style=>"color: black" do %><small><i class="fa-solid fa-user"></i></small><% end %>
         ユーザーページ
       </h3>
 
-      
-
-  </div>
     ログイン中のユーザー：<%= @user.name %>
     <%= link_to edit_user_path(@user.id) do %>
       <button type="button" class="btn btn-outline-primary">

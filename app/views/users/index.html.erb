@@ -1,24 +1,20 @@
-<div class="container">
+<p>
+  <%= link_to user_path(current_user.id) do %>
+    <i class="fa-solid fa-arrow-left-long"> 戻る</i>
+  <% end %>
+</p>
+<h2>ユーザー一覧</h2>
+<hr>
+<% @user.each do |user| %>
   <div class="row">
-    <p>
-      <%= link_to user_path(current_user.id) do %>
-        <i class="fa-solid fa-arrow-left-long"> 戻る</i>
+    <div class="col">
+      ・
+      <%= user.name %>
+    </div>
+    <div class="col">
+      <% if current_user.id == 1 || user.id == current_user.id %>
+        <%= link_to user_path(user.id), method: :delete, "data-confirm" => "本当に「#{user.name}」さんをユーザー一覧から削除しますか？" do %><button type="button" class="btn btn-outline-secondary btn-sm">退職</button><% end %>
       <% end %>
-    </p>
+    </div>
   </div>
-  <div class="row">
-    <h2>ユーザー一覧</h2>
-  </div>
-  <div class="row">
-    <% @user.each do |user| %>
-      <div class = "col-lg-1; col-md-4">
-        <li>
-          <%= user.name %>
-          <% if current_user.id == 1 || user.id == current_user.id %>
-          　<%= link_to user_path(user.id), method: :delete, "data-confirm" => "本当に「#{user.name}」さんをユーザー一覧から削除しますか？" do %><button type="button" class="btn btn-outline-secondary btn-sm">退職</button><% end %>
-          <% end %>
-        </li>
-      </div>
-    <% end %>
-  </div>
-</div>
+<% end %>
