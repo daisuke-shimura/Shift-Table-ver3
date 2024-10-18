@@ -1,22 +1,22 @@
 <% if day.event_by?(day.id) %>
   <% Event.all.each do |event| %>
     <% if day.id == event.day_id %>
-      <td></td>
-      <td><small>催事等</small></td>
-      <td style="font-size: small"><%= event.time1 %></td>
-      <td style="font-size: small"><%= event.time2 %></td>
-      <td style="font-size: small"><%= event.time3 %></td>
-      <td style="font-size: small"><%= event.time4 %></td>
-      <td style="font-size: small"><%= event.time5 %></td>
-      <td style="font-size: small"><%= event.time6 %></td>
-      <td style="font-size: small"><%= event.time7 %></td>
+      <td class="one"></td>
+      <td class ="saizi">催事等</td>
+      <td class ="event"><%= event.time1 %></td>
+      <td class ="event"><%= event.time2 %></td>
+      <td class ="event"><%= event.time3 %></td>
+      <td class ="event"><%= event.time4 %></td>
+      <td class ="event"><%= event.time5 %></td>
+      <td class ="event"><%= event.time6 %></td>
+      <td class ="event"><%= event.time7 %></td>
       <td></td>
       <td></td>
     <% end %>
   <% end %>
 <% else %>
-  <td></td>
-  <td><small>催事等</small></td>
+  <td class="one"></td>
+  <td class ="saizi">催事等</td>
   <td></td>
   <td></td>
   <td></td>

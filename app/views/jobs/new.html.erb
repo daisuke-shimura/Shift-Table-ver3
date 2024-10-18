@@ -58,9 +58,7 @@
           <td class="one"></td>
           <td class ="saizi">
             <% if current_user.id == 1 %>
-              <%= link_to  new_day_events_path(@day.id) do %>
-                <button type="submit" class="btn btn-sm btn-link ">催事等</button>
-              <% end %>
+              <%= link_to "催事等" ,new_day_events_path(@day.id) %>
             <% else %>
               催事等
             <% end %>
