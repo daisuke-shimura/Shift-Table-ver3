@@ -21,7 +21,7 @@
 
             <div class="field">
               <%= f.label :name %><br>
-              <%= f.collection_select :name, User.where("id > ?", 1), :name, :name , include_blank: "" %>
+              <%= f.collection_select :name, User.where("id > ?", 1), :name, :name , {include_blank: "選択"},{ class: 'form-control', required: true } %>
             </div>
 
             <div class="field">
@@ -36,7 +36,7 @@
               <!--/div-->
             <!--% end %-->
           <br>
-            <div class="text-right">
+            <div class="login">
               <button type="submit" class="btn btn-primary btn-sm ">ログイン</button>
             </div>
           <% end %>

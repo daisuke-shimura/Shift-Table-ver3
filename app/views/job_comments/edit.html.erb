@@ -11,59 +11,63 @@
 <p>ログイン中のユーザー：<%= current_user.name %></p>
 <hr>
 <h3>備考欄編集</h3>
-<table class = "table table-sm table-bordered table-hover" >
-  <%= render "jobs/thead", day:@day %>
-  <tbody>
-    <% @user.each_with_index do |user, i| %>
-      <tr>
-        <td class="table-secondary">
-          <% if i == 0 %>
-            <small><small>店長</small></small>
-          <% else %>
-            <%= i %>
-          <% end %>
-        </td>
-        <td class="table-secondary"><%= user.name %></td>
-        <% if user.job_by?(user.id,@day.id) %>
-<!--「=」消してない--><% user.jobs.each do |job| %>
-            <% if job.day_id == @day.id %>
-              <td><%= job.time1 %></td>
-              <td><%= job.time2 %></td>
-              <td><%= job.time3 %></td>
-              <td><%= job.time4 %></td>
-              <td><%= job.time5 %></td>
-              <td><%= job.time6 %></td>
-              <td><%= job.time7 %></td>
-              <td></td>
-              <% if job.comment_by?(job.user_id, @day.id) %>
-                <td>
-                  <% @job_comment.each do |comment| %>
-                    <% if comment.day_id == @day.id && comment.user_id == job.user_id %>
-                      <% if comment.user_id == current_user.id %>
-                        <%= form_with model:[@day, job, comment] do |f| %>
-                          <%= f.text_area :comment ,class: 'form-control' %>
-                          <div align = "right">
-                            <%= link_to new_day_job_path(@day.id), "data-confirm" => "変更をキャンセルしますか？" do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
-                            |
-                            <button type="submit" class="btn btn-sm btn-primary">保存</button>
-                          </div>
-                        <% end %>
-                      <% else %>
-                        <div align = "left"><small><%= comment.comment %></small></div>
-                      <% end %>
-
-                    <% end %>
-                  <% end %>
-                </td>
+  <div class= "scroll">    
+   <div class = "hyou">
+    <table class = "table table-sm table-bordered table-hover" >
+      <%= render "jobs/thead", day:@day %>
+      <tbody>
+        <% @user.each_with_index do |user, i| %>
+          <tr>
+            <td class="one">
+              <% if i == 0 %>
+                <small><small>店長</small></small>
               <% else %>
-                <td></td>
+                <%= i %>
               <% end %>
+            </td>
+            <td class="name"><%= user.name %></td>
+            <% if user.job_by?(user.id,@day.id) %>
+    <!--「=」消してない--><% user.jobs.each do |job| %>
+                <% if job.day_id == @day.id %>
+                  <td class="job"><%= job.time1 %></td>
+                  <td class="job"><%= job.time2 %></td>
+                  <td class="job"><%= job.time3 %></td>
+                  <td class="job"><%= job.time4 %></td>
+                  <td class="job"><%= job.time5 %></td>
+                  <td class="job"><%= job.time6 %></td>
+                  <td class="job"><%= job.time7 %></td>
+                  <td></td>
+                  <% if job.comment_by?(job.user_id, @day.id) %>
+                    <td>
+                      <% @job_comment.each do |comment| %>
+                        <% if comment.day_id == @day.id && comment.user_id == job.user_id %>
+                          <% if comment.user_id == current_user.id %>
+                            <%= form_with model:[@day, job, comment] do |f| %>
+                              <%= f.text_area :comment ,class: 'form-control' %>
+                              <div align = "right">
+                                <%= link_to new_day_job_path(@day.id), "data-confirm" => "変更をキャンセルしますか？" do %><button class="btn btn-link btn-sm">キャンセル</button><% end %>
+                                |
+                                <button type="submit" class="btn btn-sm btn-primary">保存</button>
+                              </div>
+                            <% end %>
+                          <% else %>
+                            <div align = "left"><small><%= comment.comment %></small></div>
+                          <% end %>
+
+                        <% end %>
+                      <% end %>
+                    </td>
+                  <% else %>
+                    <td></td>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= render "jobs/blank" %>
             <% end %>
-          <% end %>
-        <% else %>
-          <%= render "jobs/blank" %>
+          </tr>
         <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </tbody>
+    </table>
+   </div>
+  </div>

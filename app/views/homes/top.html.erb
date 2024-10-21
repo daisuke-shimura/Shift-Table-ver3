@@ -7,9 +7,13 @@
 
 <%= form_with model: @user, url: user_session_path do |f| %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.collection_select :name, User.all, :name, :name , include_blank: "選択してね"%>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.collection_select :name, User.all, :name, :name , {include_blank: "選択"}, { class: 'form-control', required: true } %>
+      </div>
+    </div>
   </div>
 
   <div class="field">
