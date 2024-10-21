@@ -21,7 +21,7 @@
   height: 300px;
   box-shadow: 0 0 10px #c0c0c0;
   background-color: #f0ffff;
-  border-radius: 5px;
+  border-radius: 10px;
   position: relative;
 
 }
@@ -116,13 +116,14 @@ hr{
 
 .scroll{
   border: 2px solid #000;
+  border-radius: 3px;
 }
 
 @media screen and (max-width:991px){
   .scroll{
     overflow: scroll;
   }
-  
+
   .hyou{
     height: 350px;
   }
@@ -152,7 +153,6 @@ hr{
   }
   .name{
     font-size: 14px;
-    background-color:	#ee82ee;
   }
   .saizi{
     font-size: 13px;
@@ -183,10 +183,6 @@ hr{
 }
 
 @media screen and (max-width:700px){
-  .name{
-    background-color:	#80ffc2;
-  }
-
   .day{
     min-width: 60px;
   }
@@ -195,10 +191,6 @@ hr{
 @media screen and (max-width:665px){
   .two{
     min-width: 50px;
-  }
-
-  .name{
-    background-color:	#fffacd;
   }
 
   .day{
@@ -211,10 +203,6 @@ hr{
 }
 
 @media screen and (max-width:385px){
-  .name{
-    background-color:	#98d2ff;
-  }
-
   .hyou{
     height: 500px;
   }
