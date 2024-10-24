@@ -3,12 +3,12 @@ class DaysController < ApplicationController
     date = Date.today
     @date = (date + (8-date.wday))+14
     @today = Date.today+3
-    @day = Day.all
+    @day = Day.where("start > ?", @today)
   end
 
   def index2
-    @day = Day.all
     @today = Date.today+3
+    @day = Day.where("start < ?", @today)
   end
 
   def show

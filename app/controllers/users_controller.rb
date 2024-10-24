@@ -10,9 +10,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @day = Day.all
     @today = Date.today+3
+    @user = User.find(params[:id])
+    #@day = Day.all
+    @day = Day.where("start > ?", @today).pluck(:start, :finish, :id)
   end
 
   def update

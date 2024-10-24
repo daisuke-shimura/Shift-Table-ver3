@@ -10,34 +10,35 @@
     <hr>
     <% if current_user.id == 1 %>
       <h2>新規日程</h2>
-
       <div class = "flash_message"><%= flash[:notice] %></div>
-
-
       <%= form_with model: Day.new, url: days_path, method: :post do |f| %>
         <%= f.date_field :start, value: @date %>～<%= f.date_field :finish, value: @date+6 %>
         <button type="submit" class="btn btn-primary btn-sm ">作成</button>
       <% end %>
       <hr>
     <% end %>
+
     <h2>日程一覧</h2>
     <%= link_to "過去のシフト", past_path %><br>
-    <% @day.order(start: :asc).each do |day| %>
-      <% if @today < day.start %>
-      <li>
-        <%= link_to new_day_job_path(day.id) do %>
-          <%= day.start.month %>月<%= day.start.day %>日 ～
-          <%= day.finish.month %>月<%= day.finish.day %>日
-        <% end %>
-
-        <% if current_user.id == 1 %>
-          <%= link_to day_path(day.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
-            <button type="button" class="btn btn-outline-danger btn-sm">
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
+    <div class = "space"></div>
+    <% @day.each do |day| %>
+      <div class="row">
+        <div class="col-8 col-md-6">
+          ・
+          <%= link_to new_day_job_path(day.id) do %>
+            <%= day.start.month %>月<%= day.start.day %>日 ～
+            <%= day.finish.month %>月<%= day.finish.day %>日
           <% end %>
-        <% end %>
-      </li>
-      <% end %>
+        </div>
+        <div class="col-4 col-md-6">
+          <% if current_user.id == 1 %>
+            <%= link_to day_path(day.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+              <button type="button" class="btn btn-outline-danger btn-sm">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   

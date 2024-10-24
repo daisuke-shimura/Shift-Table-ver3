@@ -2,13 +2,16 @@
 <%= link_to days_path do %>
   <p><i class="fa-solid fa-arrow-left-long"> 戻る</i></p>
 <% end %>
-<% @day.order(start: :desc).each do |day| %>
-  <% if @today > day.start %>
-    <li>
+<%= @day.order(start: :desc).each do |day| %>
+  <div class="row">
+    <div class="col-8 col-md-6">
+      ・
       <%= link_to day_path(day.id) do %>
         <%= day.start.month %>月<%= day.start.day %>日 ～
         <%= day.finish.month %>月<%= day.finish.day %>日
       <% end %>
+    </div>
+    <div class="col-4 col-md-6">
       <% if current_user.id == 1 %>
         <%= link_to day_path(day.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
           <button type="button" class="btn btn-outline-danger btn-sm">
@@ -16,6 +19,6 @@
           </button>
         <% end %>
       <% end %>
-    </li>
-  <% end %>
+    </div>
+  </div>
 <% end %>
