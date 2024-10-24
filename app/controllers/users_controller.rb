@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
   def index
-    @user = User.all
+    #@user = User.all
+    @user = User.pluck(:id, :name)
   end
 
   def edit

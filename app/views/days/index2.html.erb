@@ -1,6 +1,6 @@
 <h2>過去のシフト</h2>
 <%= link_to days_path do %>
-  <i class="fa-solid fa-arrow-left-long"> 戻る</i>
+  <p><i class="fa-solid fa-arrow-left-long"> 戻る</i></p>
 <% end %>
 <% @day.order(start: :desc).each do |day| %>
   <% if @today > day.start %>
