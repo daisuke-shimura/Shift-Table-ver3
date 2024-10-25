@@ -17,7 +17,7 @@
     <% end %>
     <hr>
     <h3>シフト提出状況</h3>
-    <%= @day.each do |start, finish, id| %><!--order(start: :asc).-->
+    <% @day.each do |start, finish, id| %>
       <!--% if @today < day.start %-->
         <li>
           <% if @user.job_by?(@user.id,id) %>
