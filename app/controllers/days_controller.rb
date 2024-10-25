@@ -14,7 +14,7 @@ class DaysController < ApplicationController
   def show
     @day = Day.find(params[:id])
     @user = User.all
-    @job_comment = JobComment.all
+    @job_comment = JobComment.where(day_id: @day.id)
   end
 
   def create

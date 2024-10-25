@@ -27,7 +27,7 @@
                   <% if job.comment_by?(job.user_id, day.id) %>
                     <td>
                       <% job_comment.each do |comment| %>
-                        <% if comment.day_id == day.id && comment.user_id == job.user_id %>
+                        <% if comment.user_id == job.user_id %>
                           <div align = "left"><small><%= comment.comment %></small></div>
                         <% end %>
                       <% end %>

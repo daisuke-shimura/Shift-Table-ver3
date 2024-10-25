@@ -1,6 +1,6 @@
 <% if day.event_by?(day.id) %>
-  <% Event.all.each do |event| %>
-    <% if day.id == event.day_id %>
+  <% Event.where(day_id: day.id).each do |event| %>
+    
       <td class="one"></td>
       <td class ="saizi">催事等</td>
       <td class ="event"><%= event.time1 %></td>
@@ -12,7 +12,7 @@
       <td class ="event"><%= event.time7 %></td>
       <td></td>
       <td></td>
-    <% end %>
+    
   <% end %>
 <% else %>
   <td class="one"></td>
