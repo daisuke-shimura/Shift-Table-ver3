@@ -13,7 +13,9 @@
       <tbody>
         <tr>
           <td class="one"></td>
-          <td class="name"><%= current_user.name %></td>
+          <td class="name">
+            <%= render "jobs/name", user: current_user %>
+          </td>
           <td><%= f.text_area :time1 ,class: 'form-control', rows: "2" %></td>
           <td><%= f.text_area :time2 ,class: 'form-control', rows: "2" %></td>
           <td><%= f.text_area :time3 ,class: 'form-control', rows: "2" %></td>

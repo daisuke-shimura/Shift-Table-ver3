@@ -25,7 +25,9 @@
                 <%= i %>
               <% end %>
             </td>
-            <td class="name"><%= user.name %></td>
+            <td class="name">
+              <%= render "jobs/name", user: user %>
+            </td>
             <% if user.job_by?(user.id,@day.id) %>
     <!--「=」消してない--><% user.jobs.where(day_id: @day.id).each do |job| %>
                 <!--% if job.day_id == @day.id %-->

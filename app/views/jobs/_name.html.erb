@@ -1,0 +1,5 @@
+<% if user.name.length < 10 %>
+  <%= user.name %>
+<% else %>
+  <%= user.name[0,4] %>
+<% end %>
