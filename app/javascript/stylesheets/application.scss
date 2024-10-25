@@ -40,7 +40,7 @@ header{
 }
 
 footer{
-  padding: 15px;
+  padding-top: 15px;
 }
 
 .table{
@@ -117,6 +117,11 @@ hr{
 .scroll{
   border: 2px solid #000;
   border-radius: 3px;
+}
+
+.ppp{
+  /*padding: 0 auto 0;*/
+  margin-top: 25px;
 }
 
 @media screen and (max-width:991px){

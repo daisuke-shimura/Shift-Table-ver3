@@ -2,13 +2,15 @@
 <%= link_to days_path do %>
   <p><i class="fa-solid fa-arrow-left-long"> 戻る</i></p>
 <% end %>
-<%= @day.order(start: :desc).each do |day| %>
+<% @day.order(start: :desc).each do |day| %>
   <div class="row">
     <div class="col-8 col-md-6">
-      ・
       <%= link_to day_path(day.id) do %>
-        <%= day.start.month %>月<%= day.start.day %>日 ～
-        <%= day.finish.month %>月<%= day.finish.day %>日
+        <button type="button" class="btn btn-link">
+          <i class="fa-solid fa-caret-right" style="color: black">　</i>
+          <%= day.start.month %>月<%= day.start.day %>日 ～
+          <%= day.finish.month %>月<%= day.finish.day %>日
+        </button>
       <% end %>
     </div>
     <div class="col-4 col-md-6">
@@ -22,3 +24,9 @@
     </div>
   </div>
 <% end %>
+
+
+<div class="ppp d-flex justify-content-center">
+  <%= paginate @day, theme: 'bootstrap-5' %>
+</div>
+

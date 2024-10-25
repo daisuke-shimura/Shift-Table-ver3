@@ -8,7 +8,7 @@ class DaysController < ApplicationController
 
   def index2
     @today = Date.today+3
-    @day = Day.where("start < ?", @today)
+    @day = Day.where("start < ?", @today).page(params[:page])
   end
 
   def show
@@ -22,7 +22,7 @@ class DaysController < ApplicationController
     if day.save
       redirect_to request.referer
     else
-      flash[:notice] = "Error：既につくられた日程です"
+      flash[:message] = "Error：既につくられた日程です"
       redirect_to request.referer
     end
   end
