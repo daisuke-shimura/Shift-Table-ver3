@@ -27,8 +27,8 @@
             </td>
             <td class="name"><%= user.name %></td>
             <% if user.job_by?(user.id,@day.id) %>
-    <!--「=」消してない--><% user.jobs.each do |job| %>
-                <% if job.day_id == @day.id %>
+    <!--「=」消してない--><% user.jobs.where(day_id: @day.id).each do |job| %>
+                <!--% if job.day_id == @day.id %-->
                   <td class="job"><%= job.time1 %></td>
                   <td class="job"><%= job.time2 %></td>
                   <td class="job"><%= job.time3 %></td>
@@ -40,7 +40,7 @@
                   <% if job.comment_by?(job.user_id, @day.id) %>
                     <td>
                       <% @job_comment.each do |comment| %>
-                        <% if comment.day_id == @day.id && comment.user_id == job.user_id %>
+                        <% if comment.user_id == job.user_id %>
                           <% if comment.user_id == current_user.id %>
                             <%= form_with model:[@day, job, comment] do |f| %>
                               <%= f.text_area :comment ,class: 'form-control' %>
@@ -60,7 +60,7 @@
                   <% else %>
                     <td></td>
                   <% end %>
-                <% end %>
+                <!--% end %-->
               <% end %>
             <% else %>
               <%= render "jobs/blank" %>

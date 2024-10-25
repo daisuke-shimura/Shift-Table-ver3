@@ -20,7 +20,7 @@ class JobCommentsController < ApplicationController
   def edit
     @day = Day.find(params[:day_id])
     @user = User.all
-    @job_comment = JobComment.all
+    @job_comment = JobComment.where(day_id: @day.id)
   end
 
   def update

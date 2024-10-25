@@ -3,7 +3,7 @@ class EventsController < ApplicationController
     @event = Event.new
     @day = Day.find(params[:day_id])
     @user = User.all
-    @job_comment = JobComment.all
+    @job_comment = JobComment.where(day_id: @day.id)
   end
 
   def create
@@ -25,7 +25,7 @@ class EventsController < ApplicationController
     @event = Event.find_by(day_id: day.id)
     @day = Day.find(params[:day_id])
     @user = User.all
-    @job_comment = JobComment.all
+    @job_comment = JobComment.where(day_id: @day.id)
   end
 
   def update

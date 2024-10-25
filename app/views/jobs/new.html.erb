@@ -24,7 +24,7 @@
 
       <tr class="table-secondary"><!---->
         <% if @day.event_by?(@day.id) %>
-          <% Event.all.each do |event| %><!--where("day_id = ?", @day.id)-->
+          <% Event.where(day_id: @day.id).each do |event| %><!--where("day_id = ?", @day.id)-->
             <% if @day.id == event.day_id %>
               <td class="one"></td>
               <td class ="saizi">催事等</td>
@@ -87,8 +87,8 @@
             </td>
             <td class="name"><%= user.name %></td>
             <% if user.job_by?(user.id,@day.id) %>
-              <% user.jobs.each do |job| %>
-                <% if job.day_id == @day.id %>
+              <% user.jobs.where(day_id: @day.id).each do |job| %>
+                <!--% if job.day_id == @day.id %-->
                   <td class="job"><%= job.time1 %></td>
                   <td class="job"><%= job.time2 %></td>
                   <td class="job"><%= job.time3 %></td>
@@ -116,8 +116,8 @@
 
                   <% if job.comment_by?(job.user_id, @day.id) %>
                   <td>
-                    <% @job_comment.all.each do |comment| %>
-                      <% if comment.day_id == @day.id && comment.user_id == job.user_id %>
+                    <% @job_comment.each do |comment| %>
+                      <% if comment.user_id == job.user_id %>
                         <% if comment.user_id == current_user.id %>
                           <div class="comment"><%= comment.comment %></div>
                           <div align = "right">
@@ -147,7 +147,7 @@
                   </td>
                   <% end %>
 
-                <% end %>
+                <!--% end %-->
 
               <% end %>
             <% else %>

@@ -14,8 +14,8 @@
             </td>
             <td class="name"><%= user.name %></td>
             <% if user.job_by?(user.id,day.id) %>
-    <!--「=」消してない--><% user.jobs.each do |job| %>
-                <% if job.day_id == day.id %>
+    <!--「=」消してない--><% user.jobs.where(day_id: day.id).each do |job| %>
+                <!--% if job.day_id == day.id %-->
                   <td class="job"><%= job.time1 %></td>
                   <td class="job"><%= job.time2 %></td>
                   <td class="job"><%= job.time3 %></td>
@@ -35,7 +35,7 @@
                   <% else %>
                     <td></td>
                   <% end %>
-                <% end %>
+                <!--% end %-->
               <% end %>
             <% else %>
               <%= render "jobs/blank" %>

@@ -4,7 +4,7 @@ class JobsController < ApplicationController
     @job = Job.new
     @day = Day.find(params[:day_id])
     @user = User.all
-    @job_comment = JobComment.all
+    @job_comment = JobComment.where(day_id: @day.id)
   end
 
   def create
@@ -20,7 +20,7 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
     @day = Day.find(params[:day_id])
     @user = User.all
-    @job_comment = JobComment.all
+    @job_comment = JobComment.where(day_id: @day.id)
   end
 
   def update
