@@ -1,18 +1,14 @@
 class UsersController < ApplicationController
 
   def index
-    #@user = User.all
     @user = User.pluck(:id, :name)
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def show
     @today = Date.today+3
-    @user = User.find(params[:id])
-    #@day = Day.all
     @day = Day.where("start > ?", @today).pluck(:start, :finish, :id)
   end
 

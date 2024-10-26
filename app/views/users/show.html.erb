@@ -9,18 +9,20 @@
         ユーザーページ
       </h3>
 
-    ログイン中のユーザー：<%= @user.name %>
-    <%= link_to edit_user_path(@user.id) do %>
-      <button type="button" class="btn btn-outline-primary">
-        <i class="fa-solid fa-pen"></i>
-      </button>
-    <% end %>
+    <p>
+      ログイン中のユーザー：<%= current_user.name %>
+      <%= link_to edit_user_path(current_user.id) do %>
+        <button type="button" class="btn btn-outline-primary">
+          <i class="fa-solid fa-pen"></i>
+        </button>
+      <% end %>
+    </p>
     <hr>
     <h3>シフト提出状況</h3>
     <% @day.each do |start, finish, id| %>
       <!--% if @today < day.start %-->
         <li>
-          <% if @user.job_by?(@user.id,id) %>
+          <% if current_user.job_by?(current_user.id,id) %>
             <%= link_to new_day_job_path(id) ,:style=>"color: black" do %>
               <%= start.month %>月<%= start.day %>日～<%= finish.month %>月<%= finish.day %>日
             <% end %>

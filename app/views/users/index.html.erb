@@ -4,6 +4,7 @@
   <% end %>
 </p>
 <h2>ユーザー一覧</h2>
+<p>ログイン中のユーザー：<%= current_user.name %></p>
 <hr>
 <% @user.each do |id,name| %>
   <div class="row">
