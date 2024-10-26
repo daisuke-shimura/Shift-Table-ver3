@@ -23,7 +23,7 @@
             <div class ="col">
             <li>
               <%= link_to days_path do %>
-                <button type="button" class="btn btn-link btn-sm">
+                <button type="button" class="btn btn-link">
                   <i class="fa-regular fa-calendar"></i> 日程一覧
                 </button>
               <% end %>
@@ -32,7 +32,7 @@
             <div class ="col">
             <li>
               <%= link_to destroy_user_session_path, method: :delete ,"data-confirm" => "ログアウトしますか？" do %>
-                <button type="button" class="btn btn-outline-secondary btn-sm">
+                <button type="button" class="btn btn-outline-secondary">
                   <i class="fa-solid fa-right-from-bracket"></i> ログアウト
                 </button>
               <% end %>
@@ -46,7 +46,7 @@
               <div class = "col">
                 <li>
                   <%= link_to "/" do %>
-                    <button type="button" class="btn btn-link btn-sm">
+                    <button type="button" class="btn btn-link">
                       <i class="fa-solid fa-ice-cream"></i> シフト表
                     </button>
                   <% end %>
@@ -55,7 +55,7 @@
               <div class = "col">
                 <li>
                   <%= link_to new_user_registration_path do %>
-                    <button type="button" class="btn btn-link btn-sm">
+                    <button type="button" class="btn btn-link">
                       <i class="fa-solid fa-user-plus"></i> 新規登録
                     </button>
                   <% end %>

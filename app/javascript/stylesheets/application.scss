@@ -120,10 +120,9 @@ hr{
 }
 
 .page_position{
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, -50%)
+  margin-top: 25px; 
+  display: flex;
+  justify-content: center;
 }
 
 @media screen and (max-width:991px){
@@ -175,7 +174,7 @@ hr{
     min-width: 80px;
   }
   .come{
-    min-width: 150px;
+    min-width: 200px;
   }
 
   .week{
