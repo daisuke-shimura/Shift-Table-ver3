@@ -206,6 +206,11 @@ hr{
   .hyou{
     height: 650px;
   }
+
+  .long::after{
+    content: "\A" ;
+    white-space: pre;
+  }
 }
 
 @media screen and (max-width:385px){

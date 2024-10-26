@@ -1,5 +1,5 @@
 <% if user.name.length < 10 %>
   <%= user.name %>
 <% else %>
-  <%= user.name[0,4] %>
+  <span class="long"><%= user.name[0,2] %></span><%= user.name[2,2] %>
 <% end %>
