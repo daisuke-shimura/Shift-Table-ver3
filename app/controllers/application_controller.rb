@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
 
-  
+  #before_action :basic_authentication
   before_action :authenticate_user!, except: [:top]
-  #before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
   days_path
@@ -12,10 +11,10 @@ class ApplicationController < ActionController::Base
   root_path
   end
 
-  #protected
-
-    #def configure_permitted_parameters
-    #devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
+  #private
+  #def basic_authentication
+    #authenticate_or_request_with_http_basic do |user_name, password|
+      #user_name ==ENV["USER_NAME"] && password == ENV["PASSWORD"]
     #end
-
+  #end
 end
