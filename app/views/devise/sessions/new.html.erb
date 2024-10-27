@@ -2,11 +2,24 @@
   <div class = "row">
     <div class = "col">
       <h3>トップページ</h3>
-      <p>
-        <%= link_to manager_path ,:style=>"color: black" do %>
-          <i class="fa-solid fa-ice-cream"></i>
-        <% end %>
-      </p>
+    </div>
+    <div class = "col">
+      <%= link_to manager_path do %>
+        <button type="button" class="btn btn-link btn-sm"><i class="fa-solid fa-square" style="color: #ffffff00"></i></button>
+      <% end %>
+    </div>
+  </div>
+  <div class = "row">
+    <div class = "col">
+      <i class="fa-solid fa-mug-saucer" style="color: #deb887"></i>
+      <i class="fa-solid fa-apple-whole" style="color: #f08080"></i>
+      <i class="fa-solid fa-cookie-bite" style="color: #f4a460"></i>
+      <i class="fa-solid fa-lemon" style="color: #f0e68c"></i>
+      <i class="fa-solid fa-stroopwafel" style="color: #adff2f"></i>
+      <i class="fa-solid fa-candy-cane" style="color: #8eeded"></i>
+      <i class="fa-solid fa-martini-glass" style="color: #00bfff"></i>
+      <i class="fa-solid fa-ice-cream" style="color: #ee82ee"></i>
+      <i class="fa-solid fa-cake-candles" style="color: #ba55d3"></i>
     </div>
   </div>
   <hr>
@@ -15,27 +28,22 @@
       <big><p class="font-weight-bold">ユーザー選択</p></big>
       <div class="box">
         <div class="d-flex justify-content-center">
-        
-
           <%= form_with model: @user, url: user_session_path do |f| %>
-
             <div class="field">
               <%= f.label :name %><br>
               <%= f.collection_select :name, User.where("id > ?", 1), :name, :name , {include_blank: "選択"},{ class: 'form-control', required: true } %>
             </div>
-
             <div class="field">
               <!--%= f.label :password %-->
               <%= f.hidden_field :password, value: "aiueoa" %>
             </div>
-
             <!--% if devise_mapping.rememberable? %-->
               <!--div class="field"-->
                 <!--%= f.check_box :remember_me %-->
                 <!--%= f.label :remember_me %-->
               <!--/div-->
             <!--% end %-->
-          <br>
+            <br>
             <div class="login">
               <button type="submit" class="btn btn-primary btn-sm ">ログイン</button>
             </div>
