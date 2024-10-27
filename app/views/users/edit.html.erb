@@ -1,8 +1,9 @@
-<h2>ユーザー名 編集</h2>
-
-<%= link_to user_path(current_user.id) do %>
-  <i class="fa-solid fa-arrow-left-long"> 戻る</i>
-<% end %>
+<p>
+  <%= link_to user_path(current_user.id) do %>
+    <i class="fa-solid fa-arrow-left-long"> 戻る</i>
+  <% end %>
+</p>
+<h3>ユーザー名 編集</h3>
 
 <hr>
 <%= form_with model:current_user do|f| %>

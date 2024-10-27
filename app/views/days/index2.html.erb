@@ -1,7 +1,7 @@
-<h2>過去のシフト</h2>
 <%= link_to days_path do %>
   <p><i class="fa-solid fa-arrow-left-long"> 日程一覧に戻る</i></p>
 <% end %>
+<h3>過去のシフト</h3>
 <% @day.order(start: :desc).each do |day| %>
   <div class="row">
     <div class="col-8 col-md-6">
