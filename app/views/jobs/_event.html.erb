@@ -3,7 +3,13 @@
     
       <td class="one"></td>
       <td class ="saizi">催事等</td>
-      <td class ="event"><%= event.time1 %></td>
+      <td class ="event">
+        <% if day.mon_by?(day.id) %>
+          <div style="color: red"><%= event.time1 %></div>
+        <% else %>
+          <div style="color: black"><%= event.time1 %></div>
+        <% end %>
+      </td>
       <td class ="event"><%= event.time2 %></td>
       <td class ="event"><%= event.time3 %></td>
       <td class ="event"><%= event.time4 %></td>
