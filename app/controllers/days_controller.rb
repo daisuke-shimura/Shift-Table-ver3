@@ -2,7 +2,7 @@ class DaysController < ApplicationController
   def index
     date = Date.today
     @date = (date + (8-date.wday))+14
-    @today = Date.today+3
+    @today = Date.today+2
     @day = Day.where("start > ?", @today)
   end
 

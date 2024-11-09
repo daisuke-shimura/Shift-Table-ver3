@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @today = Date.today+3
+    @today = Date.today+2
     @day = Day.where("start > ?", @today).pluck(:start, :finish, :id)
   end
 
