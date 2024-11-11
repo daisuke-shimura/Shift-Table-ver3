@@ -12,7 +12,7 @@
       <div class = "flash_message"><%= flash[:message] %></div>
       <div class = "auto_flash_message"><%= flash[:auto_message] %></div>
       <%= form_with model: Day.new, url: days_path, method: :post do |f| %>
-        <%= f.date_field :start %>～<%= f.date_field :finish %>
+        <%= f.date_field :start ,required: true %>～<%= f.date_field :finish, required: true %>
         <button type="submit" class="btn btn-primary btn-sm ">作成</button>
       <% end %>
       <hr>
