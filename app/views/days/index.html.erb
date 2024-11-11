@@ -10,8 +10,9 @@
     <% if current_user.id == 1 %>
       <h3>新規日程</h3>
       <div class = "flash_message"><%= flash[:message] %></div>
+      <div class = "auto_flash_message"><%= flash[:auto_message] %></div>
       <%= form_with model: Day.new, url: days_path, method: :post do |f| %>
-        <%= f.date_field :start, value: @date %>～<%= f.date_field :finish, value: @date+6 %>
+        <%= f.date_field :start %>～<%= f.date_field :finish %>
         <button type="submit" class="btn btn-primary btn-sm ">作成</button>
       <% end %>
       <hr>
@@ -19,7 +20,7 @@
     <h3>日程一覧</h3>
     <%= link_to "過去のシフト", past_path %><br>
     <div class = "space"></div>
-    <% @day.each do |day| %>
+    <% @day.order(start: :asc).each do |day| %>
       <div class="row">
         <div class="col-8 col-md-6">
           <%= link_to new_day_job_path(day.id) do %>

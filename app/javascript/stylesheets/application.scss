@@ -6,13 +6,19 @@
   box-sizing: border-box;
 }
   
-  .flash_message{
+.flash_message, .auto_flash_message{
   border-radius: 1px;
   margin: 10px 0px;
-  background-color: #ffd4d1;
-  color: #dc143c;
   display:inline-block;
 }
+  .flash_message{
+    color: #dc143c;
+    background-color: #ffd4d1;
+  }
+  .auto_flash_message{
+    color: #1e90ff;
+    background-color: #e0ffff;
+  }
 
 .box{
   padding: 32px 20px 0;
