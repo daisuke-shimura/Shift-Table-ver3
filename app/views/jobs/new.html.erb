@@ -11,8 +11,15 @@
 <p>ログイン中のユーザー：<%= current_user.name %></p>
 <% unless current_user.job_by?(current_user.id, @day.id) %>
   <hr>
-  <h3>シフト希望提出</h3>
-  <%= render "form", day:@day %>
+  <h3>シフト希望提出</h3>  
+  <% if current_user.id == 1 %>
+    <details>
+      <summary>提出フォーム</summary>
+      <%= render "form", day:@day %>
+    </details>
+  <% else %>
+    <%= render "form", day:@day %>
+  <% end %>
 <% end %>
 <hr>
 <h3>シフト希望一覧</h3>

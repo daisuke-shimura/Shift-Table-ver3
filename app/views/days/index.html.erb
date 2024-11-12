@@ -9,12 +9,17 @@
     <hr>
     <% if current_user.id == 1 %>
       <h3>新規日程</h3>
-      <div class = "flash_message"><%= flash[:message] %></div>
-      <div class = "auto_flash_message"><%= flash[:auto_message] %></div>
-      <%= form_with model: Day.new, url: days_path, method: :post do |f| %>
-        <%= f.date_field :start ,required: true %>～<%= f.date_field :finish, required: true %>
-        <button type="submit" class="btn btn-primary btn-sm ">作成</button>
+      <% flash.each do |message_type, message| %>
+        <% if message_type == "auto_message" || message_type == "error_message" %>
+          <div class="message <%= message_type %>"><%= message %></div>
+        <% end %>
       <% end %>
+      <div class="day_create">
+        <%= form_with model: Day.new, url: days_path, method: :post do |f| %>
+          <%= f.date_field :start ,required: true %> ～ <%= f.date_field :finish, required: true %>
+          <button type="submit" class="btn btn-primary btn-sm ">作成</button>
+        <% end %>
+      </div>
       <hr>
     <% end %>
     <h3>日程一覧</h3>

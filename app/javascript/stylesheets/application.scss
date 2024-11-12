@@ -5,19 +5,26 @@
   margin: 0;
   box-sizing: border-box;
 }
-  
-.flash_message, .auto_flash_message{
-  border-radius: 1px;
-  margin: 10px 0px;
-  display:inline-block;
+
+.message{
+  border-radius: 3px;
+  padding: 3px 5px;
 }
-  .flash_message{
+  .message.error_message{
+    display:inline;
     color: #dc143c;
     background-color: #ffd4d1;
+    border: solid 1px #dc143c;
   }
-  .auto_flash_message{
+  .message.auto_message{
+    display:inline;
     color: #1e90ff;
     background-color: #e0ffff;
+    border: solid 1px #1e90ff;
+  }
+
+  .day_create{
+    margin-top: 10px;
   }
 
 .box{
