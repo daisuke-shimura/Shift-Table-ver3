@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
       USERS[user]
     end
   end
-
   #private
   #def basic_authentication
     #authenticate_or_request_with_http_basic do |user_name, password|
