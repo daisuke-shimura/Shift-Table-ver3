@@ -5,7 +5,7 @@
       <% end %>
     </p>
     <h3>今日の日付</h3>
-    <p><%= Date.today %></p>
+    <p><%= @kyou %></p>
     <hr>
     <% if current_user.id == 1 %>
       <h3>新規日程</h3>
@@ -26,26 +26,36 @@
     <%= link_to "過去のシフト", past_path %><br>
     <div class = "space"></div>
     <% @day.order(start: :asc).each do |day| %>
-    
-      <div class="row">
-        <div class="col-8 col-md-6">
-          <%= link_to new_day_job_path(day.id) do %>
-            <button type="button" class="btn btn-link">
-              <i class="fa-solid fa-caret-right" style="color: black">　</i>
-              <%= day.start.month %>月<%= day.start.day %>日 ～
-              <%= day.finish.month %>月<%= day.finish.day %>日
-            </button>
-          <% end %>
-        </div>
-        <div class="col-4 col-md-6">
-          <% if current_user.id == 1 %>
-            <%= link_to day_path(day.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
-              <button type="button" class="btn btn-outline-danger btn-sm">
-                <i class="fa-solid fa-trash-can"></i>
+      <% if day.limityan == false %>
+        <div class="row">
+          <div class="col-7 col-md-6">
+            <%= link_to new_day_job_path(day.id) do %>
+              <button type="button" class="btn btn-link">
+                <i class="fa-solid fa-caret-right" style="color: black">　</i>
+                <%= day.start.month %>月<%= day.start.day %>日 ～
+                <%= day.finish.month %>月<%= day.finish.day %>日
               </button>
             <% end %>
-          <% end %>
+          </div>
+          <div class="col-3 col-md-3">
+            <% if current_user.id == 1 %>
+              <!--締め切りボタン-->
+              <%= link_to day_path(day.id), method: :patch, "data-confirm" => "シフト希望の新規入力が出来なくなります。\nよろしいですか？" do %>
+                <button type="button" class="btn btn-outline-success btn-sm">作成済</button>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="col-2 col-md-3">
+            <% if current_user.id == 1 %>
+              <!--削除ボタン-->
+              <%= link_to day_path(day.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
+                <button type="button" class="btn btn-outline-danger btn-sm">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              <% end %>
+            <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   

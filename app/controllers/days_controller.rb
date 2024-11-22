@@ -1,8 +1,8 @@
 class DaysController < ApplicationController
   def index
-    date = Date.today
-    @date = (date + (8-date.wday))+14
-    @today = Date.today+2
+    @kyou = Date.today
+    @date = (@kyou + (8-@kyou.wday))+14
+    @today = @kyou + 2
     @day = Day.where("start > ?", @today)
     #新規日程自動作成機能
     unless Day.exists?(start: @date)
@@ -13,6 +13,7 @@ class DaysController < ApplicationController
 
   def index2
     @today = Date.today+3
+    @now = Day.where("start >= ? AND limityan = ?", @today, true)
     @day = Day.where("start < ?", @today).page(params[:page])
   end
 
@@ -34,6 +35,16 @@ class DaysController < ApplicationController
 
   def destroy
     Day.find(params[:id]).destroy
+    redirect_to days_path
+  end
+
+  def update
+    day = Day.find(params[:id])
+    if day.limityan == false
+      day.update(limityan: true)
+    else
+      day.update(limityan: false)
+    end
     redirect_to days_path
   end
 
