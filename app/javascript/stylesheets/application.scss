@@ -148,7 +148,7 @@ hr{
   }
 
   .one{
-    display:none
+    display:none;
   }
 
   .two{
@@ -223,6 +223,10 @@ hr{
   .long::after{
     content: "\A" ;
     white-space: pre;
+  }
+
+  .logname{
+    display: block;
   }
 }
 

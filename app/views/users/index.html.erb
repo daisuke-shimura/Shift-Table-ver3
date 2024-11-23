@@ -4,15 +4,21 @@
   <% end %>
 </p>
 <h3>ユーザー一覧</h3>
-<p>ログイン中のユーザー：<%= current_user.name %></p>
+<p>
+  ログイン中のユーザー
+  <span class="logname">
+    <i class="fa-solid fa-ellipsis-vertical"></i>
+    <%= current_user.name %>
+  </span>
+</p>
 <hr>
 <% @user.each do |id,name| %>
   <div class="row">
-    <div class="col-8 col-md-6">
+    <div class="col-9 col-md-6">
       ・
       <%= name %>
     </div>
-    <div class="col-4 col-md-6">
+    <div class="col-3 col-md-6">
       <% if current_user.id == 1 || id == current_user.id %>
         <%= link_to user_path(id), method: :delete, "data-confirm" => "本当に「#{name}」さんをユーザー一覧から削除しますか？" do %><button type="button" class="btn btn-outline-secondary btn-sm">退職</button><% end %>
       <% end %>

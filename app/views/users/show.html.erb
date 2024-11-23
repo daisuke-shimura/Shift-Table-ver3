@@ -3,16 +3,20 @@
         <i class="fa-solid fa-arrow-left-long"> 日程一覧に戻る</i>
       <% end %>
     </p>
-      <h3><%= link_to users_path, :style=>"color: black" do %><small><i class="fa-solid fa-user"></i></small><% end %>
-        ユーザーページ
-      </h3>
+    <h3><%= link_to users_path, :style=>"color: black" do %><small><i class="fa-solid fa-user"></i></small><% end %>
+      ユーザーページ
+    </h3>
     <p>
-      ログイン中のユーザー：<%= current_user.name %>
-      <%= link_to edit_user_path(current_user.id) do %>
-        <button type="button" class="btn btn-outline-primary">
-          <i class="fa-solid fa-pen"></i>
-        </button>
-      <% end %>
+      ログイン中のユーザー
+      <span class="logname">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+        <%= current_user.name %>
+        <%= link_to edit_user_path(current_user.id) do %>
+          <button type="button" class="btn btn-outline-primary">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+        <% end %>
+      </span>
     </p>
     <hr>
     <h3>シフト提出状況</h3>

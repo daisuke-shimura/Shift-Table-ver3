@@ -7,7 +7,13 @@
   <%= @day.start.month %>月<%= @day.start.day %>日 ～
   <%= @day.finish.month %>月<%= @day.finish.day %>日
 </h3>
-<p>ログイン中のユーザー：<%= current_user.name %></p>
+<p>
+  ログイン中のユーザー
+  <span class="logname">
+    <i class="fa-solid fa-ellipsis-vertical"></i>
+    <%= current_user.name %>
+  </span>
+</p>
 <hr>
 <h3>シフト希望一覧</h3>
 <%= render "jobs/shift_index", day:@day, user:@user, job_comment:@job_comment %>

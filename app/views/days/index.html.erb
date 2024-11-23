@@ -1,8 +1,11 @@
-
-    <p>ログイン中のユーザー：
-      <%= link_to user_path(current_user.id) do %>
-        <%= current_user.name %>
-      <% end %>
+    <p>
+      ログイン中のユーザー
+      <span class="logname">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+        <%= link_to user_path(current_user.id) do %>
+          <%= current_user.name %>
+        <% end %>
+      </span>
     </p>
     <h3>今日の日付</h3>
     <p><%= @kyou %></p>
@@ -28,7 +31,7 @@
     <% @day.order(start: :asc).each do |day| %>
       <% if day.limityan == false %>
         <div class="row">
-          <div class="col-7 col-md-6">
+          <div class="col-8 col-md-6">
             <%= link_to new_day_job_path(day.id) do %>
               <button type="button" class="btn btn-link">
                 <i class="fa-solid fa-caret-right" style="color: black">　</i>
@@ -37,17 +40,13 @@
               </button>
             <% end %>
           </div>
-          <div class="col-3 col-md-3">
+          <div class="col-4 col-md-6">
+            <!--締め切りボタン-->
             <% if current_user.id == 1 %>
-              <!--締め切りボタン-->
-              <%= link_to day_path(day.id), method: :patch, "data-confirm" => "シフト希望の新規入力が出来なくなります。\nよろしいですか？" do %>
-                <button type="button" class="btn btn-outline-success btn-sm">作成済</button>
-              <% end %>
+              <%= link_to day_path(day.id), method: :patch, "data-confirm" => "シフト希望の新規入力が出来なくなります。\nよろしいですか？" do %><button type="button" class="btn btn-outline-success btn-sm">作成済</button><% end %>
             <% end %>
-          </div>
-          <div class="col-2 col-md-3">
+            <!--削除ボタン-->
             <% if current_user.id == 1 %>
-              <!--削除ボタン-->
               <%= link_to day_path(day.id), method: :delete, "data-confirm" => "本当に削除しますか？" do %>
                 <button type="button" class="btn btn-outline-danger btn-sm">
                   <i class="fa-solid fa-trash-can"></i>

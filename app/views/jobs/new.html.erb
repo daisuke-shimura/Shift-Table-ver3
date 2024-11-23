@@ -8,7 +8,13 @@
   <%= @day.start.month %>月<%= @day.start.day %>日 ～
   <%= @day.finish.month %>月<%= @day.finish.day %>日
 </h3>
-<p>ログイン中のユーザー：<%= current_user.name %></p>
+<p>
+  ログイン中のユーザー
+  <span class="logname">
+    <i class="fa-solid fa-ellipsis-vertical"></i>
+    <%= current_user.name %>
+  </span>
+</p>
 <% unless current_user.job_by?(current_user.id, @day.id) %>
   <hr>
   <h3>シフト希望提出</h3>  
