@@ -1,9 +1,9 @@
 class DaysController < ApplicationController
   def index
-    @kyou = Date.today
+    @kyou = Time.current.to_date
     @date = (@kyou + (8-@kyou.wday))+14
-    @today = @kyou + 2
-    @day = Day.where("start > ?", @today)
+    today = @kyou + 2
+    @day = Day.where("start > ?", today)
     #新規日程自動作成機能
     unless Day.exists?(start: @date)
       flash.now[:auto_message] = "自動作成"
@@ -12,9 +12,9 @@ class DaysController < ApplicationController
   end
 
   def index2
-    @today = Date.today+3
-    @now = Day.where("start >= ? AND limityan = ?", @today, true)
-    @day = Day.where("start < ?", @today).page(params[:page])
+    today = Time.current.to_date + 3
+    @now = Day.where("start >= ? AND limityan = ?", today, true)
+    @day = Day.where("start < ?", today).page(params[:page])
   end
 
   def show

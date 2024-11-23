@@ -8,8 +8,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @today = Date.today+2
-    @day = Day.where("start > ?", @today).pluck(:start, :finish, :id)
+    today = Time.current.to_date + 2
+    @day = Day.where("start > ?", today).pluck(:start, :finish, :id)
   end
 
   def update
