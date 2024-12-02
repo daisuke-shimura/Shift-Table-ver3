@@ -28,6 +28,11 @@
   <% end %>
 <% end %>
 <hr>
+<% flash.each do |message_type, message| %>
+  <% if message_type == "auto_message" || message_type == "error_message" || message_type == "create_message" %>
+    <div class="message <%= message_type %>"><%= message %></div>
+  <% end %>
+<% end %>
 <h3>シフト希望一覧</h3>
 <div class= "scroll">
   <div class = "hyou">

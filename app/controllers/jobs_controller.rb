@@ -13,6 +13,7 @@ class JobsController < ApplicationController
     job.day_id = day.id
     job.user_id = current_user.id
     job.save
+    flash[:create_message] = "提出しました。"
     redirect_to request.referer
   end
 
