@@ -14,12 +14,13 @@ class ApplicationController < ActionController::Base
   root_path
   end
 
+  private
   def digest_auth
     authenticate_or_request_with_http_digest do |user|
       USERS[user]
     end
   end
-  #private
+
   #def basic_authentication
     #authenticate_or_request_with_http_basic do |user_name, password|
       #user_name ==ENV["USER_NAME"] && password == ENV["PASSWORD"]
