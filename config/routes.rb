@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'events/new'
   get "manager" => 'homes#top'
   devise_for :users
   #root to: 'homes#top'
