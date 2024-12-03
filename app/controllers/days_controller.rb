@@ -28,7 +28,7 @@ class DaysController < ApplicationController
     if day.save
       redirect_to request.referer
     else
-      flash[:red_message] = "Error：既につくられた日程です"
+      flash[:red_message] = "既につくられた日程です"
       redirect_to request.referer
     end
   end

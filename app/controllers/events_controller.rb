@@ -11,12 +11,14 @@ class EventsController < ApplicationController
     event = Event.new(event_params)
     event.day_id = day.id
     event.save
+    flash[:green_message] = "催事を投稿しました。"
     redirect_to new_day_job_path(day.id)
   end
 
   def destroy
     day = Day.find(params[:day_id])
     Event.find_by(day_id: day.id).destroy
+    flash[:red_message] = "催事を削除しました。"
     redirect_to new_day_job_path(day.id)
   end
 
@@ -32,6 +34,7 @@ class EventsController < ApplicationController
     day = Day.find(params[:day_id])
     evemt = Event.find_by(day_id: day.id)
     evemt.update(event_params)
+    flash[:blue_message] = "催事を変更しました。"
     redirect_to new_day_job_path(day.id)
   end
 

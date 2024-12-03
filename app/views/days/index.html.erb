@@ -12,11 +12,7 @@
     <hr>
     <% if current_user.id == 1 %>
       <h3>新規日程</h3>
-      <% flash.each do |message_type, message| %>
-        <% if message_type == "green_message" || message_type == "red_message" %>
-          <div class="message <%= message_type %>"><%= message %></div>
-        <% end %>
-      <% end %>
+      <%= render "flash/message" %>
       <div class="day_create">
         <%= form_with model: Day.new, url: days_path, method: :post do |f| %>
           <%= f.date_field :start ,required: true %> ～ <%= f.date_field :finish, required: true %>

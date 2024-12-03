@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   def update
     user = User.find(params[:id])
     user.update(user_params)
+    flash[:blue_message] = "変更しました。"
     redirect_to user_path(user.id)
   end
 

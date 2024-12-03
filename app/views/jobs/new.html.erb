@@ -4,11 +4,7 @@
     <i class="fa-solid fa-arrow-left-long"> 日程一覧に戻る</i>
   <% end %>
 </p>
-<% flash.each do |message_type, message| %>
-  <% if message_type == "red_message" || message_type == "blue_message" || message_type == "green_message" %>
-    <div class="message <%= message_type %>"><%= message %></div>
-  <% end %>
-<% end %>
+<%= render "flash/message" %>
 <h3>
   <%= @day.start.month %>月<%= @day.start.day %>日 ～
   <%= @day.finish.month %>月<%= @day.finish.day %>日

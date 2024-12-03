@@ -8,12 +8,14 @@ class JobCommentsController < ApplicationController
     comment.day_id = day.id
     comment.job_id = job.id
     comment.save
+    flash[:green_message] = "備考を提出しました。"
     redirect_to request.referer
   end
 
   def destroy
     comment = JobComment.find(params[:id])
     comment.destroy
+    flash[:red_message] = "備考を削除しました。"
     redirect_to request.referer
   end
 
@@ -27,6 +29,7 @@ class JobCommentsController < ApplicationController
     day = Day.find(params[:day_id])
     comment = JobComment.find(params[:id])
     comment.update(job_comment_params)
+    flash[:blue_message] = "備考を変更しました。"
     redirect_to new_day_job_path(day.id)
   end
 
