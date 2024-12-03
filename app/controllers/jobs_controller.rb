@@ -13,7 +13,7 @@ class JobsController < ApplicationController
     job.day_id = day.id
     job.user_id = current_user.id
     job.save
-    flash[:create_message] = "提出しました。"
+    flash[:green_message] = "提出しました。"
     redirect_to request.referer
   end
 
@@ -28,12 +28,14 @@ class JobsController < ApplicationController
     job = Job.find(params[:id])
     day = Day.find(params[:day_id])
     job.update(job_params)
+    flash[:blue_message] = "変更しました。"
     redirect_to new_day_job_path(day.id)
   end
 
   def destroy
     job = Job.find(params[:id])
     job.destroy
+    flash[:red_message] = "削除しました。"
     redirect_to request.referer
   end
 

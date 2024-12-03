@@ -6,7 +6,7 @@ class DaysController < ApplicationController
     @day = Day.where("start > ?", today)
     #新規日程自動作成機能
     unless Day.exists?(start: @date)
-      flash.now[:auto_message] = "自動作成"
+      flash.now[:green_message] = "自動作成"
       Day.create(start:  @date, finish: @date+6)
     end
   end
@@ -28,7 +28,7 @@ class DaysController < ApplicationController
     if day.save
       redirect_to request.referer
     else
-      flash[:error_message] = "Error：既につくられた日程です"
+      flash[:red_message] = "Error：既につくられた日程です"
       redirect_to request.referer
     end
   end

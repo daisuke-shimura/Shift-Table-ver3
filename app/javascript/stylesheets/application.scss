@@ -7,26 +7,25 @@
 }
 
 .message{
+  display:inline-block;
   border-radius: 3px;
   padding: 3px 5px;
+  margin-bottom: 7px;
 }
-  .message.error_message{
-    display:inline;
+  .message.red_message{
     color: #dc143c;
     background-color: #ffd4d1;
     border: solid 1px #dc143c;
   }
-  .message.auto_message{
-    display:inline;
+  .message.blue_message{
     color: #1e90ff;
     background-color: #e0ffff;
     border: solid 1px #1e90ff;
   }
-  .message.create_message{
-    display:inline;
-    color: #32cd32;
-    background-color: #bdffbd;
-    border: solid 1px #32cd32;
+  .message.green_message{
+    color: #006400;
+    background-color: #d0fdd0;
+    border: solid 1px #006400;
   }
 
   .day_create{
