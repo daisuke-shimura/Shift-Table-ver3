@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   USERS = { ENV["USER_NAME"] => ENV["PASSWORD"]}
 
   #before_action :basic_authentication
-  before_action :digest_auth
+  before_action :digest_auth, only: [:new, :top]
   before_action :authenticate_user!, except: [:top]
 
   def after_sign_in_path_for(resource)
