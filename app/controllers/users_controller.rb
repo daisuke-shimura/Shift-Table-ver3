@@ -31,9 +31,23 @@ class UsersController < ApplicationController
     workbook = package.workbook
 
     workbook.add_worksheet(name: "User_index") do |sheet|
-      sheet.add_row ["ID", "名前"]
+      sheet.column_widths 14, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 12
+      sheet.merge_cells("C2:D2")
+      sheet.merge_cells("E2:F2")
+      sheet.merge_cells("G2:H2")
+      sheet.merge_cells("I2:J2")
+      sheet.merge_cells("K2:L2")
+      sheet.merge_cells("M2:N2")
+      sheet.merge_cells("O2:P2")
+      sheet.merge_cells("Q2:R2")
+      sheet.merge_cells("S2:T2")
+      sheet.merge_cells("U2:V2")
+      sheet.merge_cells("W2:X2")
+      sheet.merge_cells("Y2:Z2")
+      sheet.merge_cells("AA2:AB2")
+      sheet.add_row ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）"]
       User.all.each do |user|
-        sheet.add_row [user.id, user.name]
+        sheet.add_row [user.name]
       end
     end
 
