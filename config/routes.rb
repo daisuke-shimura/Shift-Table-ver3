@@ -2,7 +2,6 @@ Rails.application.routes.draw do
 
   get "manager" => 'homes#top'
   devise_for :users
-  #root to: 'homes#top'
   devise_scope :user do
     root "devise/sessions#new"
   end
