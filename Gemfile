@@ -59,4 +59,6 @@ gem 'devise'
 gem 'kaminari','~> 1.2.1'
 gem 'bootstrap5-kaminari-views', '~> 0.0.1'
 gem 'dotenv-rails'
-#gem 'wdm', '>= 0.1.0'
+#table作成
+gem 'axlsx_rails'
+gem 'wdm', '>= 0.1.0'
