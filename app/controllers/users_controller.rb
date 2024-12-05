@@ -38,6 +38,12 @@ class UsersController < ApplicationController
       thin_border_style = workbook.styles.add_style(alignment: { horizontal: :center }, border: { style: :thin, color: '000000', edges: [:right, :bottom] })
       thick_border_style = workbook.styles.add_style(alignment: { horizontal: :center }, border: { style: :medium, color: '000000', edges: [:bottom] })
 
+      name_style = workbook.styles.add_style(
+        alignment: { horizontal: :center },
+        border: [{ style: :thin, color: '000000', edges: [:right, :bottom] },
+                 { style: :medium, color: "000000", edges: [:left] }]
+      )
+
       n2_border = workbook.styles.add_style(
         alignment: { horizontal: :center },
         bg_color: "4BACC6", 
@@ -68,12 +74,13 @@ class UsersController < ApplicationController
       head.each_with_index do |value, i|
         sheet.rows[1].cells[i].value = value
       end
+      sheet.rows[1].cells[0].style = name_style
 
 
       #人の名前
       User.all.each_with_index do |user,i|
         sheet.rows[(i+2)].cells[0].value = user.name
-        sheet.rows[(i+2)].cells[0].style = thin_border_style
+        sheet.rows[(i+2)].cells[0].style = name_style
       end
       
       #縦の太線
