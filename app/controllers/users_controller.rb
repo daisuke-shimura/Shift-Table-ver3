@@ -70,11 +70,14 @@ class UsersController < ApplicationController
       merge_ranges.each { |range| sheet.merge_cells(range) }
 
       #sheet.rows[1].value = ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）","","10","","11","","12","","13","","14","","15","","16","","17","","18","","19","","20","","21","","22","",""]
-      head = ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）", "", "10", "", "11", "", "12", "", "13", "", "14", "", "15", "", "16", "", "17", "", "18", "", "19", "", "20", "", "21", "", "22", ""]
+      head = ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）", "", 10, "", 11, "", 12, "", 13, "", 14, "", 15, "", 16, "", 17, "", 18, "", 19, "", 20, "", 21, "", 22, ""]
       head.each_with_index do |value, i|
         sheet.rows[1].cells[i].value = value
       end
       sheet.rows[1].cells[0].style = name_style
+
+      int_ranges = [2,4,6,8,10,12,14,16,18,20,22,24,26]
+      int_ranges.each { |int| sheet.rows[1].cells[int].type = :integer }
 
 
       #人の名前
@@ -101,6 +104,9 @@ class UsersController < ApplicationController
       end
       sheet.rows[4].cells[2].style = blue_style
       sheet.rows[5].cells[3].style = blue_style
+
+      #sheet.rows[5].cells[3].value = 3
+      #sheet.rows[5].cells[3].type = :integer
 
       #列の幅指定（最後）
       sheet.column_widths 14, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 12
