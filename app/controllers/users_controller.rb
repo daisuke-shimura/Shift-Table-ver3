@@ -38,6 +38,19 @@ class UsersController < ApplicationController
       thin_border_style = workbook.styles.add_style(alignment: { horizontal: :center }, border: { style: :thin, color: '000000', edges: [:right, :bottom] })
       thick_border_style = workbook.styles.add_style(alignment: { horizontal: :center }, border: { style: :medium, color: '000000', edges: [:bottom] })
 
+      n2_border = workbook.styles.add_style(
+        alignment: { horizontal: :center },
+        bg_color: "4BACC6", 
+        border: [{ style: :medium, color: "000000", edges: [:right] },
+                 { style: :thin, color: "000000", edges: [:bottom] }]
+      )
+
+      n1_border = workbook.styles.add_style(
+        alignment: { horizontal: :center },
+        bg_color: "4BACC6",
+        border: { style: :thin, color: "000000", edges: [:right, :bottom] }
+      )
+
       empty_row = Array.new(29, "")
       sheet.add_row(empty_row, style: thick_border_style)
       12.times { sheet.add_row(empty_row, style: center_style) }
@@ -73,14 +86,9 @@ class UsersController < ApplicationController
       shift_box.each do |i,k|
         k.each do |j|
           if j % 2 == 0
-            sheet.rows[i].cells[j].style = workbook.styles.add_style(
-              bg_color: "4BACC6", 
-              border: [{ style: :medium, color: "000000", edges: [:right] },
-                       { style: :thin, color: "000000", edges: [:bottom] }]
-            )
+            sheet.rows[i].cells[j].style = n2_border
           else
-            sheet.rows[i].cells[j].style = workbook.styles.add_style(bg_color: "4BACC6", border: { style: :thin, color: "000000", edges: [:right, :bottom] }
-          )
+            sheet.rows[i].cells[j].style = n1_border
           end
         end
       end
