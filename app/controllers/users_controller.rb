@@ -31,22 +31,39 @@ class UsersController < ApplicationController
     workbook = package.workbook
 
     workbook.add_worksheet(name: "User_index") do |sheet|
-      center = workbook.styles.add_style(alignment: { horizontal: :center })
+
+      center_style = workbook.styles.add_style(alignment: { horizontal: :center })
+      blue_style = workbook.styles.add_style(bg_color: "4BACC6")
+      border_style = workbook.styles.add_style(border: { style: :medium, color: '000000', edges: [:right] })
+
+      sheet.add_row []
 
       merge_ranges = [
-        "C1:D1", "E1:F1", "G1:H1", "I1:J1", "K1:L1",
-        "M1:N1", "O1:P1", "Q1:R1", "S1:T1", "U1:V1",
-        "W1:X1", "Y1:Z1", "AA1:AB1"
+        "C2:D2", "E2:F2", "G2:H2", "I2:J2", "K2:L2",
+        "M2:N2", "O2:P2", "Q2:R2", "S2:T2", "U2:V2",
+        "W2:X2", "Y2:Z2", "AA2:AB2"
       ]
       merge_ranges.each { |range| sheet.merge_cells(range) }
 
-      sheet.add_row ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）","","10","","11","","12","","13","","14","","15","","16","","17","","18","","19","","20","","21","","22"], style: center
-      sheet.column_widths 14, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 12
+      sheet.add_row ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）","","10","","11","","12","","13","","14","","15","","16","","17","","18","","19","","20","","21","","22"]
 
       User.all.each do |user|
-        sheet.add_row [user.name], style: center
+        sheet.add_row [user.name,"","","","","","","","","","","","","","","","","","","","","","","","","","","",""], style: center_style
       end
 
+      #青に塗りつぶし
+      sheet.rows[3].cells[2].style = blue_style
+      sheet.rows[3].cells[3].style = blue_style
+
+      #縦の太線
+      border_ranges = [2,4,6,8,10,12,14,16,18,20,22,24,26]
+      border_ranges.each { |range| sheet.col_style(range, border_style)}
+
+      #中央揃え
+      sheet.rows[1].style = center_style
+
+      #列の幅指定（最後）
+      sheet.column_widths 14, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 12
     end
 
     send_data package.to_stream.read, type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename: "users.xlsx"
