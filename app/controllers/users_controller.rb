@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
     workbook.add_worksheet(name: "User_index") do |sheet|
 
-      center_style = workbook.styles.add_style(alignment: { horizontal: :center })
+      center_style = workbook.styles.add_style(alignment: { horizontal: :center }, border: { style: :thin, color: '000000', edges: [:bottom] })
       blue_style = workbook.styles.add_style(bg_color: "4BACC6")
       border_style = workbook.styles.add_style(border: { style: :medium, color: '000000', edges: [:right] })
 
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
       ]
       merge_ranges.each { |range| sheet.merge_cells(range) }
 
-      sheet.add_row ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）","","10","","11","","12","","13","","14","","15","","16","","17","","18","","19","","20","","21","","22"]
+      sheet.add_row ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）","","10","","11","","12","","13","","14","","15","","16","","17","","18","","19","","20","","21","","22","",""]
       
       #人の名前
       User.all.each do |user|
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
           sheet.rows[i].cells[j].style = blue_style
         end
       end 
-
+      
 
       #縦の太線
       #border_ranges = [2,4,6,8,10,12,14,16,18,20,22,24,26]
