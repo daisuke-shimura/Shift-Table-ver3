@@ -62,9 +62,6 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
-    axlsx_rails (0.6.1)
-      actionpack (>= 3.1)
-      caxlsx (>= 3.0)
     bcrypt (3.1.20)
     bindex (0.8.1)
     bootsnap (1.18.3)
@@ -83,7 +80,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    caxlsx (4.1.0)
+    caxlsx (3.4.1)
       htmlentities (~> 4.3, >= 4.3.4)
       marcel (~> 1.0)
       nokogiri (~> 1.10, >= 1.10.4)
@@ -272,11 +269,11 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  axlsx_rails
   bootsnap (>= 1.4.4)
   bootstrap5-kaminari-views (~> 0.0.1)
   byebug
   capybara (>= 3.26)
+  caxlsx (~> 3.2)
   devise
   dotenv-rails
   jbuilder (~> 2.7)

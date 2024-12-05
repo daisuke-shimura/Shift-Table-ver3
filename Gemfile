@@ -60,5 +60,6 @@ gem 'kaminari','~> 1.2.1'
 gem 'bootstrap5-kaminari-views', '~> 0.0.1'
 gem 'dotenv-rails'
 #table作成
-gem 'axlsx_rails'
+#gem 'axlsx_rails'
+gem 'caxlsx', '~> 3.2'
 gem 'wdm', '>= 0.1.0'
