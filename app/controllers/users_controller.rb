@@ -27,6 +27,9 @@ class UsersController < ApplicationController
 
 #table作成
   def export
+    day = Day.find(1)
+    user = User.find(2)
+
     package = Axlsx::Package.new
     workbook = package.workbook
 
@@ -84,13 +87,43 @@ class UsersController < ApplicationController
       #thin_border_ranges = [1,3,5,7,9,11,13,15,17,19,21,23,25,27]
       #border_ranges.each { |range| sheet.col_style(range, border_style)}
 
-      index_box =     [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
       # y=2x-18       [0    ,1    ,2    ,3    ,4    ,5    ,6    ,7    ,8    ,9    ,10   ,11   ,12   ,13   ,14   ,15   ,16   ,17   ,18   ,19   ,20   ,21   ,22   ,23   ,24   ,25   ,26   ,27   ]
       #               [     ,     ,10   ,     ,11   ,     ,12   ,     ,13   ,     ,14   ,     ,15   ,     ,16   ,     ,17   ,     ,18   ,     ,19   ,     ,20   ,     ,21   ,     ,22   ,     ]
       shift_box = [[2,[true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]],
                    [3,[true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false,false,false]],
                    [4,[false,false,false,false,false,false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false]],
-                   [5,[false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false]]]
+                   [5,[false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false]],
+                   [6,[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]]
+
+      #抜き取る
+      times = []
+      user.jobs.where(day_id: day.id).each do |job|
+        times = job.time1.scan(/\d+/)
+        times = times.map(&:to_i)
+      end
+
+      times.each do |i|
+        y = (2*i)-18
+        shift_box[4][1][y] = true
+      end
+
+      #間をtrueで埋める
+      triga = 0
+      shift_box[4][1].each_with_index do |i,n|
+        if triga == 0
+          if i == true
+            triga = 1
+          end
+        else
+          if i == true
+            shift_box[4][1][n] = false
+            triga = 0
+          else
+            shift_box[4][1][n] = true
+          end
+        end
+      end
+
       shift_box.each do |i,k|
         k.each_with_index do |j,x|
           if j == true
@@ -108,8 +141,10 @@ class UsersController < ApplicationController
           #sheet.rows[i].cells[j].style = blue_style(j,workbook)
         #end
       #end
-      sheet.rows[6].cells[2].style = blue_style(2,workbook)
-      sheet.rows[7].cells[3].style = blue_style(3,workbook)
+
+      #塗りつぶし単体
+      #sheet.rows[6].cells[2].style = blue_style(2,workbook)
+      #sheet.rows[7].cells[3].style = blue_style(3,workbook)
 
       #sheet.rows[5].cells[3].value = 3
       #sheet.rows[5].cells[3].type = :integer
