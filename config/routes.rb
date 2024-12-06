@@ -22,5 +22,6 @@ Rails.application.routes.draw do
   get "past" => 'days#index2'
 
 #table作成
-  get "excel" => 'users#export'
+  #get "excel" => 'users#export'
+  get "excel" => 'excel#export'
 end
