@@ -76,10 +76,11 @@ class ExcelController < ApplicationController
                     [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
                     [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
                     [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
                     [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
       #抜き取る
       times = []
-      user.where("id > ?", 1).each_with_index do |user,u|
+      user.all.each_with_index do |user,u|
         times[u] = []
 
         user.jobs.where(day_id: day.id).each_with_index do |job|
@@ -87,32 +88,37 @@ class ExcelController < ApplicationController
           times[u] = times[u].map(&:to_i)
         end
       end
-
+      #読み取ったtrueを特定の場所へ格納
       times.each_with_index do |k,n|
-        if n == 4
+        if n > 0
           k.each do |i|
             y = (2*i)-18
-            shift_box[5][y] = true
+            shift_box[n][y] = true
           end
         end
       end
 
       #間をtrueで埋める
-      triga = 0
-      shift_box[5].each_with_index do |i,n|
-        if triga == 0
-          if i == true
-            triga = 1
-          end
-        else
-          if i == true
-            shift_box[5][n] = false
-            triga = 0
-          else
-            shift_box[5][n] = true
+      shift_box.each_with_index do |k,j|
+        if j > 0
+          triga = 0
+          k.each_with_index do |i,n|
+            if triga == 0
+              if i == true
+                triga = 1
+              end
+            else
+              if i == true
+                shift_box[j][n] = false
+                triga = 0
+              else
+                shift_box[j][n] = true
+              end
+            end
           end
         end
       end
+      
 
       shift_box.each_with_index do |k,i|
         k.each_with_index do |j,x|
