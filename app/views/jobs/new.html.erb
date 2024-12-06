@@ -175,3 +175,10 @@
     </table>
   </div>
 </div>
+<hr>
+<details>
+  <summary>excelファイル</summary>
+  <%= link_to day_excel_path(@day.id) do %>
+    <button class="btn btn-primary"><i class="fa-solid fa-down-long"></i> Export to Excel</button>
+  <% end %>
+</details>
