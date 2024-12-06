@@ -85,12 +85,15 @@ class UsersController < ApplicationController
       #border_ranges.each { |range| sheet.col_style(range, border_style)}
 
       index_box =     [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
-      shift_box = [[2,[1,2,3,4,5,6,7,8,9,10,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0]],
-                   [3,[1,2,3,4,5,6,0,0,0,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0]],
-                   [4,[0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,16,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0]]]
+      # y=2x-18       [0    ,1    ,2    ,3    ,4    ,5    ,6    ,7    ,8    ,9    ,10   ,11   ,12   ,13   ,14   ,15   ,16   ,17   ,18   ,19   ,20   ,21   ,22   ,23   ,24   ,25   ,26   ,27   ]
+      #               [     ,     ,10   ,     ,11   ,     ,12   ,     ,13   ,     ,14   ,     ,15   ,     ,16   ,     ,17   ,     ,18   ,     ,19   ,     ,20   ,     ,21   ,     ,22   ,     ]
+      shift_box = [[2,[true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]],
+                   [3,[true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false,false,false]],
+                   [4,[false,false,false,false,false,false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false]],
+                   [5,[false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false]]]
       shift_box.each do |i,k|
         k.each_with_index do |j,x|
-          if j > 0
+          if j == true
             sheet.rows[i].cells[x+1].style = blue_style(x+1,workbook)
           else
             sheet.rows[i].cells[x+1].style = white_style(x+1,workbook)
@@ -106,7 +109,7 @@ class UsersController < ApplicationController
         #end
       #end
       sheet.rows[6].cells[2].style = blue_style(2,workbook)
-      sheet.rows[5].cells[3].style = blue_style(3,workbook)
+      sheet.rows[7].cells[3].style = blue_style(3,workbook)
 
       #sheet.rows[5].cells[3].value = 3
       #sheet.rows[5].cells[3].type = :integer
