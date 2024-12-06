@@ -2,7 +2,7 @@ class ExcelController < ApplicationController
   #table作成
   def export
     day = Day.find(params[:day_id])
-    user = User.find(2)
+    user = User.all
 
     package = Axlsx::Package.new
     workbook = package.workbook
@@ -72,14 +72,21 @@ class ExcelController < ApplicationController
 
       #抜き取る
       times = []
-      user.jobs.where(day_id: day.id).each do |job|
-        times = job.time1.scan(/\d+/)
-        times = times.map(&:to_i)
+      user.where("id > ?", 1).each_with_index do |user,u|
+        times[u] = []
+
+        user.jobs.where(day_id: day.id).each_with_index do |job,i|
+          times[u][i] = job.time1.scan(/\d+/).map(&:to_i)
+        end
       end
 
-      times.each do |i|
-        y = (2*i)-18
-        shift_box[5][y] = true
+      times.each do |k|
+        if k == 1
+          k.each do |i|
+            y = (2*i)-18
+            shift_box[5][y] = true
+          end
+        end
       end
 
       #間をtrueで埋める
