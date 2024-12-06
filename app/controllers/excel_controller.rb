@@ -26,7 +26,7 @@ class ExcelController < ApplicationController
                  { style: :medium, color: "000000", edges: [:right] }]
       )
 
-      empty_row = Array.new(29, "")
+      empty_row = Array.new(29, " ")
       2.times {sheet.add_row(empty_row, style: thick_border_style)}
       11.times {sheet.add_row(empty_row, style: center_style)}
       sheet.add_row(empty_row, style: thick_border_style)
