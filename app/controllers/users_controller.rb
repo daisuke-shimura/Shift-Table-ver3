@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     workbook.add_worksheet(name: "User_index") do |sheet|
 
       center_style = workbook.styles.add_style(alignment: { horizontal: :center }, border: { style: :thin, color: '000000', edges: [:bottom] })
-      blue_style = workbook.styles.add_style(bg_color: "4BACC6")
+      #blue_style = workbook.styles.add_style(bg_color: "4BACC6")
       border_style = workbook.styles.add_style(border: { style: :medium, color: '000000', edges: [:right] })
       thin_border_style = workbook.styles.add_style(alignment: { horizontal: :center }, border: { style: :thin, color: '000000', edges: [:right, :bottom] })
       thick_border_style = workbook.styles.add_style(alignment: { horizontal: :center }, border: { style: :medium, color: '000000', edges: [:bottom] })
@@ -43,23 +43,15 @@ class UsersController < ApplicationController
         border: [{ style: :thin, color: '000000', edges: [:right, :bottom] },
                  { style: :medium, color: "000000", edges: [:left] }]
       )
-
-      n2_border = workbook.styles.add_style(
+      head_style = workbook.styles.add_style(
         alignment: { horizontal: :center },
-        bg_color: "4BACC6", 
-        border: [{ style: :medium, color: "000000", edges: [:right] },
-                 { style: :thin, color: "000000", edges: [:bottom] }]
-      )
-
-      n1_border = workbook.styles.add_style(
-        alignment: { horizontal: :center },
-        bg_color: "4BACC6",
-        border: { style: :thin, color: "000000", edges: [:right, :bottom] }
+        border: [{ style: :thin, color: '000000', edges: [:left, :bottom] },
+                 { style: :medium, color: "000000", edges: [:right] }]
       )
 
       empty_row = Array.new(29, "")
-      sheet.add_row(empty_row, style: thick_border_style)
-      12.times { sheet.add_row(empty_row, style: center_style) }
+      2.times {sheet.add_row(empty_row, style: thick_border_style)}
+      11.times {sheet.add_row(empty_row, style: center_style)}
       sheet.add_row(empty_row, style: thick_border_style)
 
       merge_ranges = [
@@ -74,7 +66,8 @@ class UsersController < ApplicationController
       head.each_with_index do |value, i|
         sheet.rows[1].cells[i].value = value
       end
-      sheet.rows[1].cells[0].style = name_style
+      #sheet.rows[1].cells[0].style = name_style
+      #sheet.rows[1].cells[28].style = head_style
 
       int_ranges = [2,4,6,8,10,12,14,16,18,20,22,24,26]
       int_ranges.each { |int| sheet.rows[1].cells[int].type = :integer }
@@ -91,19 +84,29 @@ class UsersController < ApplicationController
       #thin_border_ranges = [1,3,5,7,9,11,13,15,17,19,21,23,25,27]
       #border_ranges.each { |range| sheet.col_style(range, border_style)}
 
-      #青に塗りつぶし
-      shift_box = [[2,[1,2,3,4,5,6,7,8,9,10]],[3,[1,2,3,4,5,6],]]
+      index_box =     [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
+      shift_box = [[2,[1,2,3,4,5,6,7,8,9,10,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0]],
+                   [3,[1,2,3,4,5,6,0,0,0,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0]],
+                   [4,[0,0,0,0,0,0,0,0,0,10,11,12,13,14,15,16,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0]]]
       shift_box.each do |i,k|
-        k.each do |j|
-          if j % 2 == 0
-            sheet.rows[i].cells[j].style = n2_border
+        k.each_with_index do |j,x|
+          if j > 0
+            sheet.rows[i].cells[x+1].style = blue_style(x+1,workbook)
           else
-            sheet.rows[i].cells[j].style = n1_border
+            sheet.rows[i].cells[x+1].style = white_style(x+1,workbook)
           end
         end
       end
-      sheet.rows[4].cells[2].style = blue_style
-      sheet.rows[5].cells[3].style = blue_style
+
+      #青に塗りつぶし
+      #shift_box = [[2,[1,2,3,4,5,6,7,8,9,10]],[3,[1,2,3,4,5,6]],[4,[10,11,12,13,14,15,16]]]
+      #shift_box.each do |i,k|
+        #k.each do |j|
+          #sheet.rows[i].cells[j].style = blue_style(j,workbook)
+        #end
+      #end
+      sheet.rows[6].cells[2].style = blue_style(2,workbook)
+      sheet.rows[5].cells[3].style = blue_style(3,workbook)
 
       #sheet.rows[5].cells[3].value = 3
       #sheet.rows[5].cells[3].type = :integer
@@ -113,10 +116,48 @@ class UsersController < ApplicationController
     end
 
     send_data package.to_stream.read, type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename: "users.xlsx"
+
   end
 
   private
   def user_params
     params.require(:user).permit(:name)
   end
+
+  def blue_style(x,workbook)
+    n2_border = workbook.styles.add_style(
+    alignment: { horizontal: :center },
+    bg_color: "4BACC6", 
+    border: [{ style: :medium, color: "000000", edges: [:right] },
+             { style: :thin, color: "000000", edges: [:bottom] }]
+    )
+    n1_border = workbook.styles.add_style(
+      alignment: { horizontal: :center },
+      bg_color: "4BACC6",
+      border: { style: :thin, color: "000000", edges: [:right, :bottom] }
+    )
+    if x % 2 == 0
+      n2_border
+    else
+      n1_border
+    end
+  end
+
+  def white_style(x,workbook)
+    n2_border = workbook.styles.add_style(
+      alignment: { horizontal: :center },
+      border: [{ style: :medium, color: "000000", edges: [:right] },
+               { style: :thin, color: "000000", edges: [:bottom] }]
+    )
+    n1_border = workbook.styles.add_style(
+      alignment: { horizontal: :center },
+      border: { style: :thin, color: "000000", edges: [:right, :bottom] }
+    )
+    if x % 2 == 0
+      n2_border
+    else
+      n1_border
+    end
+  end
+
 end
