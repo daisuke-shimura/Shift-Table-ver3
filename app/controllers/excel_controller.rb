@@ -70,14 +70,18 @@ class ExcelController < ApplicationController
        #            [false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false],
        #            [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
 
-       shift_box = [[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
+       shift_box = [[0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
       #抜き取る
       times = []
       user.where("id > ?", 1).each_with_index do |user,u|
@@ -88,11 +92,18 @@ class ExcelController < ApplicationController
           times[u] = times[u].map(&:to_i)
         end
       end
+      
       #読み取ったtrueを特定の場所へ格納
       times.each_with_index do |k,n|
-        k.each do |i|
-          y = (2*i)-18
-          shift_box[n+1][y] = true
+        k.each_with_index do |i,j|
+          if i == 5 || i == 30
+            y = (2*k[j-1])-18 +1 # +1 IDつけたから
+            shift_box[n+1][y] = false
+            shift_box[n+1][y+1] = true
+          else
+            y = (2*i)-18 +1 # +1 IDつけたから
+            shift_box[n+1][y] = true
+          end
         end
       end
 
@@ -101,18 +112,21 @@ class ExcelController < ApplicationController
         if j > 0
           triga = 0
           k.each_with_index do |i,n|
-            if triga == 0
-              if i == true
-                triga = 1
-              end
-            else
-              if i == true
-                shift_box[j][n] = false
-                triga = 0
+            #if n > 0
+              if triga == 0
+                if i == true
+                  triga = 1
+                end
               else
-                shift_box[j][n] = true
+                if i == true
+                  shift_box[j][n] = false #頭にidつけたから
+                  #triga = 0
+                  break
+                else
+                  shift_box[j][n] = true  #頭にidつけたから
+                end
               end
-            end
+            #end
           end
         end
       end
@@ -121,9 +135,9 @@ class ExcelController < ApplicationController
       shift_box.each_with_index do |k,i|
         k.each_with_index do |j,x|
           if j == true
-            sheet.rows[i+2].cells[x+1].style = blue_style(x+1,workbook)
-          else
-            sheet.rows[i+2].cells[x+1].style = white_style(x+1,workbook)
+            sheet.rows[i+2].cells[x].style = blue_style(x,workbook)
+          elsif j == false
+            sheet.rows[i+2].cells[x].style = white_style(x,workbook)
           end
         end
       end
