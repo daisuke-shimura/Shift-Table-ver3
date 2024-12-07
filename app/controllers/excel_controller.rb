@@ -80,7 +80,7 @@ class ExcelController < ApplicationController
                     [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
       #抜き取る
       times = []
-      user.all.each_with_index do |user,u|
+      user.where("id > ?", 1).each_with_index do |user,u|
         times[u] = []
 
         user.jobs.where(day_id: day.id).each_with_index do |job|
@@ -90,11 +90,9 @@ class ExcelController < ApplicationController
       end
       #読み取ったtrueを特定の場所へ格納
       times.each_with_index do |k,n|
-        if n > 0
-          k.each do |i|
-            y = (2*i)-18
-            shift_box[n][y] = true
-          end
+        k.each do |i|
+          y = (2*i)-18
+          shift_box[n+1][y] = true
         end
       end
 
