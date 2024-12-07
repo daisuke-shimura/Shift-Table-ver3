@@ -28,8 +28,8 @@ class ExcelController < ApplicationController
 
       empty_row = Array.new(29, " ")
       2.times {sheet.add_row(empty_row, style: thick_border_style)}
-      11.times {sheet.add_row(empty_row, style: center_style)}
-      sheet.add_row(empty_row, style: thick_border_style)
+      11.times {sheet.add_row(empty_row)}#, style: center_style
+      sheet.add_row(empty_row)#, style: thick_border_style
 
       merge_ranges = [
         "C2:D2", "E2:F2", "G2:H2", "I2:J2", "K2:L2",
@@ -51,10 +51,10 @@ class ExcelController < ApplicationController
 
 
       #人の名前
-      User.all.each_with_index do |user,i|
-        sheet.rows[(i+2)].cells[0].value = user.name
-        sheet.rows[(i+2)].cells[0].style = name_style
-      end
+      #User.all.each_with_index do |user,i|
+       #sheet.rows[(i+2)].cells[0].value = user.name
+       #sheet.rows[(i+2)].cells[0].style = name_style
+      #end
       
       #縦の太線
       #thick_border_ranges = [0,2,4,6,8,10,12,14,16,18,20,22,24,26]
@@ -70,30 +70,34 @@ class ExcelController < ApplicationController
        #            [false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false],
        #            [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
 
-       shift_box = [[0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    [0,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
+       shift_box = [[1,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
       #抜き取る
+      userid = 1
       times = []
       user.where("id > ?", 1).each_with_index do |user,u|
-        times[u] = []
-
         user.jobs.where(day_id: day.id).each_with_index do |job|
-          times[u] = job.time1.scan(/\d+/)
-          times[u] = times[u].map(&:to_i)
+          unless job.time1 == nil
+            shift_box[userid][0] = user.id
+            times[userid - 1] = []
+            times[userid - 1] = job.time1.scan(/\d+/)
+            times[userid - 1] = times[userid - 1].map(&:to_i)
+            userid += 1
+          end
         end
       end
       
-      #読み取ったtrueを特定の場所へ格納
+      #読み取った数値からtrueを特定の場所へ格納
       times.each_with_index do |k,n|
         k.each_with_index do |i,j|
           if i == 5 || i == 30
@@ -138,6 +142,11 @@ class ExcelController < ApplicationController
             sheet.rows[i+2].cells[x].style = blue_style(x,workbook)
           elsif j == false
             sheet.rows[i+2].cells[x].style = white_style(x,workbook)
+          elsif j.is_a?(Integer)
+            sheet.rows[i+2].cells[x].value = User.find(j).name
+            sheet.rows[i+2].cells[x].style = name_style
+          else
+            sheet.rows[i+2].cells[x].style = name_style
           end
         end
       end
