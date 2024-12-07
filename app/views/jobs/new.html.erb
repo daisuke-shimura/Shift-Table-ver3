@@ -182,3 +182,16 @@
     <button class="btn btn-primary"><i class="fa-solid fa-down-long"></i> Export to Excel</button>
   <% end %>
 </details>
+
+<%= link_to day_excel_path(@day.id), id: "download-link", target: "_blank" do %>
+  ダウンロード
+<% end %>
+
+<script>
+  document.getElementById("download-link").addEventListener("click", function(event) {
+    // デフォルトのリンク動作を許可
+    setTimeout(function() {
+      window.location.href = "<%= new_day_job_path(@day.id) %>";
+    }, 1000); // ダウンロード後にリダイレクト
+  });
+</script>
