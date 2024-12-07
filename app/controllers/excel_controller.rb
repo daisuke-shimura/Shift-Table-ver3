@@ -39,7 +39,7 @@ class ExcelController < ApplicationController
       merge_ranges.each { |range| sheet.merge_cells(range) }
 
       #sheet.rows[1].value = ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）","","10","","11","","12","","13","","14","","15","","16","","17","","18","","19","","20","","21","","22","",""]
-      head = ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）", "", 10, "", 11, "", 12, "", 13, "", 14, "", 15, "", 16, "", 17, "", 18, "", 19, "", 20, "", 21, "", 22, ""]
+      head = ["#{day.start.month}月#{day.start.day}日（月）", "", 10, "", 11, "", 12, "", 13, "", 14, "", 15, "", 16, "", 17, "", 18, "", 19, "", 20, "", 21, "", 22, ""]
       head.each_with_index do |value, i|
         sheet.rows[1].cells[i].value = value
       end
@@ -61,14 +61,14 @@ class ExcelController < ApplicationController
       #thin_border_ranges = [1,3,5,7,9,11,13,15,17,19,21,23,25,27]
       #border_ranges.each { |range| sheet.col_style(range, border_style)}
 
-      # y=2x-18    [0    ,1    ,2    ,3    ,4    ,5    ,6    ,7    ,8    ,9    ,10   ,11   ,12   ,13   ,14   ,15   ,16   ,17   ,18   ,19   ,20   ,21   ,22   ,23   ,24   ,25   ,26   ,27   ]
-      #            [     ,     ,10   ,     ,11   ,     ,12   ,     ,13   ,     ,14   ,     ,15   ,     ,16   ,     ,17   ,     ,18   ,     ,19   ,     ,20   ,     ,21   ,     ,22   ,     ]
-      #shift_box = [[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-       #            [true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-       #            [true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-       #            [false,false,false,false,false,false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false],
-       #            [false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false],
-       #            [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
+         # y=2x-18    [0    ,1    ,2    ,3    ,4    ,5    ,6    ,7    ,8    ,9    ,10   ,11   ,12   ,13   ,14   ,15   ,16   ,17   ,18   ,19   ,20   ,21   ,22   ,23   ,24   ,25   ,26   ,27   ]
+         #            [     ,     ,10   ,     ,11   ,     ,12   ,     ,13   ,     ,14   ,     ,15   ,     ,16   ,     ,17   ,     ,18   ,     ,19   ,     ,20   ,     ,21   ,     ,22   ,     ]
+        #shift_box = [[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+         #            [true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+         #            [true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+         #            [false,false,false,false,false,false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false],
+         #            [false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false],
+         #            [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
 
        shift_box = [[1,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
                     ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -87,12 +87,32 @@ class ExcelController < ApplicationController
       times = []
       user.where("id > ?", 1).each_with_index do |user,u|
         user.jobs.where(day_id: day.id).each_with_index do |job|
-          unless job.time1 == nil
+          unless job.time1 == nil || job.time1 == "×"
             shift_box[userid][0] = user.id
             times[userid - 1] = []
-            times[userid - 1] = job.time1.scan(/\d+/)
-            times[userid - 1] = times[userid - 1].map(&:to_i)
+            if job.time1.match?(/F/i)
+              times[userid - 1] = [9,21]
+            else
+              times[userid - 1] = job.time1.scan(/\d+/)
+              times[userid - 1] = times[userid - 1].map(&:to_i)
+              if job.time1.match?(/L/i)
+                times[userid - 1] << 21
+              end
+            end
             userid += 1
+          end
+        end
+      end
+
+      #並び替え
+      swap = true
+      while swap
+        swap = false
+        (1...times.length).each do |n|
+          if times[n][0] < times[n-1][0]
+            times[n], times[n-1] = times[n-1], times[n] # 要素を入れ替え
+            shift_box[n+1][0], shift_box[n][0] = shift_box[n][0], shift_box[n+1][0]
+            swap = true
           end
         end
       end
