@@ -176,17 +176,14 @@
   </div>
 </div>
 <hr>
-<details>
-  <summary>excelファイル</summary>
-  <%= link_to day_excel_path(@day.id) do %>
-    <button class="btn btn-primary"><i class="fa-solid fa-down-long"></i> Export to Excel</button>
-  <% end %>
-</details>
 
 <div class = "excel_export">
-  <%= link_to day_excel_path(@day.id), id: "download-link" do %>
-    ダウンロード
-  <% end %>
+  <details>
+  <summary>excelファイル</summary>
+    <%= link_to day_excel_path(@day.id) , id: "download-link" do %>
+      <button class="btn btn-primary"><i class="fa-solid fa-down-long"></i> Export to Excel</button>
+    <% end %>
+  </details>
 
   <script>
     document.getElementById("download-link").addEventListener("click", function(event) {
