@@ -26,7 +26,7 @@ class ExcelController < ApplicationController
                  { style: :medium, color: "000000", edges: [:right] }]
       )
 
-      empty_row = Array.new(29, " ")
+      empty_row = Array.new(30, " ")
       2.times {sheet.add_row(empty_row, style: thick_border_style)}
       11.times {sheet.add_row(empty_row)}#, style: center_style
       sheet.add_row(empty_row)#, style: thick_border_style
@@ -69,19 +69,19 @@ class ExcelController < ApplicationController
          #            [false,false,false,false,false,false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false],
          #            [false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false],
          #            [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
-
-       shift_box = [[1,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
+         #配列番号     0,  1  ,  2  ,  3  ,  4  ,  5  ,  6  ,  7  ,  8  ,  9  ,  10 ,  11 ,  12 ,  13 ,  14 ,  15 ,  16 ,  17 ,  18 ,  19 ,  20 ,  21 ,  22 ,  23 ,  24 ,  25 ,  26 ,  27 ,  28 , 29
+       shift_box = [[1 ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]]
       #抜き取る
       userid = 1
       times = []
@@ -89,6 +89,7 @@ class ExcelController < ApplicationController
         user.jobs.where(day_id: day.id).each_with_index do |job|
           unless job.time1 == nil || job.time1 == "×"
             shift_box[userid][0] = user.id
+            shift_box[userid][29] = job.time1
             times[userid - 1] = []
             if job.time1.match?(/F/i)
               times[userid - 1] = [9,21]
@@ -112,6 +113,7 @@ class ExcelController < ApplicationController
           if times[n][0] < times[n-1][0]
             times[n], times[n-1] = times[n-1], times[n] # 要素を入れ替え
             shift_box[n+1][0], shift_box[n][0] = shift_box[n][0], shift_box[n+1][0]
+            shift_box[n+1][29], shift_box[n][29] = shift_box[n][29], shift_box[n+1][29]
             swap = true
           end
         end
@@ -165,6 +167,8 @@ class ExcelController < ApplicationController
           elsif j.is_a?(Integer)
             sheet.rows[i+2].cells[x].value = User.find(j).name
             sheet.rows[i+2].cells[x].style = name_style
+          elsif x == 29
+            sheet.rows[i+2].cells[x].value = j
           else
             sheet.rows[i+2].cells[x].style = name_style
           end
@@ -187,7 +191,7 @@ class ExcelController < ApplicationController
       #sheet.rows[5].cells[3].type = :integer
 
       #列の幅指定（最後）
-      sheet.column_widths 14, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 12
+      sheet.column_widths 14, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 12, 10
     end
 
     send_data package.to_stream.read, type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename: "users.xlsx"
