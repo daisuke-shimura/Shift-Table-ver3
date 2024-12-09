@@ -3,17 +3,19 @@ class ExcelController < ApplicationController
   def export
     day = Day.find(params[:day_id])
     user = User.all
+    row = 0
 
     package = Axlsx::Package.new
     workbook = package.workbook
 
-    workbook.add_worksheet(name: "User_index") do |sheet|
+    workbook.add_worksheet(name: "Sheet1") do |sheet|
 
       center_style = workbook.styles.add_style(alignment: { horizontal: :center }, border: { style: :thin, color: '000000', edges: [:bottom] })
       #blue_style = workbook.styles.add_style(bg_color: "4BACC6")
       border_style = workbook.styles.add_style(border: { style: :medium, color: '000000', edges: [:right] })
       thin_border_style = workbook.styles.add_style(alignment: { horizontal: :center }, border: { style: :thin, color: '000000', edges: [:right, :bottom] })
       thick_border_style = workbook.styles.add_style(alignment: { horizontal: :center }, border: { style: :medium, color: '000000', edges: [:bottom] })
+      thick_top_border_style = workbook.styles.add_style(alignment: { horizontal: :center }, border: { style: :medium, color: '000000', edges: [:bottom, :top] })
 
       name_style = workbook.styles.add_style(
         alignment: { horizontal: :center },
@@ -27,16 +29,23 @@ class ExcelController < ApplicationController
       )
 
       empty_row = Array.new(30, " ")
-      2.times {sheet.add_row(empty_row, style: thick_border_style)}
-      11.times {sheet.add_row(empty_row)}#, style: center_style
-      sheet.add_row(empty_row)#, style: thick_border_style
+      2.times do
+        sheet.add_row(empty_row, style: thick_border_style)
+        row += 1
+      end
 
       merge_ranges = [
-        "C2:D2", "E2:F2", "G2:H2", "I2:J2", "K2:L2",
-        "M2:N2", "O2:P2", "Q2:R2", "S2:T2", "U2:V2",
-        "W2:X2", "Y2:Z2", "AA2:AB2"
+        "C#{row}:D#{row}", "E#{row}:F#{row}", "G#{row}:H#{row}", "I#{row}:J#{row}", "K#{row}:L#{row}",
+        "M#{row}:N#{row}", "O#{row}:P#{row}", "Q#{row}:R#{row}", "S#{row}:T#{row}", "U#{row}:V#{row}",
+        "W#{row}:X#{row}", "Y#{row}:Z#{row}", "AA#{row}:AB#{row}"
       ]
       merge_ranges.each { |range| sheet.merge_cells(range) }
+
+      12.times do
+        sheet.add_row(empty_row)#, style: center_style
+        row += 1
+      end
+      #sheet.add_row(empty_row), style: thick_border_style
 
       #sheet.rows[1].value = ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）","","10","","11","","12","","13","","14","","15","","16","","17","","18","","19","","20","","21","","22","",""]
       head = ["#{day.start.month}月#{day.start.day}日（月）", "", 10, "", 11, "", 12, "", 13, "", 14, "", 15, "", 16, "", 17, "", 18, "", 19, "", 20, "", 21, "", 22, ""]
@@ -70,24 +79,25 @@ class ExcelController < ApplicationController
          #            [false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false],
          #            [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
          #配列番号     0,  1  ,  2  ,  3  ,  4  ,  5  ,  6  ,  7  ,  8  ,  9  ,  10 ,  11 ,  12 ,  13 ,  14 ,  15 ,  16 ,  17 ,  18 ,  19 ,  20 ,  21 ,  22 ,  23 ,  24 ,  25 ,  26 ,  27 ,  28 , 29
-       shift_box = [[1 ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-                    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]]
+       #shift_box = [[1 ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+        #            ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+         #           ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+          #         ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+           #         ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+            #       ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+             #       ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+              #      ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+               #     ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
+                #    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]]
+      shift_box = []
+      shift_box[0] = [1 ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
       #抜き取る
       userid = 1
       times = []
       user.where("id > ?", 1).each_with_index do |user,u|
         user.jobs.where(day_id: day.id).each_with_index do |job|
           unless job.time1 == nil || job.time1 == "×"
+            shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
             shift_box[userid][0] = user.id
             shift_box[userid][29] = job.time1
             if job.time1.match?(/F/i)
@@ -109,6 +119,11 @@ class ExcelController < ApplicationController
             end
           end
         end
+      end
+
+      while userid < 12
+        shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
+        userid += 1
       end
 
       #並び替え
@@ -202,7 +217,7 @@ class ExcelController < ApplicationController
       sheet.column_widths 14, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 12, 10
     end
 
-    send_data package.to_stream.read, type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename: "users.xlsx"
+    send_data package.to_stream.read, type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename: "#{day.start.month}月#{day.start.day}日～.xlsx"
 
   end
 
