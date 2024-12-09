@@ -90,17 +90,23 @@ class ExcelController < ApplicationController
           unless job.time1 == nil || job.time1 == "×"
             shift_box[userid][0] = user.id
             shift_box[userid][29] = job.time1
-            times[userid - 1] = []
             if job.time1.match?(/F/i)
+              times[userid - 1] = []
               times[userid - 1] = [9,21]
-            else
+              userid += 1
+            elsif job.time1.match?(/\d/)
+              times[userid - 1] = []
               times[userid - 1] = job.time1.scan(/\d+/)
               times[userid - 1] = times[userid - 1].map(&:to_i)
               if job.time1.match?(/L/i)
                 times[userid - 1] << 21
               end
+              userid += 1
+            else
+              times[userid - 1] = []
+              times[userid - 1] = [22,22]
+              userid += 1
             end
-            userid += 1
           end
         end
       end
@@ -126,6 +132,8 @@ class ExcelController < ApplicationController
             y = (2*k[j-1])-18 +1 # +1 IDつけたから
             shift_box[n+1][y] = false
             shift_box[n+1][y+1] = true
+          elsif i == 22
+
           else
             y = (2*i)-18 +1 # +1 IDつけたから
             shift_box[n+1][y] = true
