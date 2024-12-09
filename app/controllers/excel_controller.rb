@@ -41,10 +41,6 @@ class ExcelController < ApplicationController
       ]
       merge_ranges.each { |range| sheet.merge_cells(range) }
 
-      12.times do
-        sheet.add_row(empty_row)#, style: center_style
-        row += 1
-      end
       #sheet.add_row(empty_row), style: thick_border_style
 
       #sheet.rows[1].value = ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）","","10","","11","","12","","13","","14","","15","","16","","17","","18","","19","","20","","21","","22","",""]
@@ -124,6 +120,11 @@ class ExcelController < ApplicationController
       while userid < 12
         shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
         userid += 1
+      end
+
+      userid.times do
+        sheet.add_row(empty_row)#, style: center_style
+        row += 1
       end
 
       #並び替え
