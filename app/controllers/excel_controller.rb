@@ -176,7 +176,7 @@ class ExcelController < ApplicationController
         "W#{row}:X#{row}", "Y#{row}:Z#{row}", "AA#{row}:AB#{row}"
       ]
       merge_ranges.each { |range| sheet.merge_cells(range) }
-      head = ["#{day.start.month}月#{(day.start.day) + 1}日（火）", "", 10, "", 11, "", 12, "", 13, "", 14, "", 15, "", 16, "", 17, "", 18, "", 19, "", 20, "", 21, "", 22, ""]
+      head = ["#{(day.start+1).month}月#{(day.start+1).day}日（火）", "", 10, "", 11, "", 12, "", 13, "", 14, "", 15, "", 16, "", 17, "", 18, "", 19, "", 20, "", 21, "", 22, ""]
       head.each_with_index do |value, i|
         sheet.rows[row-1].cells[i].value = value
       end
@@ -292,6 +292,25 @@ class ExcelController < ApplicationController
       end
   #ここまで
 
+  #水曜
+  sheet.add_row(empty_row, style: thick_top_border_style)
+  row += 1
+  sheet.add_row(empty_row, style: thick_border_style)
+  row += 1
+
+  merge_ranges = [
+    "C#{row}:D#{row}", "E#{row}:F#{row}", "G#{row}:H#{row}", "I#{row}:J#{row}", "K#{row}:L#{row}",
+    "M#{row}:N#{row}", "O#{row}:P#{row}", "Q#{row}:R#{row}", "S#{row}:T#{row}", "U#{row}:V#{row}",
+    "W#{row}:X#{row}", "Y#{row}:Z#{row}", "AA#{row}:AB#{row}"
+  ]
+  merge_ranges.each { |range| sheet.merge_cells(range) }
+  head = ["#{(day.start+2).month}月#{(day.start+2).day}日（水）", "", 10, "", 11, "", 12, "", 13, "", 14, "", 15, "", 16, "", 17, "", 18, "", 19, "", 20, "", 21, "", 22, ""]
+  head.each_with_index do |value, i|
+    sheet.rows[row-1].cells[i].value = value
+  end
+  (2..26).step(2).each { |int| sheet.rows[row-1].cells[int].type = :integer }
+  shift_print(workbook, sheet, row, :time3)
+
       #列の幅指定（最後）
       sheet.column_widths 14, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 12, 12
     end
@@ -338,7 +357,9 @@ class ExcelController < ApplicationController
       end
     end
 
-    def shift_print(user, day, workbook, sheet, row)
+    def shift_print(workbook, sheet, row, time_column)
+      day = Day.find(params[:day_id])
+      user = User.all
       name_style = workbook.styles.add_style(
         alignment: { horizontal: :center },
         border: [{ style: :thin, color: '000000', edges: [:right, :bottom] },
@@ -352,17 +373,18 @@ class ExcelController < ApplicationController
       times = []
       user.where("id > ?", 1).each_with_index do |user,u|
         user.jobs.where(day_id: day.id).each_with_index do |job|
-          unless job.time1 == nil || job.time1 == "×"
+          time_n = job.public_send(time_column)
+          unless time_n.blank? || time_n == "×"
             shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
             shift_box[userid][0] = user.id
-            shift_box[userid][29] = job.time1
+            shift_box[userid][29] = time_n
             times[userid - 1] = []
-            if job.time1.match?(/F/i)
+            if time_n.match?(/F/i)
               times[userid - 1] = [9,21]
-            elsif job.time1.match?(/\d/)
-              times[userid - 1] = job.time1.scan(/\d+/)
+            elsif time_n.match?(/\d/)
+              times[userid - 1] = time_n.scan(/\d+/)
               times[userid - 1] = times[userid - 1].map(&:to_i)
-              if job.time1.match?(/L/i)
+              if time_n.match?(/L/i)
                 times[userid - 1] << 21
               end
             else
@@ -438,16 +460,16 @@ class ExcelController < ApplicationController
       shift_box.each_with_index do |k,i|
         k.each_with_index do |j,x|
           if j == true
-            sheet.rows[row+(i+2)].cells[x].style = blue_style(x,workbook)
+            sheet.rows[row - userid + (i)].cells[x].style = blue_style(x,workbook)
           elsif j == false
-            sheet.rows[row+(i+2)].cells[x].style = white_style(x,workbook)
+            sheet.rows[row - userid + (i)].cells[x].style = white_style(x,workbook)
           elsif j.is_a?(Integer)
-            sheet.rows[row+(i+2)].cells[x].value = User.find(j).name
-            sheet.rows[row+(i+2)].cells[x].style = name_style
+            sheet.rows[row - userid + (i)].cells[x].value = User.find(j).name
+            sheet.rows[row - userid + (i)].cells[x].style = name_style
           elsif x == 29
-            sheet.rows[row+(i+2)].cells[x].value = j
+            sheet.rows[row - userid + (i)].cells[x].value = j
           else
-            sheet.rows[row+(i+2)].cells[x].style = name_style
+            sheet.rows[row - userid + (i)].cells[x].style = name_style
           end
         end
       end
