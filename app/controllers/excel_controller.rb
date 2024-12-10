@@ -29,6 +29,8 @@ class ExcelController < ApplicationController
       )
 
       empty_row = Array.new(30, " ")
+
+#月曜日ここから
       2.times do
         sheet.add_row(empty_row, style: thick_border_style)
         row += 1
@@ -41,50 +43,18 @@ class ExcelController < ApplicationController
       ]
       merge_ranges.each { |range| sheet.merge_cells(range) }
 
-      #sheet.add_row(empty_row), style: thick_border_style
-
-      #sheet.rows[1].value = ["#{Time.current.to_date.month}月#{Time.current.to_date.day}日（水）","","10","","11","","12","","13","","14","","15","","16","","17","","18","","19","","20","","21","","22","",""]
       head = ["#{day.start.month}月#{day.start.day}日（月）", "", 10, "", 11, "", 12, "", 13, "", 14, "", 15, "", 16, "", 17, "", 18, "", 19, "", 20, "", 21, "", 22, ""]
       head.each_with_index do |value, i|
         sheet.rows[1].cells[i].value = value
       end
-      #sheet.rows[1].cells[0].style = name_style
-      #sheet.rows[1].cells[28].style = head_style
 
       int_ranges = [2,4,6,8,10,12,14,16,18,20,22,24,26]
       int_ranges.each { |int| sheet.rows[1].cells[int].type = :integer }
 
-
-      #人の名前
-      #User.all.each_with_index do |user,i|
-       #sheet.rows[(i+2)].cells[0].value = user.name
-       #sheet.rows[(i+2)].cells[0].style = name_style
-      #end
-      
-      #縦の太線
-      #thick_border_ranges = [0,2,4,6,8,10,12,14,16,18,20,22,24,26]
-      #thin_border_ranges = [1,3,5,7,9,11,13,15,17,19,21,23,25,27]
-      #border_ranges.each { |range| sheet.col_style(range, border_style)}
-
-         # y=2x-18    [0    ,1    ,2    ,3    ,4    ,5    ,6    ,7    ,8    ,9    ,10   ,11   ,12   ,13   ,14   ,15   ,16   ,17   ,18   ,19   ,20   ,21   ,22   ,23   ,24   ,25   ,26   ,27   ]
-         #            [     ,     ,10   ,     ,11   ,     ,12   ,     ,13   ,     ,14   ,     ,15   ,     ,16   ,     ,17   ,     ,18   ,     ,19   ,     ,20   ,     ,21   ,     ,22   ,     ]
-        #shift_box = [[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-         #            [true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-         #            [true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-         #            [false,false,false,false,false,false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false],
-         #            [false,false,false,false,false,false,false,false,true ,true ,true ,true ,true ,true ,true ,true ,false,false,false,false,false,false,false,false,false,false,false,false],
-         #            [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]]
-         #配列番号     0,  1  ,  2  ,  3  ,  4  ,  5  ,  6  ,  7  ,  8  ,  9  ,  10 ,  11 ,  12 ,  13 ,  14 ,  15 ,  16 ,  17 ,  18 ,  19 ,  20 ,  21 ,  22 ,  23 ,  24 ,  25 ,  26 ,  27 ,  28 , 29
+         # y=2x-18      [0    ,1    ,2    ,3    ,4    ,5    ,6    ,7    ,8    ,9    ,10   ,11   ,12   ,13   ,14   ,15   ,16   ,17   ,18   ,19   ,20   ,21   ,22   ,23   ,24   ,25   ,26   ,27   ]
+         #              [     ,     ,10   ,     ,11   ,     ,12   ,     ,13   ,     ,14   ,     ,15   ,     ,16   ,     ,17   ,     ,18   ,     ,19   ,     ,20   ,     ,21   ,     ,22   ,     ]
+         #配列番号      0,  1  ,  2  ,  3  ,  4  ,  5  ,  6  ,  7  ,  8  ,  9  ,  10 ,  11 ,  12 ,  13 ,  14 ,  15 ,  16 ,  17 ,  18 ,  19 ,  20 ,  21 ,  22 ,  23 ,  24 ,  25 ,  26 ,  27 ,  28 , 29
        #shift_box = [[1 ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-        #            ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-         #           ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-          #         ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-           #         ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-            #       ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-             #       ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-              #      ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-               #     ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""],
-                #    ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]]
       shift_box = []
       shift_box[0] = [1 ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
       #抜き取る
@@ -96,23 +66,19 @@ class ExcelController < ApplicationController
             shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
             shift_box[userid][0] = user.id
             shift_box[userid][29] = job.time1
+            times[userid - 1] = []
             if job.time1.match?(/F/i)
-              times[userid - 1] = []
               times[userid - 1] = [9,21]
-              userid += 1
             elsif job.time1.match?(/\d/)
-              times[userid - 1] = []
               times[userid - 1] = job.time1.scan(/\d+/)
               times[userid - 1] = times[userid - 1].map(&:to_i)
               if job.time1.match?(/L/i)
                 times[userid - 1] << 21
               end
-              userid += 1
             else
-              times[userid - 1] = []
               times[userid - 1] = [22,22]
-              userid += 1
             end
+            userid += 1
           end
         end
       end
@@ -162,21 +128,20 @@ class ExcelController < ApplicationController
         if j > 0
           triga = 0
           k.each_with_index do |i,n|
-            #if n > 0
+            if n > 0 #最初の配列は店長だからスキップ
               if triga == 0
                 if i == true
                   triga = 1
                 end
               else
                 if i == true
-                  shift_box[j][n] = false #頭にidつけたから
-                  #triga = 0
-                  break
+                  shift_box[j][n] = false
+                  break #この時点で終わり
                 else
-                  shift_box[j][n] = true  #頭にidつけたから
+                  shift_box[j][n] = true
                 end
               end
-            #end
+            end
           end
         end
       end
@@ -198,24 +163,28 @@ class ExcelController < ApplicationController
           end
         end
       end
+#月曜日ここまで
 
-      #青に塗りつぶし
-      #shift_box = [[2,[1,2,3,4,5,6,7,8,9,10]],[3,[1,2,3,4,5,6]],[4,[10,11,12,13,14,15,16]]]
-      #shift_box.each do |i,k|
-        #k.each do |j|
-          #sheet.rows[i].cells[j].style = blue_style(j,workbook)
-        #end
-      #end
+#火曜日
+      sheet.add_row(empty_row, style: thick_top_border_style)
+      row += 1
+      sheet.add_row(empty_row, style: thick_border_style)
+      row += 1
 
-      #塗りつぶし単体
-      #sheet.rows[6].cells[2].style = blue_style(2,workbook)
-      #sheet.rows[7].cells[3].style = blue_style(3,workbook)
-
-      #sheet.rows[5].cells[3].value = 3
-      #sheet.rows[5].cells[3].type = :integer
+      merge_ranges = [
+        "C#{row}:D#{row}", "E#{row}:F#{row}", "G#{row}:H#{row}", "I#{row}:J#{row}", "K#{row}:L#{row}",
+        "M#{row}:N#{row}", "O#{row}:P#{row}", "Q#{row}:R#{row}", "S#{row}:T#{row}", "U#{row}:V#{row}",
+        "W#{row}:X#{row}", "Y#{row}:Z#{row}", "AA#{row}:AB#{row}"
+      ]
+      merge_ranges.each { |range| sheet.merge_cells(range) }
+      head = ["#{day.start.month}月#{(day.start.day) + 1}日（火）", "", 10, "", 11, "", 12, "", 13, "", 14, "", 15, "", 16, "", 17, "", 18, "", 19, "", 20, "", 21, "", 22, ""]
+      head.each_with_index do |value, i|
+        sheet.rows[row-1].cells[i].value = value
+      end
+      (2..26).step(2).each { |int| sheet.rows[row-1].cells[int].type = :integer }
 
       #列の幅指定（最後）
-      sheet.column_widths 14, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 12, 10
+      sheet.column_widths 14, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 12, 12
     end
 
     send_data package.to_stream.read, type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename: "#{day.start.month}月#{day.start.day}日～.xlsx"
