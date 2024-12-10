@@ -48,8 +48,7 @@ class ExcelController < ApplicationController
         sheet.rows[1].cells[i].value = value
       end
 
-      int_ranges = [2,4,6,8,10,12,14,16,18,20,22,24,26]
-      int_ranges.each { |int| sheet.rows[1].cells[int].type = :integer }
+      (2..26).step(2).each { |int| sheet.rows[row-1].cells[int].type = :integer }
 
          # y=2x-18      [0    ,1    ,2    ,3    ,4    ,5    ,6    ,7    ,8    ,9    ,10   ,11   ,12   ,13   ,14   ,15   ,16   ,17   ,18   ,19   ,20   ,21   ,22   ,23   ,24   ,25   ,26   ,27   ]
          #              [     ,     ,10   ,     ,11   ,     ,12   ,     ,13   ,     ,14   ,     ,15   ,     ,16   ,     ,17   ,     ,18   ,     ,19   ,     ,20   ,     ,21   ,     ,22   ,     ]
@@ -62,7 +61,7 @@ class ExcelController < ApplicationController
       times = []
       user.where("id > ?", 1).each_with_index do |user,u|
         user.jobs.where(day_id: day.id).each_with_index do |job|
-          unless job.time1 == nil || job.time1 == "×"
+          unless job.time1.blank? || job.time1 == "×"
             shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
             shift_box[userid][0] = user.id
             shift_box[userid][29] = job.time1
@@ -146,7 +145,7 @@ class ExcelController < ApplicationController
         end
       end
       
-
+#月曜日の結果出力
       shift_box.each_with_index do |k,i|
         k.each_with_index do |j,x|
           if j == true
@@ -182,6 +181,116 @@ class ExcelController < ApplicationController
         sheet.rows[row-1].cells[i].value = value
       end
       (2..26).step(2).each { |int| sheet.rows[row-1].cells[int].type = :integer }
+
+  #timeの変数以外共通 ここから
+      shift_box = []
+      shift_box[0] = [1 ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
+      #抜き取る
+      userid = 1
+      times = []
+      user.where("id > ?", 1).each_with_index do |user,u|
+        user.jobs.where(day_id: day.id).each_with_index do |job|
+          unless job.time2.blank? || job.time2 == "×"
+            shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
+            shift_box[userid][0] = user.id
+            shift_box[userid][29] = job.time2
+            times[userid - 1] = []
+            if job.time2.match?(/F/i)
+              times[userid - 1] = [9,21]
+            elsif job.time2.match?(/\d/)
+              times[userid - 1] = job.time2.scan(/\d+/)
+              times[userid - 1] = times[userid - 1].map(&:to_i)
+              if job.time2.match?(/L/i)
+                times[userid - 1] << 21
+              end
+            else
+              times[userid - 1] = [22,22]
+            end
+            userid += 1
+          end
+        end
+      end
+
+      while userid < 12
+        shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
+        userid += 1
+      end
+
+      userid.times do
+        sheet.add_row(empty_row)#, style: center_style
+        row += 1
+      end
+
+      #並び替え
+      swap = true
+      while swap
+        swap = false
+        (1...times.length).each do |n|
+          if times[n][0] < times[n-1][0]
+            times[n], times[n-1] = times[n-1], times[n] # 要素を入れ替え
+            shift_box[n+1][0], shift_box[n][0] = shift_box[n][0], shift_box[n+1][0]
+            shift_box[n+1][29], shift_box[n][29] = shift_box[n][29], shift_box[n+1][29]
+            swap = true
+          end
+        end
+      end
+      
+      #読み取った数値からtrueを特定の場所へ格納
+      times.each_with_index do |k,n|
+        k.each_with_index do |i,j|
+          if i == 5 || i == 30
+            y = (2*k[j-1])-18 +1 # +1 IDつけたから
+            shift_box[n+1][y] = false
+            shift_box[n+1][y+1] = true
+          elsif i == 22
+
+          else
+            y = (2*i)-18 +1 # +1 IDつけたから
+            shift_box[n+1][y] = true
+          end
+        end
+      end
+
+      #間をtrueで埋める
+      shift_box.each_with_index do |k,j|
+        if j > 0
+          triga = 0
+          k.each_with_index do |i,n|
+            if n > 0 #最初の配列は店長だからスキップ
+              if triga == 0
+                if i == true
+                  triga = 1
+                end
+              else
+                if i == true
+                  shift_box[j][n] = false
+                  break #この時点で終わり
+                else
+                  shift_box[j][n] = true
+                end
+              end
+            end
+          end
+        end
+      end
+      
+      shift_box.each_with_index do |k,i|
+        k.each_with_index do |j,x|
+          if j == true
+            sheet.rows[row - userid + (i)].cells[x].style = blue_style(x,workbook)
+          elsif j == false
+            sheet.rows[row - userid + (i)].cells[x].style = white_style(x,workbook)
+          elsif j.is_a?(Integer)
+            sheet.rows[row - userid + (i)].cells[x].value = User.find(j).name
+            sheet.rows[row - userid + (i)].cells[x].style = name_style
+          elsif x == 29
+            sheet.rows[row - userid + (i)].cells[x].value = j
+          else
+            sheet.rows[row - userid + (i)].cells[x].style = name_style
+          end
+        end
+      end
+  #ここまで
 
       #列の幅指定（最後）
       sheet.column_widths 14, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 12, 12
@@ -227,6 +336,122 @@ class ExcelController < ApplicationController
       else
         n1_border
       end
+    end
+
+    def shift_print(user, day, workbook, sheet, row)
+      name_style = workbook.styles.add_style(
+        alignment: { horizontal: :center },
+        border: [{ style: :thin, color: '000000', edges: [:right, :bottom] },
+                 { style: :medium, color: "000000", edges: [:left] }]
+      )
+      empty_row = Array.new(30, " ")
+      shift_box = []
+      shift_box[0] = [1 ,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
+      #抜き取る
+      userid = 1
+      times = []
+      user.where("id > ?", 1).each_with_index do |user,u|
+        user.jobs.where(day_id: day.id).each_with_index do |job|
+          unless job.time1 == nil || job.time1 == "×"
+            shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
+            shift_box[userid][0] = user.id
+            shift_box[userid][29] = job.time1
+            times[userid - 1] = []
+            if job.time1.match?(/F/i)
+              times[userid - 1] = [9,21]
+            elsif job.time1.match?(/\d/)
+              times[userid - 1] = job.time1.scan(/\d+/)
+              times[userid - 1] = times[userid - 1].map(&:to_i)
+              if job.time1.match?(/L/i)
+                times[userid - 1] << 21
+              end
+            else
+              times[userid - 1] = [22,22]
+            end
+            userid += 1
+          end
+        end
+      end
+
+      while userid < 12
+        shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
+        userid += 1
+      end
+
+      userid.times do
+        sheet.add_row(empty_row)#, style: name_style
+        row += 1
+      end
+
+      #並び替え
+      swap = true
+      while swap
+        swap = false
+        (1...times.length).each do |n|
+          if times[n][0] < times[n-1][0]
+            times[n], times[n-1] = times[n-1], times[n] # 要素を入れ替え
+            shift_box[n+1][0], shift_box[n][0] = shift_box[n][0], shift_box[n+1][0]
+            shift_box[n+1][29], shift_box[n][29] = shift_box[n][29], shift_box[n+1][29]
+            swap = true
+          end
+        end
+      end
+      
+      #読み取った数値からtrueを特定の場所へ格納
+      times.each_with_index do |k,n|
+        k.each_with_index do |i,j|
+          if i == 5 || i == 30
+            y = (2*k[j-1])-18 +1 # +1 IDつけたから
+            shift_box[n+1][y] = false
+            shift_box[n+1][y+1] = true
+          elsif i == 22
+
+          else
+            y = (2*i)-18 +1 # +1 IDつけたから
+            shift_box[n+1][y] = true
+          end
+        end
+      end
+
+      #間をtrueで埋める
+      shift_box.each_with_index do |k,j|
+        if j > 0
+          triga = 0
+          k.each_with_index do |i,n|
+            if n > 0 #最初の配列は店長だからスキップ
+              if triga == 0
+                if i == true
+                  triga = 1
+                end
+              else
+                if i == true
+                  shift_box[j][n] = false
+                  break #この時点で終わり
+                else
+                  shift_box[j][n] = true
+                end
+              end
+            end
+          end
+        end
+      end
+      shift_box.each_with_index do |k,i|
+        k.each_with_index do |j,x|
+          if j == true
+            sheet.rows[row+(i+2)].cells[x].style = blue_style(x,workbook)
+          elsif j == false
+            sheet.rows[row+(i+2)].cells[x].style = white_style(x,workbook)
+          elsif j.is_a?(Integer)
+            sheet.rows[row+(i+2)].cells[x].value = User.find(j).name
+            sheet.rows[row+(i+2)].cells[x].style = name_style
+          elsif x == 29
+            sheet.rows[row+(i+2)].cells[x].value = j
+          else
+            sheet.rows[row+(i+2)].cells[x].style = name_style
+          end
+        end
+      end
+
     end
 
 end
