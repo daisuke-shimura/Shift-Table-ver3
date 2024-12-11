@@ -11,11 +11,11 @@ class ExcelController < ApplicationController
     workbook.add_worksheet(name: "Sheet1") do |sheet|
 
       thick_border_style = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: { style: :medium, color: '000000', edges: [:bottom] },
         font_name: "AR丸ゴシック体M")
       thick_top_border_style = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: { style: :medium, color: '000000', edges: [:bottom, :top] },
         font_name: "AR丸ゴシック体M")
 
@@ -27,13 +27,13 @@ class ExcelController < ApplicationController
         )
 
       name_style = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: [{ style: :thin, color: '000000', edges: [:right, :bottom] },
                  { style: :medium, color: "000000", edges: [:left] }],
         font_name: "AR丸ゴシック体M"
       )
       head_style = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: [{ style: :thin, color: '000000', edges: [:left, :bottom] },
                  { style: :medium, color: "000000", edges: [:right] }],
         font_name: "AR丸ゴシック体M"
@@ -99,14 +99,14 @@ class ExcelController < ApplicationController
 
     def blue_style(x,workbook)
       n2_border = workbook.styles.add_style(
-      alignment: { horizontal: :center },
-      bg_color: "4BACC6", 
-      border: [{ style: :medium, color: "000000", edges: [:right] },
-              { style: :thin, color: "000000", edges: [:bottom] }],
-      font_name: "AR丸ゴシック体M"
+        alignment: { horizontal: :center ,vertical: :center},
+        bg_color: "4BACC6", 
+        border: [{ style: :medium, color: "000000", edges: [:right] },
+                { style: :thin, color: "000000", edges: [:bottom] }],
+        font_name: "AR丸ゴシック体M"
       )
       n1_border = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         bg_color: "4BACC6",
         border: { style: :thin, color: "000000", edges: [:right, :bottom] },
         font_name: "AR丸ゴシック体M"
@@ -120,13 +120,13 @@ class ExcelController < ApplicationController
 
     def white_style(x,workbook)
       n2_border = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: [{ style: :medium, color: "000000", edges: [:right] },
                 { style: :thin, color: "000000", edges: [:bottom] }],
         font_name: "AR丸ゴシック体M"
       )
       n1_border = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: { style: :thin, color: "000000", edges: [:right, :bottom] },
         font_name: "AR丸ゴシック体M"
       )
@@ -141,38 +141,45 @@ class ExcelController < ApplicationController
     def head_print(sheet, workbook, day_week, empty_row, week_n)
 
       thick_border_style = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: { style: :medium, color: '000000', edges: [:bottom] },
         font_name: "AR丸ゴシック体M")
 
       thick_top_border_style = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: { style: :medium,color: '000000', edges: [:bottom, :top] },
         font_name: "AR丸ゴシック体M")
 
       blue_style = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: { style: :medium, color: '000000', edges: [:bottom] },
         fg_color: "0070C0",
         font_name: "AR丸ゴシック体M")
 
       red_style = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: { style: :medium, color: '000000', edges: [:bottom] },
         fg_color: "FF0000",
         font_name: "AR丸ゴシック体M")
 
       if week_n == 0
-        2.times do
-          sheet.add_row(empty_row, style: thick_border_style)
-          @row += 1
-        end
-      else
-        sheet.add_row(empty_row, style: thick_top_border_style)
+        sheet.add_row(empty_row, style: thick_border_style, height: 6.5)
         @row += 1
-        sheet.add_row(empty_row, style: thick_border_style)
+      elsif week_n == 4
+        sheet.add_row(empty_row, style: thick_top_border_style, height: 30)
+        @row += 1
+        sheet.add_row(empty_row)#印刷分かれる
+        @row += 1
+      elsif week_n == 5 || week_n == 6
+        sheet.add_row(empty_row, style: thick_top_border_style, height: 60)
+        @row += 1
+      else
+        sheet.add_row(empty_row, style: thick_top_border_style, height: 6.5)
         @row += 1
       end
+
+      sheet.add_row(empty_row, style: thick_border_style, height: 16.5)
+        @row += 1
 
       merge_ranges = ["C#{@row}:D#{@row}", "E#{@row}:F#{@row}", "G#{@row}:H#{@row}", "I#{@row}:J#{@row}", "K#{@row}:L#{@row}",
                       "M#{@row}:N#{@row}", "O#{@row}:P#{@row}", "Q#{@row}:R#{@row}", "S#{@row}:T#{@row}", "U#{@row}:V#{@row}",
@@ -197,13 +204,13 @@ class ExcelController < ApplicationController
 
     def shift_print(workbook, sheet, time_column)
       name_style = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: [{ style: :thin, color: '000000', edges: [:right, :bottom] },
                  { style: :medium, color: "000000", edges: [:left] }],
         font_name: "AR丸ゴシック体M"
       )
       manager_style = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: [{ style: :thin, color: '000000', edges: [:right, :bottom] },
                  { style: :medium, color: "000000", edges: [:left] }],
         fg_color: "00B050",
@@ -246,7 +253,7 @@ class ExcelController < ApplicationController
       end
 
       userid.times do
-        sheet.add_row(empty_row)#, style: name_style
+        sheet.add_row(empty_row, height: 16.5)#, style: name_style
         @row += 1
       end
 
