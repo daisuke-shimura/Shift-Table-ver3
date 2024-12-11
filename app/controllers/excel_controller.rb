@@ -48,6 +48,15 @@ class ExcelController < ApplicationController
                   "#{(@day.start+4).month}月#{(@day.start+4).day}日（金）",
                   "#{(@day.start+5).month}月#{(@day.start+5).day}日（土）",
                   "#{(@day.start+6).month}月#{(@day.start+6).day}日（日）",]
+      
+      sheet.page_margins do |margins|
+        margins.left = 0      # 左余白
+        margins.right = 0     # 右余白
+        margins.top = 0       # 上余白
+        margins.bottom = 0    # 下余白
+        margins.header = 0    # ヘッダー余白
+        margins.footer = 0    # フッター余白
+      end
 
   #月曜日ここから
     head_print(sheet, workbook, day_week, empty_row, 0)
@@ -150,6 +159,11 @@ class ExcelController < ApplicationController
         border: { style: :medium,color: '000000', edges: [:bottom, :top] },
         font_name: "AR丸ゴシック体M")
 
+      top_only_border_style = workbook.styles.add_style(
+        alignment: { horizontal: :center ,vertical: :center},
+        border: { style: :medium,color: '000000', edges: [:top] },
+        font_name: "AR丸ゴシック体M")
+
       blue_style = workbook.styles.add_style(
         alignment: { horizontal: :center ,vertical: :center},
         border: { style: :medium, color: '000000', edges: [:bottom] },
@@ -163,18 +177,18 @@ class ExcelController < ApplicationController
         font_name: "AR丸ゴシック体M")
 
       if week_n == 0
-        sheet.add_row(empty_row, style: thick_border_style, height: 6.5)
+        sheet.add_row(empty_row, style: thick_border_style, height: 9.5)
         @row += 1
       elsif week_n == 4
-        sheet.add_row(empty_row, style: thick_top_border_style, height: 30)
+        sheet.add_row(empty_row, style: top_only_border_style)#印刷分かれる
         @row += 1
-        sheet.add_row(empty_row)#印刷分かれる
+        sheet.add_row(empty_row, style: thick_border_style, height: 20)
         @row += 1
       elsif week_n == 5 || week_n == 6
-        sheet.add_row(empty_row, style: thick_top_border_style, height: 60)
+        sheet.add_row(empty_row, style: thick_top_border_style, height: 30)
         @row += 1
       else
-        sheet.add_row(empty_row, style: thick_top_border_style, height: 6.5)
+        sheet.add_row(empty_row, style: thick_top_border_style, height: 13)
         @row += 1
       end
 
