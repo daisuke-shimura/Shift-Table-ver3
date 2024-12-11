@@ -20,7 +20,7 @@ class ExcelController < ApplicationController
         font_name: "AR丸ゴシック体M")
 
       footer_style = workbook.styles.add_style(
-        alignment: { horizontal: :center },
+        alignment: { horizontal: :center ,vertical: :center},
         border: { style: :medium, color: '000000', edges: [:bottom, :top] },
         b: true,                   # 太字
         font_name: "HGP創英角ﾎﾟｯﾌﾟ体"     # フォントの種類
@@ -78,9 +78,9 @@ class ExcelController < ApplicationController
     head_print(sheet, workbook, day_week, empty_row, 6)
     shift_print(workbook, sheet, :time7)
     
-    sheet.add_row(empty_row, style: thick_top_border_style)
+    sheet.add_row(empty_row, style: thick_top_border_style, height: 25)
     @row += 1
-    sheet.add_row(empty_row, style: footer_style)
+    sheet.add_row(empty_row, style: footer_style, height: 25)
     @row += 1
 
     sheet.rows[@row-1].cells[0].value = "#{(@day.start).year} シフト表"
