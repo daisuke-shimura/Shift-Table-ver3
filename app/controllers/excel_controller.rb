@@ -78,9 +78,9 @@ class ExcelController < ApplicationController
     head_print(sheet, workbook, day_week, empty_row, 6)
     shift_print(workbook, sheet, :time7)
     
-    sheet.add_row(empty_row, style: footer_style)
-    @row += 1
     sheet.add_row(empty_row, style: thick_top_border_style)
+    @row += 1
+    sheet.add_row(empty_row, style: footer_style)
     @row += 1
 
     sheet.rows[@row-1].cells[0].value = "#{(@day.start).year} シフト表"
@@ -88,7 +88,7 @@ class ExcelController < ApplicationController
     sheet.merge_cells("A#{@row}:AC#{@row}")
 
       #列の幅指定（最後）
-      sheet.column_widths 14, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 12, 12
+      sheet.column_widths 13.5, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 2.4, 11.5, 12
     end
 
     send_data package.to_stream.read, type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename: "#{@day.start.month}月#{@day.start.day}日～.xlsx"
@@ -271,9 +271,7 @@ class ExcelController < ApplicationController
             y = (2*k[j-1])-18 +1 # +1 IDつけたから
             shift_box[n+1][y] = false
             shift_box[n+1][y+1] = true
-          elsif i == 22
-
-          else
+          elsif 9 <= i && i <= 21
             y = (2*i)-18 +1 # +1 IDつけたから
             shift_box[n+1][y] = true
           end
@@ -293,7 +291,8 @@ class ExcelController < ApplicationController
               else
                 if i == true
                   shift_box[j][n] = false
-                  break #この時点で終わり
+                  triga = 0
+                  #break #この時点で終わり
                 else
                   shift_box[j][n] = true
                 end
