@@ -205,8 +205,32 @@ class ExcelController < ApplicationController
         sheet.rows[@row-1].cells[i].value = value
       end
 
-      if week_n == 5
-        sheet.rows[@row-1].cells[0].style = blue_style
+      if week_n == 0
+        if @day.mon_by?(@day.id)
+          sheet.rows[@row-1].cells[0].style = red_style
+        end
+      elsif week_n == 1
+        if @day.tue_by?(@day.id)
+          sheet.rows[@row-1].cells[0].style = red_style
+        end
+      elsif week_n == 2
+        if @day.wed_by?(@day.id)
+          sheet.rows[@row-1].cells[0].style = red_style
+        end
+      elsif week_n == 3
+        if @day.thu_by?(@day.id)
+          sheet.rows[@row-1].cells[0].style = red_style
+        end
+      elsif week_n == 4
+        if @day.fri_by?(@day.id)
+          sheet.rows[@row-1].cells[0].style = red_style
+        end
+      elsif week_n == 5
+        if @day.sat_by?(@day.id)
+          sheet.rows[@row-1].cells[0].style = red_style
+        else
+          sheet.rows[@row-1].cells[0].style = blue_style
+        end
       elsif week_n == 6
         sheet.rows[@row-1].cells[0].style = red_style
       end
