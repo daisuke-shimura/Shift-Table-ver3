@@ -60,32 +60,32 @@ class ExcelController < ApplicationController
 
   #月曜日ここから
     head_print(sheet, workbook, day_week, empty_row, 0)
-    shift_print(workbook, sheet, :time1)
+    shift_print(workbook, sheet, :time1, 0)
   #月曜日ここまで
 
   #火曜日
     head_print(sheet, workbook, day_week, empty_row, 1)
-    shift_print(workbook, sheet, :time2)
+    shift_print(workbook, sheet, :time2, 1)
 
   #水曜日
     head_print(sheet, workbook, day_week, empty_row, 2)
-    shift_print(workbook, sheet, :time3)
+    shift_print(workbook, sheet, :time3, 2)
 
   #木曜日
     head_print(sheet, workbook, day_week, empty_row, 3)
-    shift_print(workbook, sheet, :time4)
+    shift_print(workbook, sheet, :time4, 3)
 
   #金曜日
     head_print(sheet, workbook, day_week, empty_row, 4)
-    shift_print(workbook, sheet, :time5)
+    shift_print(workbook, sheet, :time5, 4)
 
   #土曜日
     head_print(sheet, workbook, day_week, empty_row, 5)
-    shift_print(workbook, sheet, :time6)
+    shift_print(workbook, sheet, :time6, 5)
 
   #日曜日
     head_print(sheet, workbook, day_week, empty_row, 6)
-    shift_print(workbook, sheet, :time7)
+    shift_print(workbook, sheet, :time7, 6)
     
     sheet.add_row(empty_row, style: thick_top_border_style, height: 25)
     @row += 1
@@ -177,7 +177,7 @@ class ExcelController < ApplicationController
         font_name: "AR丸ゴシック体M")
 
       if week_n == 0
-        sheet.add_row(empty_row, style: thick_border_style, height: 9.5)
+        sheet.add_row(empty_row, style: thick_border_style, height: 7)
         @row += 1
       elsif week_n == 4
         sheet.add_row(empty_row, style: top_only_border_style)#印刷分かれる
@@ -188,7 +188,7 @@ class ExcelController < ApplicationController
         sheet.add_row(empty_row, style: thick_top_border_style, height: 30)
         @row += 1
       else
-        sheet.add_row(empty_row, style: thick_top_border_style, height: 13)
+        sheet.add_row(empty_row, style: thick_top_border_style, height: 8)
         @row += 1
       end
 
@@ -216,7 +216,7 @@ class ExcelController < ApplicationController
     end
 
 
-    def shift_print(workbook, sheet, time_column)
+    def shift_print(workbook, sheet, time_column, week_n)
       name_style = workbook.styles.add_style(
         alignment: { horizontal: :center ,vertical: :center},
         border: [{ style: :thin, color: '000000', edges: [:right, :bottom] },
@@ -261,9 +261,21 @@ class ExcelController < ApplicationController
         end
       end
 
-      while userid < 12
-        shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
-        userid += 1
+      if week_n == 0
+        while userid < 11
+          shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
+          userid += 1
+        end
+      elsif week_n >= 4
+        while userid < 12
+          shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
+          userid += 1
+        end
+      else
+        while userid < 10
+          shift_box[userid] = ["",false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,""]
+          userid += 1
+        end
       end
 
       userid.times do
