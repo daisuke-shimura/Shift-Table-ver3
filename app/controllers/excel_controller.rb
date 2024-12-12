@@ -2,7 +2,7 @@ class ExcelController < ApplicationController
   #table作成
   def export
     @day = Day.find(params[:day_id])
-    @user = User.all
+    @user = User.includes(:jobs).where("id > ?", 1)
     @row = 0
 
     package = Axlsx::Package.new
@@ -261,7 +261,7 @@ class ExcelController < ApplicationController
       #抜き取る
       userid = 1
       times = []
-      @user.where("id > ?", 1).each_with_index do |user,u|
+      @user.each_with_index do |user,u|
         user.jobs.where(day_id: @day.id).each_with_index do |job|
           time_n = job.public_send(time_column)
           unless time_n.blank? || time_n == "×"
