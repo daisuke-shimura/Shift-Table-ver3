@@ -3,6 +3,7 @@ class ExcelController < ApplicationController
   def export
     @day = Day.find(params[:day_id])
     @user = User.includes(:jobs).where("id > ?", 1)
+    @user_name = User.all.pluck(:id,:name).to_h
     @row = 0
 
     package = Axlsx::Package.new
@@ -330,7 +331,7 @@ class ExcelController < ApplicationController
               sheet.rows[@row - userid + i].cells[x].style = style_method[:white_n1]
             end
           elsif j.is_a?(Integer)
-            sheet.rows[@row - userid + i].cells[x].value = User.find(j).name
+            sheet.rows[@row - userid + i].cells[x].value = @user_name[j]
             if j == 1
               sheet.rows[@row - userid + i].cells[x].style = style_method[:manager_style]
             else
